@@ -11,5 +11,14 @@ CTestTestfile.cmake
 _deps
 
 # build dir
-cmake-build-debug/
-cmake-build-release/
+cmake-build-*/
+
+# 3rd-boost
+ThirdPartyLibrary/boost_1_80_0/bin.v2
+ThirdPartyLibrary/boost_1_80_0/b2.exe
+ThirdPartyLibrary/boost_1_80_0/b2
+ThirdPartyLibrary/boost_1_80_0/project-config.jam
+ThirdPartyLibrary/boost_1_80_0/project-config.jam.1
+ThirdPartyLibrary/boost_1_80_0/Installed
+ThirdPartyLibrary/boost_1_80_0/**/*.obj
+ThirdPartyLibrary/boost_1_80_0/**/*.exe
