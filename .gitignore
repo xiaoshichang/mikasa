@@ -9,3 +9,16 @@ install_manifest.txt
 compile_commands.json
 CTestTestfile.cmake
 _deps
+
+# build dir
+cmake-build-*/
+
+# 3rd-boost
+ThirdPartyLibrary/boost_1_80_0/bin.v2
+ThirdPartyLibrary/boost_1_80_0/b2.exe
+ThirdPartyLibrary/boost_1_80_0/b2
+ThirdPartyLibrary/boost_1_80_0/project-config.jam
+ThirdPartyLibrary/boost_1_80_0/project-config.jam.1
+ThirdPartyLibrary/boost_1_80_0/Installed
+ThirdPartyLibrary/boost_1_80_0/**/*.obj
+ThirdPartyLibrary/boost_1_80_0/**/*.exe

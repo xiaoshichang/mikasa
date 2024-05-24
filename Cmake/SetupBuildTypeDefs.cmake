@@ -1,0 +1,10 @@
+message(STATUS "============= Setup BuildType Definitions ============")
+
+if (${CMAKE_BUILD_TYPE} STREQUAL "Debug")
+    add_compile_definitions("MIKASA_BUILDTYPE_DEBUG")
+elseif(${CMAKE_BUILD_TYPE} STREQUAL "Release")
+    add_compile_definitions("MIKASA_BUILDTYPE_RELEASE")
+else()
+    message(FATAL_ERROR  "-- unsupported build type: ${CMAKE_BUILD_TYPE}")
+endif()
+message(STATUS "CMAKE_BUILD_TYPE : ${CMAKE_BUILD_TYPE}")
