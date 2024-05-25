@@ -1,4 +1,4 @@
 
 FILE(GLOB_RECURSE EngineSrc "*.cpp" "*.mm" "*.h")
 
-add_library(${EngineDllName} ${EngineSrc})
+add_library(${EngineDllName} STATIC ${EngineSrc})

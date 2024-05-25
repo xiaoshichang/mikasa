@@ -2,12 +2,15 @@
 
 namespace mikasa
 {
-    namespace Foundation
+    namespace Runtime
     {
-        class Logger
+        namespace Foundation
         {
-        public:
-            static void Init();
-        };
+            class Logger
+            {
+            public:
+                static void Init();
+            };
+        }
     }
 }

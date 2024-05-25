@@ -1,7 +1,7 @@
 
 #include "Logger.h"
 
-using namespace mikasa::Foundation;
+using namespace mikasa::Runtime::Foundation;
 
 void Logger::Init()
 {

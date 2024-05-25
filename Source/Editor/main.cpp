@@ -1,9 +1,15 @@
-#include <iostream>
-#include "Runtime/Foundation/Log/Logger.h"
+#include "Runtime/Application/Platform/Windows/WindowsApplication.h"
 
-int main()
+using namespace mikasa::Runtime::Application;
+
+int main(int argc, char** argv)
 {
-    std::cout << "hello world." << std::endl;
-    mikasa::Foundation::Logger::Init();
+    ApplicationInitParam param(argc, argv);
+    param.EditorMode = true;
+
+    WindowsApplication editor;
+    editor.Init(param);
+    editor.Run();
+    editor.UnInit();
     return 0;
 }
