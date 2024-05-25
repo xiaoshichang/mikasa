@@ -6,6 +6,8 @@ int main(int argc, char** argv)
 {
     ApplicationInitParam param(argc, argv);
     param.EditorMode = false;
+    param.LogPath = "Logs/Player.log";
+    param.LogDir = "Logs";
 
     WindowsApplication player;
     player.Init(param);

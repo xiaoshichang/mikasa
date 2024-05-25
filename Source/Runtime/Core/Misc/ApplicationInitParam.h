@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include "Runtime/Foundation/Foundation.h"
 
 namespace mikasa
 {
@@ -12,14 +13,15 @@ namespace mikasa
             {
                 ApplicationInitParam(int argc, char** argv);
 
-                bool EditorMode;
-                int WindowWidth;
-                int WindowHeight;
-                int WindowOffsetX;
-                int WindowOffsetY;
-                std::wstring WindowTitle;
-                std::wstring LogDir;
-                std::wstring LogPath;
+                bool EditorMode = false;
+                int32 WindowWidth = 0;
+                int32 WindowHeight = 0;
+                int32 WindowOffsetX = 0;
+                int32 WindowOffsetY = 0;
+
+                std::string WindowTitle;
+                std::string LogDir;
+                std::string LogPath;
             };
         }
     }
