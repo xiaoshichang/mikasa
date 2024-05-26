@@ -3,28 +3,24 @@
 
 using namespace mikasa::Runtime::Core;
 
-namespace mikasa
+namespace mikasa::Runtime::Application
 {
-    namespace Runtime
+    class ApplicationBase
     {
-        namespace Application
-        {
-            class ApplicationBase
-            {
-            public:
-                virtual void Init(const ApplicationInitParam& info);
-                virtual void UnInit();
-                void Run();
+    public:
+        virtual void Init(const ApplicationInitParam& info);
+        virtual void UnInit();
+        void Run();
 
-            protected:
-                void TryQuit();
+    protected:
+        void TryQuit();
 
-            private:
-                bool IsApplicationQuit_ = false;
-            };
-        }
-    }
+    private:
+        bool IsApplicationQuit_ = false;
+    };
 }
+
+
 
 
 

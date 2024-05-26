@@ -28,31 +28,27 @@ namespace expr = boost::log::expressions;
 namespace attrs = boost::log::attributes;
 namespace keywords = boost::log::keywords;
 
-namespace mikasa
+namespace mikasa::Runtime::Foundation
 {
-    namespace Runtime
+    class Logger
     {
-        namespace Foundation
-        {
-            class Logger
-            {
-            public:
-                static void Init(const std::string& target, const std::string& fileName);
-                static void UnInit();
+    public:
+        static void Init(const std::string& target, const std::string& fileName);
+        static void UnInit();
 
-            private:
-                static void InitLoggingCore();
-                static void InitSink(const std::string& target, const std::string& fileName);
+    private:
+        static void InitLoggingCore();
+        static void InitSink(const std::string& target, const std::string& fileName);
 
-            public:
-                static void Error(const char* format, ...);
-                static void Warning(const char* format, ...);
-                static void Info(const char* format, ...);
-                static void Debug(const char* format, ...);
+    public:
+        static void Error(const char* format, ...);
+        static void Warning(const char* format, ...);
+        static void Info(const char* format, ...);
+        static void Debug(const char* format, ...);
 
-            private:
-                static src::severity_logger_mt<logging::trivial::severity_level> logger_;
-            };
-        }
-    }
+    private:
+        static src::severity_logger_mt<logging::trivial::severity_level> logger_;
+    };
 }
+
+

@@ -26,6 +26,7 @@ set(TARGET_PLATFORM_iOS "iOS")
 
 if (${MIKASA_TARGET_PLATFORM} STREQUAL ${TARGET_PLATFORM_Windows64})
     add_compile_definitions(MIKASA_TARGET_PLATFORM_Window64)
+    add_compile_definitions(MIKASA_TARGET_PLATFORM_Window)
 
 elseif (${MIKASA_TARGET_PLATFORM} STREQUAL ${TARGET_PLATFORM_iOS})
     add_compile_definitions(MIKASA_TARGET_PLATFORM_iOS)

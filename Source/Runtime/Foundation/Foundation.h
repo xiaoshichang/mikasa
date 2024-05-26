@@ -11,7 +11,6 @@ typedef signed int	 		    int32;
 typedef signed long long	    int64;
 
 
-#include "Platform.h"
 #include "Assert.h"
 #include "Log/Logger.h"
 

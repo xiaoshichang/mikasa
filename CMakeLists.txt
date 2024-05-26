@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.20)
 
 project(mikasa)
 
+include(Cmake/SetupCompiler.cmake)
 include(Cmake/SetupBuildTypeDefs.cmake)
 include(Cmake/SetupPlatformDefs.cmake)
 include(Cmake/SetupProjectVars.cmake)
