@@ -1,2 +1,3 @@
+add_subdirectory(TestAutoResetEvent)
 add_subdirectory(TestSemaphore)
-add_subdirectory(TestFence)
+add_subdirectory(TestCriticalSection)

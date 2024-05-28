@@ -11,33 +11,28 @@ namespace mikasa::Runtime::Foundation
     {
     public:
         Semaphore(int initCount, int maxCount)
-                : m_Count(initCount)
-                , m_MaxCount(maxCount)
+                : Count_(initCount)
+                , MaxCount_(maxCount)
         {
-            MIKASA_ASSERT(m_MaxCount >= m_Count);
+            MIKASA_ASSERT(MaxCount_ >= Count_);
         }
 
         inline void Acquire()
         {
-            std::unique_lock<std::mutex> lock(m_MTX);
+            // similar to lock_guard, std::unique_lock can automatically do lock and unlock during life cycle.
+            // compare to lock_guard, std::unique_lock is movable so it can be a return value or param of function.
+            std::unique_lock<std::mutex> lock(Protect_);
 
-            /*
-            https://en.cppreference.com/w/cpp/thread/condition_variable/wait
-            Atomically releases lock, blocks the current executing thread, and adds it to the list of threads waiting on *this.
-            The thread will be unblocked when notify_all() or notify_one() is executed. It may also be unblocked spuriously.
-            When unblocked, regardless of the reason, lock is reacquired and wait exits.
-            If this function exits via exception, lock is also reacquired. (until C++14)
+            while(Count_ <= 0)
+            {
+                // https://en.cppreference.com/w/cpp/thread/condition_variable/wait
+                // 1. Atomically calls lock.unlock() and blocks on *this
+                // 2. The thread will be unblocked when notify_all() or notify_one() is executed. It may also be unblocked spuriously.
+                // 3. When unblocked, calls lock.lock() (possibly blocking on the lock), then returns.
+                Signal_.wait(lock);
+            }
 
-            wait会自动释放锁，阻塞当前线程，然后把自己加入条件变量的waiting列表。
-            当其他线程调用notify_all或者notify_one时，当前线程会被唤醒。或者虚假唤醒。
-            当被唤醒时，不管什么理由，会再次请求锁，然后退出wait调用。
-            即使通过异常退出wait调用，也会再次请求锁。
-
-            基于这样的保证，m_Count > 0 的判断和 m_Count-- 的修改都受到互斥量的保护。
-            */
-            m_CV.wait(lock, [=] { return m_Count > 0; });
-
-            m_Count--;
+            Count_--;
         }
 
         inline void Release()
@@ -50,21 +45,21 @@ namespace mikasa::Runtime::Foundation
                 3. Call notify_one or notify_all on the std::condition_variable (can be done after releasing the lock).
             */
             {
-                std::lock_guard<std::mutex> lock(m_MTX);
-                m_Count++;
-                if (m_Count > m_MaxCount)
+                std::lock_guard<std::mutex> lock(Protect_);
+                Count_++;
+                if (Count_ > MaxCount_)
                 {
                     throw;
                 }
             }
-            m_CV.notify_one();
+            Signal_.notify_one();
         }
 
     private:
-        std::mutex m_MTX;
-        std::condition_variable m_CV;
-        int m_Count;
-        int m_MaxCount;
+        std::mutex Protect_;
+        std::condition_variable Signal_;
+        int Count_;
+        int MaxCount_;
     };
 
 }

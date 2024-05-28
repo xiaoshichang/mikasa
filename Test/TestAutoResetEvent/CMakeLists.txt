@@ -1,0 +1,3 @@
+add_executable(Test_AutoResetEvent Test_AutoResetEvent.cpp)
+target_link_libraries(Test_AutoResetEvent ${EngineDllName})
+add_test(NAME Test_AutoResetEvent COMMAND Test_AutoResetEvent)

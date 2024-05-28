@@ -1,0 +1,3 @@
+add_executable(Test_CriticalSection Test_CriticalSection.cpp)
+target_link_libraries(Test_CriticalSection ${EngineDllName})
+add_test(NAME Test_CriticalSection COMMAND Test_CriticalSection)
