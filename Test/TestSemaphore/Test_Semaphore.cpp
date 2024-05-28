@@ -4,7 +4,7 @@
 #include <chrono>
 #include <vector>
 #include "Runtime/Foundation/Foundation.h"
-#include "Runtime/Foundation/MultiThread/MultiThread.h"
+#include "Runtime/Foundation/MultiThread.h"
 
 using namespace mikasa::Runtime::Foundation;
 
