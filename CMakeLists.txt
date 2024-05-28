@@ -8,5 +8,10 @@ include(Cmake/SetupPlatformDefs.cmake)
 include(Cmake/SetupProjectVars.cmake)
 include(Cmake/SetupThirdPartyLibraries.cmake)
 
+# include CTest in root toolchain.macos.cmake
+include(CTest)
+
 include_directories(Source)
 add_subdirectory(Source)
+
+add_subdirectory(Test)

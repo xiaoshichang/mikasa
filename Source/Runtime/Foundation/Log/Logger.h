@@ -21,6 +21,8 @@
 #include <boost/log/utility/setup/console.hpp>
 #include <boost/log/utility/setup/common_attributes.hpp>
 
+#include "Runtime/Foundation/Foundation.h"
+
 namespace logging = boost::log;
 namespace sinks = boost::log::sinks;
 namespace src = boost::log::sources;
@@ -30,15 +32,21 @@ namespace keywords = boost::log::keywords;
 
 namespace mikasa::Runtime::Foundation
 {
+    enum LogSink
+    {
+        Console = 1,
+        File = 1 << 1,
+    };
+
     class Logger
     {
     public:
-        static void Init(const std::string& target, const std::string& fileName);
+        static void Init(uint64 sinkMode, const std::string& target, const std::string& fileName);
         static void UnInit();
 
     private:
         static void InitLoggingCore();
-        static void InitSink(const std::string& target, const std::string& fileName);
+        static void InitSink(uint64 sinkMode, const std::string& target, const std::string& fileName);
 
     public:
         static void Error(const char* format, ...);

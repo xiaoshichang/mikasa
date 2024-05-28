@@ -7,7 +7,7 @@ using namespace mikasa::Runtime::Module;
 
 void ApplicationBase::Init(const ApplicationInitParam& info)
 {
-    Logger::Init(info.LogDir, info.LogPath);
+    Logger::Init(LogSink::Console|LogSink::File, info.LogDir, info.LogPath);
     SystemInfoModule::Init(info);
     SystemInfoModule::OutputInfo();
     MemoryManagementModule::Init(info);
