@@ -16,8 +16,8 @@ namespace mikasa::Runtime::Module
         static void UnInit();
 
     private:
-        Runnable* RenderThreadRunnable_;
-        RunnableThread* RenderThread_;
+        static Runnable* RenderThreadRunnable_;
+        static RunnableThread* RenderThread_;
 
     };
 }

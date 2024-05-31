@@ -26,28 +26,55 @@ RunnableThreadWin::RunnableThreadWin(std::string threadName, ThreadPriority prio
 
         // wait until the thread finish initialize
         InitSyncEvent_.WaitOne();
+
+        // set ThreadPriority after runnable init.
+        SetThreadPriority(priority);
+    }
+}
+
+
+RunnableThreadWin::~RunnableThreadWin()
+{
+    if (InternalThread_)
+    {
+        Kill(true);
     }
 }
 
 
 void RunnableThreadWin::SetThreadPriority(ThreadPriority priority)
 {
-
+    MIKASA_ASSERT(InternalThread_ != nullptr);
+    ::SetThreadPriority(InternalThread_, TranslateThreadPriority(priority));
 }
 
 void RunnableThreadWin::Suspend()
 {
-
+    MIKASA_ASSERT(InternalThread_ != nullptr);
+    SuspendThread(InternalThread_);
 }
 
-void RunnableThreadWin::Kill()
+void RunnableThreadWin::Resume()
 {
+    MIKASA_ASSERT(InternalThread_ != nullptr);
+    ResumeThread(InternalThread_);
+}
 
+void RunnableThreadWin::Kill(bool wait)
+{
+    MIKASA_ASSERT(InternalThread_ != nullptr);
+    if (wait)
+    {
+        WaitForSingleObject(InternalThread_, INFINITE);
+    }
+    CloseHandle(InternalThread_);
+    InternalThread_ = nullptr;
 }
 
 void RunnableThreadWin::WaitForCompletion()
 {
-
+    MIKASA_ASSERT(InternalThread_ != nullptr);
+    WaitForSingleObject(InternalThread_, INFINITE);
 }
 
 
@@ -85,5 +112,18 @@ uint32 RunnableThreadWin::Run()
     }
     return exitCode;
 }
+
+int RunnableThreadWin::TranslateThreadPriority(ThreadPriority priority)
+{
+    switch (priority)
+    {
+        case ThreadPriority::High:      return THREAD_PRIORITY_ABOVE_NORMAL;
+        case ThreadPriority::Middle:    return THREAD_PRIORITY_NORMAL;
+        case ThreadPriority::Low:       return THREAD_PRIORITY_BELOW_NORMAL;
+    }
+    MIKASA_ASSERT(false);
+    throw;
+}
+
 
 

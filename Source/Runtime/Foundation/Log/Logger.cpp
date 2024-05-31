@@ -11,6 +11,7 @@ using namespace mikasa::Runtime::Foundation;
 src::severity_logger_mt<logging::trivial::severity_level> Logger::logger_;
 
 const int MAX_LOG_LEN = 2048;
+BOOST_LOG_ATTRIBUTE_KEYWORD(a_thread_name, "ThreadName", std::string)
 
 void Logger::Init(uint64 sinkMode, const std::string& target, const std::string& fileName)
 {
@@ -21,15 +22,18 @@ void Logger::Init(uint64 sinkMode, const std::string& target, const std::string&
 void Logger::InitLoggingCore()
 {
     logging::add_common_attributes();
-    logger_.add_attribute("Tag", attrs::constant<std::string>("Engine"));
+    boost::log::core::get()->add_thread_attribute("ThreadName", boost::log::attributes::constant< std::string >("Main"));
+    logger_.add_attribute("Tag", attrs::constant<std::string>("m"));
 }
 
 void Logger::InitSink(uint64 sinkMode, const std::string& target, const std::string& fileName)
 {
     // formatter
-    logging::formatter formatter = expr::format("[%1%][%2%][%3%] - %4%")
+    logging::formatter formatter = expr::format("[%1%][%2%][%3%][%4%][%5%] - %6%")
                                    % expr::format_date_time< boost::posix_time::ptime >("TimeStamp", "%Y-%m-%d %H:%M:%S")
                                    % logging::trivial::severity
+                                   % expr::attr <boost::log::attributes::current_thread_id::value_type> ("ThreadID")
+                                   % a_thread_name
                                    % expr::attr<std::string>("Tag")
                                    % expr::message;
 

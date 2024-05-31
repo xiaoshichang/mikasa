@@ -1,6 +1,7 @@
 #include "ApplicationBase.h"
 #include "Runtime/Module/SystemInfoModule/SystemInfoModule.h"
 #include "Runtime/Module/MemoryManagementModule/MemoryManagementModule.h"
+#include "Runtime/Module/RenderModule/RenderModule.h"
 
 using namespace mikasa::Runtime::Application;
 using namespace mikasa::Runtime::Module;
@@ -11,6 +12,8 @@ void ApplicationBase::Init(const ApplicationInitParam& info)
     SystemInfoModule::Init(info);
     SystemInfoModule::OutputInfo();
     MemoryManagementModule::Init(info);
+    RenderModule::Init(info);
+
 }
 
 void ApplicationBase::Run()
@@ -24,6 +27,7 @@ void ApplicationBase::Run()
 
 void ApplicationBase::UnInit()
 {
+    RenderModule::UnInit();
     MemoryManagementModule::UnInit();
     SystemInfoModule::Uninit();
     Logger::UnInit();

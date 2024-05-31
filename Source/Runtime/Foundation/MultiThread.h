@@ -1,7 +1,6 @@
 #pragma once
 
-#include "MultiThread/RunnableThread/Runnable.h"
-#include "MultiThread/RunnableThread/RunnableThread.h"
+#include "MultiThread/RunnableThread/PlatformIndependentRunnableThread.h"
 
 #include "MultiThread/AutoResetEvent.h"
 #include "MultiThread/ManualResetEvent.h"

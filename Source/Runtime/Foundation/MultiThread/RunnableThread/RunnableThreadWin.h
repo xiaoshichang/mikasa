@@ -18,15 +18,19 @@ namespace mikasa::Runtime::Foundation
 
         uint32 GuardedRun();
         uint32 Run();
+        static int TranslateThreadPriority(ThreadPriority priority);
 
     public:
         RunnableThreadWin(std::string  threadName, ThreadPriority priority, Runnable* runnable);
+        ~RunnableThreadWin() override;
 
         void SetThreadPriority(ThreadPriority priority) override;
 
         void Suspend() override;
 
-        void Kill() override;
+        void Resume() override;
+
+        void Kill(bool wait) override;
 
         void WaitForCompletion() override;
 
