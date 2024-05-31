@@ -28,17 +28,16 @@ void Logger::InitLoggingCore()
 
 void Logger::InitSink(uint64 sinkMode, const std::string& target, const std::string& fileName)
 {
-    // formatter
-    logging::formatter formatter = expr::format("[%1%][%2%][%3%][%4%][%5%] - %6%")
-                                   % expr::format_date_time< boost::posix_time::ptime >("TimeStamp", "%Y-%m-%d %H:%M:%S")
-                                   % logging::trivial::severity
-                                   % expr::attr <boost::log::attributes::current_thread_id::value_type> ("ThreadID")
-                                   % a_thread_name
-                                   % expr::attr<std::string>("Tag")
-                                   % expr::message;
+    auto formatter =
+            expr::stream
+            << '[' << expr::format_date_time< boost::posix_time::ptime >("TimeStamp", "%Y-%m-%d %H:%M:%S") << ']'
+            << '[' << expr::attr <boost::log::attributes::current_thread_id::value_type> ("ThreadID") << ']'
+            << '[' << std::setw(8) << a_thread_name << ']'
+            //<< '[' << std::setw(8) << expr::attr<std::string>("Tag") << ']'
+            << " - " << expr::message;
 
     // console
-    if (sinkMode & 0x1)
+    if (sinkMode & LogSink::Console)
     {
         auto consoleSink = logging::add_console_log(std::cout);
         consoleSink->set_formatter(formatter);
@@ -46,7 +45,7 @@ void Logger::InitSink(uint64 sinkMode, const std::string& target, const std::str
     }
 
     // file
-    if (sinkMode & 0x10)
+    if (sinkMode & LogSink::File)
     {
         auto fileSink = logging::add_file_log(
                 keywords::open_mode = std::ios_base::app,

@@ -3,6 +3,8 @@
 
 namespace mikasa::Runtime::Foundation
 {
+    class RunnableThread;
+
     /**
      * represents the logic run on a thread.
      */
@@ -38,6 +40,21 @@ namespace mikasa::Runtime::Foundation
          * run on caller thread when attached thread is killed.
          */
         virtual void Stop() = 0;
+
+
+        void BindThread(RunnableThread* thread)
+        {
+            MIKASA_ASSERT(Thread_ == nullptr);
+            Thread_ = thread;
+        }
+
+        RunnableThread* GetThread()
+        {
+            return Thread_;
+        }
+
+    protected:
+        RunnableThread* Thread_ = nullptr;
     };
 }
 

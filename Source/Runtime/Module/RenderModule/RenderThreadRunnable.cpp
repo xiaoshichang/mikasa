@@ -1,21 +1,36 @@
 
 #include "RenderThreadRunnable.h"
+#include "Runtime/Core/Render/RenderCommand/RenderCommandBase.h"
 
 using namespace mikasa::Runtime::Module;
 
+RenderThreadRunnable::RenderThreadRunnable(const RenderThreadRunnableInitParam &param)
+    : RenderCommandQueue_(param.RenderCommandQueue)
+    , Rendering_(true)
+{
+
+}
+
+
 bool RenderThreadRunnable::Init()
 {
-    boost::log::core::get()->add_thread_attribute("ThreadName", boost::log::attributes::constant< std::string >("Render"));
     Logger::Info("RenderThread Init.");
     return true;
 }
 
 uint32 RenderThreadRunnable::Run()
 {
-    for (int i = 0; i < 3; ++i)
+    while (Rendering_)
     {
-        Logger::Info("RenderThread Run.");
-        std::this_thread::sleep_for(std::chrono::seconds(1));
+        auto command = RenderCommandQueue_->Dequeue();
+        if (command != nullptr)
+        {
+            command->Execute();
+        }
+        else
+        {
+            std::this_thread::sleep_for(std::chrono::milliseconds (1));
+        }
     }
     return 0;
 }
@@ -27,5 +42,7 @@ void RenderThreadRunnable::Exit()
 
 void RenderThreadRunnable::Stop()
 {
+    Rendering_ = false;
     Logger::Info("RenderThread Stop.");
 }
+

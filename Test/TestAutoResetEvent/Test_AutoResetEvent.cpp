@@ -31,7 +31,7 @@ int main()
 
     while (!quit)
     {
-        e.WaitOne();
+        e.Wait();
         Logger::Info("main thread get event.");
     }
 

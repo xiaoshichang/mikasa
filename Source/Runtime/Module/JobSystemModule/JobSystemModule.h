@@ -3,27 +3,27 @@
 #include "Runtime/Foundation/Foundation.h"
 #include "Runtime/Foundation/MultiThread.h"
 #include "Runtime/Core/Misc/ApplicationInitParam.h"
+#include "Runtime/Core/JobSystem/JobSystem.h"
+
 
 using namespace mikasa::Runtime::Core;
 using namespace mikasa::Runtime::Foundation;
 
-namespace mikasa::Runtime::Core
-{
-    class RenderCommandQueue;
-}
-
 namespace mikasa::Runtime::Module
 {
-    class RenderModule
+
+    class JobSystemModule
     {
     public:
-        static void Init(const ApplicationInitParam& info);
+        static void Init(const ApplicationInitParam& param);
         static void UnInit();
 
     private:
-        static Runnable* RenderThreadRunnable_;
-        static RunnableThread* RenderThread_;
-        static RenderCommandQueue* RenderCommandQueue_;
+        static uint32 CalculateWorkerNumBaseSystemInfo();
 
+    private:
+        static JobSystem* JobSystem_;
     };
+
+
 }

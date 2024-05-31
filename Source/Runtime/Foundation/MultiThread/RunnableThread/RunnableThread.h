@@ -23,6 +23,7 @@ namespace mikasa::Runtime::Foundation
             , ThreadPriority_(priority)
             , Runnable_(runnable)
         {
+            Runnable_->BindThread(this);
         }
 
         virtual ~RunnableThread() = default;
@@ -32,6 +33,7 @@ namespace mikasa::Runtime::Foundation
         virtual void Resume() = 0;
         virtual void Kill(bool wait) = 0;
         virtual void WaitForCompletion() = 0;
+        std::string& GetThreadName() { return ThreadName_;}
         uint32 GetThreadID() const { return ThreadID_;}
 
 

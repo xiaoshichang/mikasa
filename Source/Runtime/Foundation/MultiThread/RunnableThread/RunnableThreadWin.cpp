@@ -25,7 +25,7 @@ RunnableThreadWin::RunnableThreadWin(std::string threadName, ThreadPriority prio
         ResumeThread(InternalThread_);
 
         // wait until the thread finish initialize
-        InitSyncEvent_.WaitOne();
+        InitSyncEvent_.Wait();
 
         // set ThreadPriority after runnable init.
         SetThreadPriority(priority);
@@ -63,6 +63,7 @@ void RunnableThreadWin::Resume()
 void RunnableThreadWin::Kill(bool wait)
 {
     MIKASA_ASSERT(InternalThread_ != nullptr);
+    Runnable_->Stop();
     if (wait)
     {
         WaitForSingleObject(InternalThread_, INFINITE);
@@ -99,6 +100,7 @@ uint32 RunnableThreadWin::GuardedRun()
 
 uint32 RunnableThreadWin::Run()
 {
+    boost::log::core::get()->add_thread_attribute("ThreadName", boost::log::attributes::constant< std::string >(ThreadName_));
     uint32 exitCode = 1;
     if (Runnable_->Init())
     {

@@ -13,11 +13,14 @@ namespace mikasa::Runtime::Foundation
         {
         }
 
+        /**
+        * Sets the state of the event to signaled, allowing one or more waiting threads to proceed.
+        */
         inline void Set()
         {
             std::lock_guard<std::mutex> _(Protect_);
             Flag_ = true;
-            Signal_.notify_one();
+            Signal_.notify_all();
         }
 
         inline void Reset()
@@ -26,14 +29,18 @@ namespace mikasa::Runtime::Foundation
             Flag_ = false;
         }
 
-        inline void WaitOne()
+        inline void Wait()
         {
             std::unique_lock<std::mutex> lk(Protect_);
-            while( !Flag_ )
-            {
-                Signal_.wait(lk);
-            }
-            Flag_ = false; // waiting resets the flag
+            Signal_.wait(lk, [=] { return Flag_;});
+            Flag_ = false;
+        }
+
+        inline void WaitFor(std::chrono::milliseconds duration)
+        {
+            std::unique_lock<std::mutex> lk(Protect_);
+            Signal_.wait_for(lk, duration, [=] { return Flag_;});
+            Flag_ = false;
         }
 
     private:

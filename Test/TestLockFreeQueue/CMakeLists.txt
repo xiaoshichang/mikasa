@@ -1,0 +1,3 @@
+add_executable(Test_LockFreeQueue Test_LockFreeQueue.cpp)
+target_link_libraries(Test_LockFreeQueue ${EngineDllName})
+add_test(NAME Test_LockFreeQueue COMMAND Test_LockFreeQueue)
