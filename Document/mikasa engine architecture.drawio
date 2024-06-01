@@ -142,7 +142,7 @@
         <mxCell id="7k3UqjcpnUbHz8pqNFpB-60" value="editor" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=20;" parent="1" vertex="1">
           <mxGeometry x="290" y="-90" width="70" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="44vHzGeN6vRUpSopq8bW-1" value="ApplicationBase" style="rounded=0;whiteSpace=wrap;html=1;fontSize=15;" parent="1" vertex="1">
+        <mxCell id="44vHzGeN6vRUpSopq8bW-1" value="Application" style="rounded=0;whiteSpace=wrap;html=1;fontSize=15;" parent="1" vertex="1">
           <mxGeometry x="-190" y="1400" width="210" height="60" as="geometry" />
         </mxCell>
         <mxCell id="44vHzGeN6vRUpSopq8bW-2" value="WindowsApplication" style="rounded=0;whiteSpace=wrap;html=1;fontSize=15;" parent="1" vertex="1">

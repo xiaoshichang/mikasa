@@ -14,6 +14,7 @@ namespace mikasa::Runtime::Core
         int32 WindowHeight = 0;
         int32 WindowOffsetX = 0;
         int32 WindowOffsetY = 0;
+        bool WindowResizeable = false;
 
         std::string WindowTitle;
         std::string LogDir;

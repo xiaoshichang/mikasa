@@ -1,11 +1,12 @@
-#include "Runtime/Application/Platform/Windows/WindowsApplication.h"
+#include "Runtime/Framework/Application/Platform/Windows/WindowsApplication.h"
 
-using namespace mikasa::Runtime::Application;
+using namespace mikasa::Runtime::Framework;
 
 int main(int argc, char** argv)
 {
     ApplicationInitParam param(argc, argv);
     param.EditorMode = false;
+    param.WindowTitle = "mikasa player";
     param.LogPath = "Logs/Player.log";
     param.LogDir = "Logs";
 

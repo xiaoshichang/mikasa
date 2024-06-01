@@ -1,58 +1,48 @@
 #include <format>
-#include "ApplicationBase.h"
+#include "Application.h"
 #include "Runtime/Module/SystemInfoModule/SystemInfoModule.h"
 #include "Runtime/Module/MemoryManagementModule/MemoryManagementModule.h"
 #include "Runtime/Module/RenderModule/RenderModule.h"
 #include "Runtime/Module/JobSystemModule/JobSystemModule.h"
+#include "Runtime/Framework/MainWindow/MainWindow.h"
 
-#include "Runtime/Core/JobSystem/EmptyJob.h"
 
-using namespace mikasa::Runtime::Application;
+
+using namespace mikasa::Runtime::Framework;
 using namespace mikasa::Runtime::Module;
 
 
-void ApplicationBase::Init(const ApplicationInitParam& info)
+void Application::Init(const ApplicationInitParam& info)
 {
     Logger::Init(LogSink::Console|LogSink::File, info.LogDir, info.LogPath);
     SystemInfoModule::Init(info);
     SystemInfoModule::OutputInfo();
     MemoryManagementModule::Init(info);
+    MainWindow::Init(this, info);
     JobSystemModule::Init(info);
     RenderModule::Init(info);
 
 }
 
-void ApplicationBase::Run()
+void Application::Run()
 {
-    std::vector<Job*> jobs;
     while (!IsApplicationQuit_)
     {
-        for(int i = 0; i < 20; i++)
-        {
-            auto job = new EmptyJob(std::format("{}-th", i));
-            jobs.push_back(job);
-            job->Schedule();
-        }
-
-        for (auto job : jobs)
-        {
-            job->WaitCompletion();
-        }
-
-        IsApplicationQuit_ = true;
+        DispatchOSMessage();
     }
 }
 
-void ApplicationBase::UnInit()
+void Application::UnInit()
 {
     RenderModule::UnInit();
     JobSystemModule::UnInit();
+    MainWindow::UnInit();
     MemoryManagementModule::UnInit();
     SystemInfoModule::Uninit();
     Logger::UnInit();
 }
 
-void ApplicationBase::TryQuit()
+void Application::RequestQuit()
 {
     IsApplicationQuit_ = true;
 }

@@ -1,15 +1,18 @@
 #ifdef MIKASA_TARGET_PLATFORM_Window
 
 #pragma once
-#include "Runtime/Application/ApplicationBase.h"
+#include "../../Application.h"
 
-namespace mikasa::Runtime::Application
+namespace mikasa::Runtime::Framework
 {
-    class WindowsApplication : public ApplicationBase
+    class WindowsApplication : public Application
     {
     public:
         void Init(const ApplicationInitParam& info) override;
         void UnInit() override;
+
+    protected:
+        void DispatchOSMessage() override;
     };
 }
 

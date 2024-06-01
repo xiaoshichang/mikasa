@@ -3,9 +3,9 @@
 
 using namespace mikasa::Runtime::Core;
 
-namespace mikasa::Runtime::Application
+namespace mikasa::Runtime::Framework
 {
-    class ApplicationBase
+    class Application
     {
     public:
         virtual void Init(const ApplicationInitParam& info);
@@ -13,7 +13,8 @@ namespace mikasa::Runtime::Application
         void Run();
 
     protected:
-        void TryQuit();
+        void RequestQuit();
+        virtual void DispatchOSMessage() = 0;
 
     private:
         bool IsApplicationQuit_ = false;
