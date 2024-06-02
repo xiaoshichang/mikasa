@@ -1,3 +1,4 @@
+#if MIKASA_TARGET_PLATFORM_Window
 
 #include "MainWindowWin.h"
 
@@ -73,3 +74,5 @@ MainWindowWin::~MainWindowWin()
 {
     ::UnregisterClass(WNDCLASS_.lpszClassName, WNDCLASS_.hInstance);
 }
+
+#endif

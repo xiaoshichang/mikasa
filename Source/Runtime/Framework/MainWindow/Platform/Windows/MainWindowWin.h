@@ -7,6 +7,7 @@
 // boost abi mismatch problem require boost header before <windows.h>
 #define UNICODE
 #include <windows.h>
+#undef UNICODE
 
 
 namespace mikasa::Runtime::Framework

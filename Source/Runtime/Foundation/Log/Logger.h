@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <functional>
 
 #include <boost/log/sources/severity_logger.hpp>
 #include <boost/log/sources/record_ostream.hpp>
@@ -32,9 +33,11 @@ namespace keywords = boost::log::keywords;
 
 namespace mikasa::Runtime::Foundation
 {
-    enum LogSink
+
+
+    enum LogSink : int
     {
-        Console = 1,
+        ConsoleBackend = 1,
         File = 1 << 1,
     };
 
@@ -47,6 +50,8 @@ namespace mikasa::Runtime::Foundation
     private:
         static void InitLoggingCore();
         static void InitSink(uint64 sinkMode, const std::string& target, const std::string& fileName);
+        static void InitConsoleSink();
+        static void InitFileSink(const std::string& target, const std::string& fileName);
 
     public:
         static void Error(const char* format, ...);
@@ -56,6 +61,7 @@ namespace mikasa::Runtime::Foundation
 
     private:
         static src::severity_logger_mt<logging::trivial::severity_level> logger_;
+
     };
 }
 

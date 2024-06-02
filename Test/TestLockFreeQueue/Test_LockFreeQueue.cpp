@@ -38,7 +38,7 @@ void worker_thread(int i)
 
 int main()
 {
-    Logger::Init(LogSink::Console, "", "");
+    Logger::Init(LogSink::ConsoleBackend, "", "");
 
     const int taskCount = 100;
     for(int i = 0; i < taskCount; i++)

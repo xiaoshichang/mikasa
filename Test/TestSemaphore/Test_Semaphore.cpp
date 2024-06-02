@@ -20,7 +20,7 @@ void worker_thread(int i)
 
 int main()
 {
-    Logger::Init(LogSink::Console, "", "");
+    Logger::Init(LogSink::ConsoleBackend, "", "");
 
     int threadCount = 5;
     std::thread threads[5];

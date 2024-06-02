@@ -24,7 +24,7 @@ void worker_thread()
 
 int main()
 {
-    Logger::Init(LogSink::Console, "", "");
+    Logger::Init(LogSink::ConsoleBackend, "", "");
     std::thread t1(worker_thread);
     std::thread t2(worker_thread);
     t1.join();

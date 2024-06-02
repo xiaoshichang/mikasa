@@ -9,7 +9,7 @@
 
 using namespace mikasa::Runtime::Framework;
 
-MainWindow* MainWindow::MainWindow_ = nullptr;
+MainWindow* MainWindow::Instance_ = nullptr;
 
 MainWindow::MainWindow(Application *application)
     : Application_(application)
@@ -20,15 +20,15 @@ MainWindow::MainWindow(Application *application)
 
 void MainWindow::Init(Application *application, const ApplicationInitParam& info)
 {
-    MIKASA_ASSERT(MainWindow_ == nullptr);
-    MainWindow_ = CreatePlatformIndependentMainWindow(application, info);
+    MIKASA_ASSERT(Instance_ == nullptr);
+    Instance_ = CreatePlatformIndependentMainWindow(application, info);
 }
 
 void MainWindow::UnInit()
 {
-    MIKASA_ASSERT(MainWindow_ != nullptr);
-    delete MainWindow_;
-    MainWindow_ = nullptr;
+    MIKASA_ASSERT(Instance_ != nullptr);
+    delete Instance_;
+    Instance_ = nullptr;
 }
 
 MainWindow *MainWindow::CreatePlatformIndependentMainWindow(Application *application, const ApplicationInitParam &info)

@@ -23,7 +23,7 @@ namespace mikasa::Runtime::Framework
 
 
     private:
-        static MainWindow* MainWindow_;
+        static MainWindow* Instance_;
     };
 
 }
