@@ -35,6 +35,28 @@ def check_root_dir():
         exit(1)
 
 
+def generate_boost_project_config():
+    print("generate_boost_project_config")
+
+    if os.name == "nt":
+        python_exe = os.path.join(script_file_dir, "../ThirdPartySource/python/Python-3.12.3/PCbuild/amd64/python.exe").replace("\\", "/")
+        python_inc = os.path.join(script_file_dir, "../ThirdPartySource/python/Python-3.12.3/Include").replace("\\", "/")
+        python_lib = os.path.join(script_file_dir, "../ThirdPartySource/python/Python-3.12.3/PCbuild/amd64").replace("\\", "/")
+    else:
+        raise
+
+    project_config_temp_path = os.path.join(script_file_dir, "project-config.jam.temp")
+    project_config_temp = open(project_config_temp_path).read()
+    print(project_config_temp)
+    project_config = project_config_temp % (python_exe, python_inc, python_lib)
+    print(project_config)
+
+    target_path = os.path.join(script_file_dir, "boost_1_80_0/project-config.jam")
+    fp = open(target_path, "w")
+    fp.write(project_config)
+    fp.close()
+
+
 def build_boost():
     os.chdir(boost_root_dir)
     print_step("build_boost")
@@ -54,9 +76,12 @@ def build_boost():
         print("%s should exist!" % boost_b2_path)
         exit(1)
 
+    # generate project-config before run b2
+    generate_boost_project_config()
+
     # https://www.boost.org/doc/libs/1_83_0/more/getting_started/windows.html
     boost_install_path = os.path.join(boost_root_dir, "Installed")
-    ret = os.system("%s install --prefix=%s" % (boost_b2_path, boost_install_path))
+    ret = os.system("%s install link=static --prefix=%s" % (boost_b2_path, boost_install_path))
     if ret != 0:
         print("build boost fail!")
         exit(1)

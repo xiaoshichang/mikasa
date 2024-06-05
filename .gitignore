@@ -13,6 +13,18 @@ _deps
 # build dir
 cmake-build-*/
 
+# 3rd-python
+ThirdPartySource/python/Python-3.12.3/externals
+ThirdPartySource/python/Python-3.12.3/**/*.pyc
+ThirdPartySource/python/Python-3.12.3/PCbuild/obj
+ThirdPartySource/python/Python-3.12.3/PCbuild/amd64
+ThirdPartySource/python/Python-3.12.3/PCbuild/win32
+ThirdPartySource/python/Python-3.12.3/python.bat
+ThirdPartySource/python/Python-3.12.3/Python/frozen_modules
+ThirdPartySource/python/Python-3.12.3/Python/deepfreeze
+ThirdPartySource/python/Python-3.12.3/PCbuild/.vs
+
+
 # 3rd-boost
 ThirdPartyLibrary/boost_1_80_0/bin.v2
 ThirdPartyLibrary/boost_1_80_0/b2.exe
@@ -22,3 +34,6 @@ ThirdPartyLibrary/boost_1_80_0/project-config.jam.1
 ThirdPartyLibrary/boost_1_80_0/Installed
 ThirdPartyLibrary/boost_1_80_0/**/*.obj
 ThirdPartyLibrary/boost_1_80_0/**/*.exe
+
+
+
