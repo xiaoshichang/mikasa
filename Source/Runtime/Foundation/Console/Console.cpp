@@ -71,3 +71,7 @@ void Console::OnOutputString(const std::string &s, ConsoleTextColor color)
     Instance_->InternalOutputString(s, color);
 }
 
+bool Console::GetReadyInputString(std::string& ret)
+{
+    return Instance_->GetInternalReadyInputString(ret);
+}

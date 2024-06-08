@@ -33,12 +33,10 @@ namespace keywords = boost::log::keywords;
 
 namespace mikasa::Runtime::Foundation
 {
-
-
     enum LogSink : int
     {
         ConsoleBackend = 1,
-        File = 1 << 1,
+        FileBackend = 1 << 1,
     };
 
     class Logger
@@ -61,6 +59,7 @@ namespace mikasa::Runtime::Foundation
 
     private:
         static src::severity_logger_mt<logging::trivial::severity_level> logger_;
+        static src::severity_logger_mt<logging::trivial::severity_level> PythonLogger_;
 
     };
 }

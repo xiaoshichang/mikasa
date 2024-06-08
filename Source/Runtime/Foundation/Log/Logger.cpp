@@ -11,7 +11,6 @@ using namespace mikasa::Runtime::Foundation;
 
 src::severity_logger_mt<logging::trivial::severity_level> Logger::logger_;
 
-
 const int MAX_LOG_LEN = 2048;
 BOOST_LOG_ATTRIBUTE_KEYWORD(a_thread_name, "ThreadName", std::string)
 
@@ -25,7 +24,7 @@ void Logger::InitLoggingCore()
 {
     logging::add_common_attributes();
     boost::log::core::get()->add_thread_attribute("ThreadName", boost::log::attributes::constant< std::string >("Main"));
-    logger_.add_attribute("Tag", attrs::constant<std::string>("m"));
+    logger_.add_attribute("Tag", attrs::constant<std::string>("Engine"));
 }
 
 void Logger::InitSink(uint64 sinkMode, const std::string& target, const std::string& fileName)
@@ -34,7 +33,7 @@ void Logger::InitSink(uint64 sinkMode, const std::string& target, const std::str
     {
         InitConsoleSink();
     }
-    if (sinkMode & LogSink::File)
+    if (sinkMode & LogSink::FileBackend)
     {
         InitFileSink(target, fileName);
     }
@@ -49,9 +48,9 @@ void Logger::InitConsoleSink()
             expr::stream
                     << '[' << expr::format_date_time< boost::posix_time::ptime >("TimeStamp", "%Y-%m-%d %H:%M:%S") << ']'
                     << '[' << logging::trivial::severity << ']'
-                    << '[' << expr::attr <boost::log::attributes::current_thread_id::value_type> ("ThreadID") << ']'
+                    << '[' << std::setw(8) << expr::attr<std::string>("Tag") << ']'
+                    //<< '[' << expr::attr <boost::log::attributes::current_thread_id::value_type> ("ThreadID") << ']'
                     << '[' << std::setw(8) << a_thread_name << ']'
-                    //<< '[' << std::setw(8) << expr::attr<std::string>("Tag") << ']'
                     << " - " << expr::message;
 
     boost::shared_ptr< logging::core > core = logging::core::get();
@@ -70,9 +69,9 @@ void Logger::InitFileSink(const std::string &target, const std::string &fileName
             expr::stream
                     << '[' << expr::format_date_time< boost::posix_time::ptime >("TimeStamp", "%Y-%m-%d %H:%M:%S") << ']'
                     << '[' << logging::trivial::severity << ']'
-                    << '[' << expr::attr <boost::log::attributes::current_thread_id::value_type> ("ThreadID") << ']'
+                    << '[' << std::setw(6) << expr::attr<std::string>("Tag") << ']'
+                    //<< '[' << expr::attr <boost::log::attributes::current_thread_id::value_type> ("ThreadID") << ']'
                     << '[' << std::setw(8) << a_thread_name << ']'
-                    //<< '[' << std::setw(8) << expr::attr<std::string>("Tag") << ']'
                     << " - " << expr::message;
 
     auto fileSink = logging::add_file_log(

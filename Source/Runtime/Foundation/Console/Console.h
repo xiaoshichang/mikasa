@@ -20,6 +20,7 @@ namespace mikasa::Runtime::Foundation
 
     protected:
         virtual void InternalOutputString(const std::string& s, ConsoleTextColor color) = 0;
+        virtual bool GetInternalReadyInputString(std::string& ret) = 0;
     public:
         virtual void InputPrefix() = 0;
         virtual void ProcessInputEvents() = 0;
@@ -32,7 +33,7 @@ namespace mikasa::Runtime::Foundation
         static void Init();
         static void UnInit();
         static void OnOutputString(const std::string& s, ConsoleTextColor color);
-
+        static bool GetReadyInputString(std::string& ret);
 
     private:
         static Console* CreatePlatformIndependentConsole();

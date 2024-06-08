@@ -1,4 +1,7 @@
+#if MIKASA_TARGET_PLATFORM_Window
+
 #pragma once
+#include <boost/lockfree/spsc_queue.hpp>
 #include "../../Console.h"
 #include <windows.h>
 
@@ -11,12 +14,10 @@ namespace mikasa::Runtime::Foundation
         ConsoleWin();
         ~ConsoleWin() override;
 
-    public:
-        static bool WINAPI ConsoleHandler(DWORD dwCtrlType);
-
     protected:
         void InternalOutputString(const std::string &s, ConsoleTextColor color) override;
         void DoOutput(const std::string &s, ConsoleTextColor color);
+        bool GetInternalReadyInputString(std::string& ret) override;
 
     public:
         void ProcessInputEvents() override;
@@ -35,9 +36,20 @@ namespace mikasa::Runtime::Foundation
         HWND Internal_;
         HANDLE OutputHandle_;
         HANDLE InputHandle_;
-        std::string Input_;
         COORD OutputCursor_;
 
+        /**
+         * current input
+         */
+        std::string Input_;
+
+        /**
+         * ready inputs
+         */
+        boost::lockfree::spsc_queue<std::string> ReadyInputs_;
     };
 
 }
+
+
+#endif
