@@ -35,7 +35,7 @@ MainWindowWin::MainWindowWin(Application* application, const ApplicationInitPara
     HWND_ = ::CreateWindowEx(
             NULL,
             WNDCLASS_.lpszClassName,
-            title.c_str(),
+            reinterpret_cast<LPCSTR>(title.c_str()),
             style,
             info.WindowOffsetX,
             info.WindowOffsetY,
@@ -73,6 +73,13 @@ LRESULT MainWindowWin::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 MainWindowWin::~MainWindowWin()
 {
     ::UnregisterClass(WNDCLASS_.lpszClassName, WNDCLASS_.hInstance);
+}
+
+WindowHandler MainWindowWin::GetInternalWindowHandler()
+{
+    WindowHandler handler{};
+    handler.HWND = HWND_;
+    return handler;
 }
 
 #endif

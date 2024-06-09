@@ -1,4 +1,5 @@
 
+#include <codecvt>
 #include "RunnableThreadWin.h"
 
 using namespace mikasa::Runtime::Foundation;
@@ -102,6 +103,12 @@ uint32 RunnableThreadWin::Run()
 {
     boost::log::core::get()->add_thread_attribute("ThreadName", boost::log::attributes::constant< std::string >(ThreadName_));
     uint32 exitCode = 1;
+
+#ifdef MIKASA_BUILDTYPE_DEBUG
+    std::wstring wsTmp(ThreadName_.begin(), ThreadName_.end());
+    SetThreadDescription(GetCurrentThread(), wsTmp.c_str());
+#endif
+
     if (Runnable_->Init())
     {
         InitSyncEvent_.Set();

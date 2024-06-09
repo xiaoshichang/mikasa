@@ -40,3 +40,9 @@ MainWindow *MainWindow::CreatePlatformIndependentMainWindow(Application *applica
 #endif
 }
 
+WindowHandler MainWindow::GetWindowHandler()
+{
+    MIKASA_ASSERT(Instance_ != nullptr);
+    return Instance_->GetInternalWindowHandler();
+}
+

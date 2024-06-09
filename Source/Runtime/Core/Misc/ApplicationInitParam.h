@@ -7,6 +7,7 @@ namespace mikasa::Runtime::Core
 {
     struct ApplicationInitParam
     {
+        ApplicationInitParam() = default;
         ApplicationInitParam(int argc, char** argv);
 
         bool EditorMode = false;

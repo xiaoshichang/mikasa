@@ -18,6 +18,8 @@ namespace mikasa::Runtime::Framework
         explicit MainWindowWin(Application* application, const ApplicationInitParam& info);
         ~MainWindowWin() override;
 
+        WindowHandler GetInternalWindowHandler() override;
+
     private:
         static LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 

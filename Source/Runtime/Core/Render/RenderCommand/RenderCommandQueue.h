@@ -1,5 +1,5 @@
 #pragma once
-#include <boost/lockfree/spsc_queue.hpp>
+#include "boost/lockfree/spsc_queue.hpp"
 #include "Runtime/Foundation/Foundation.h"
 
 namespace mikasa::Runtime::Core

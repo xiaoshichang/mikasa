@@ -33,12 +33,13 @@ void Application::Init(const ApplicationInitParam& info)
     MemoryManagementModule::Init(info);
     ScriptModule::Init(info);
     JobSystemModule::Init(info);
-    RenderModule::Init(info);
+
+    auto windowHandler = MainWindow::GetWindowHandler();
+    RenderModule::Init(info, windowHandler);
 }
 
 void Application::Run()
 {
-    int a;
     while (!IsApplicationQuit_)
     {
         DispatchOSMessage();

@@ -1,6 +1,6 @@
 
 #include "RenderCommandQueue.h"
-#include "RenderCommand/RenderCommandBase.h"
+#include "RenderCommandBase.h"
 
 using namespace mikasa::Runtime::Core;
 using namespace mikasa::Runtime::Foundation;

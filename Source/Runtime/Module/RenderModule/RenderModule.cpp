@@ -1,7 +1,9 @@
 
 #include "RenderModule.h"
 #include "RenderThreadRunnable.h"
-#include "Runtime/Core/Render/RenderCommandQueue.h"
+#include "Runtime/Core/Render/RenderCommand/RenderCommandQueue.h"
+#include "Runtime/Core/Render/RenderCommand/RenderCommandCreator.h"
+#include "Runtime/Core/Render/RenderDevice/RenderDevice.h"
 
 using namespace mikasa::Runtime::Module;
 using namespace mikasa::Runtime::Core;
@@ -11,15 +13,20 @@ Runnable* RenderModule::RenderThreadRunnable_;
 RunnableThread* RenderModule::RenderThread_;
 RenderCommandQueue* RenderModule::RenderCommandQueue_;
 
-
-void RenderModule::Init(const ApplicationInitParam &info)
+void RenderModule::Init(const ApplicationInitParam &param, const WindowHandler& windowHandler)
 {
+    // construct command queue.
     RenderCommandQueue_ = new RenderCommandQueue();
+    RenderCommandCreator::Init(RenderCommandQueue_);
 
-    RenderThreadRunnableInitParam param{};
-    param.RenderCommandQueue = RenderCommandQueue_;
-    RenderThreadRunnable_ = new RenderThreadRunnable(param);
+    // construct render thread runnable data.
+    RenderThreadRunnableInitParam threadParam;
+    threadParam.RenderCommandQueue = RenderCommandQueue_;
+    threadParam.ApplicationInitParam = param;
+    threadParam.WindowHandler = windowHandler;
+    RenderThreadRunnable_ = new RenderThreadRunnable(threadParam);
 
+    // construct render thread with runnable data.
     RenderThread_ = PlatformIndependentRunnableThread::CreatePlatformIndependentRunnableThread(
             "Render",
             ThreadPriority::Middle,
@@ -35,9 +42,13 @@ void RenderModule::UnInit()
     delete RenderThread_;
     RenderThread_ = nullptr;
 
+    MIKASA_ASSERT(RenderThreadRunnable_ != nullptr);
     delete RenderThreadRunnable_;
     RenderThreadRunnable_ = nullptr;
 
+    RenderCommandCreator::UnInit();
+
+    MIKASA_ASSERT(RenderCommandQueue_ != nullptr);
     delete RenderCommandQueue_;
     RenderCommandQueue_ = nullptr;
     Logger::Info("RenderModule UnInit ok.");

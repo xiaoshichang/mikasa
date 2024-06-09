@@ -35,7 +35,9 @@ void PythonVM::SetupPythonHome()
 void PythonVM::SetupBuildEngineModules()
 {
     PyImport_AppendInittab("MLogger", PyInit_MLogger);
+#ifdef MIKASA_BUILDTYPE_DEBUG
     PyImport_AppendInittab("IORedirect", PyInit_IORedirect);
+#endif
 }
 
 

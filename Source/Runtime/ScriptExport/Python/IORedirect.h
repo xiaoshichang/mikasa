@@ -1,3 +1,5 @@
+#ifdef MIKASA_BUILDTYPE_DEBUG
+
 #include <boost/python.hpp>
 #include "Runtime/Core/Script/Python/PythonIORedirect.h"
 
@@ -16,3 +18,5 @@ BOOST_PYTHON_MODULE(IORedirect)
         .def("flush", &StderrRedirect::Flush)
         ;
 }
+
+#endif

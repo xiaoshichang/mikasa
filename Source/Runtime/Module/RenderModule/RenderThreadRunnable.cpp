@@ -1,11 +1,13 @@
 
 #include "RenderThreadRunnable.h"
 #include "Runtime/Core/Render/RenderCommand/RenderCommandBase.h"
+#include "Runtime/Core/Render/RenderDevice/RenderDevice.h"
 
 using namespace mikasa::Runtime::Module;
 
 RenderThreadRunnable::RenderThreadRunnable(const RenderThreadRunnableInitParam &param)
-    : RenderCommandQueue_(param.RenderCommandQueue)
+    : InitParam_(param)
+    , RenderCommandQueue_(param.RenderCommandQueue)
     , Rendering_(true)
 {
 
@@ -14,6 +16,7 @@ RenderThreadRunnable::RenderThreadRunnable(const RenderThreadRunnableInitParam &
 
 bool RenderThreadRunnable::Init()
 {
+    RenderDevice::Init(InitParam_.ApplicationInitParam, InitParam_.WindowHandler);
     Logger::Info("RenderThread Init.");
     return true;
 }
@@ -37,6 +40,7 @@ uint32 RenderThreadRunnable::Run()
 
 void RenderThreadRunnable::Exit()
 {
+    RenderDevice::UnInit();
     Logger::Info("RenderThread Exit.");
 }
 
