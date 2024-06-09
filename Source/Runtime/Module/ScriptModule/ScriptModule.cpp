@@ -33,4 +33,11 @@ void ScriptModule::ConsumeConsoleInput()
         VM_->EvaluateString(input);
     }
 }
+
+void ScriptModule::DoString(const std::string& s)
+{
+    MIKASA_ASSERT(VM_ != nullptr);
+    VM_->EvaluateString(s);
+}
+
 #endif

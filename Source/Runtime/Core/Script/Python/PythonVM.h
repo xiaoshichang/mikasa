@@ -17,6 +17,8 @@ namespace mikasa::Runtime::Core
          * setup python home path so python can be initialized successfully.
          */
         static void SetupPythonHome();
+        static void SetupBuildEngineModules();
+        static void RedirectIO();
 
 
     };

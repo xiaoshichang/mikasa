@@ -34,7 +34,6 @@ void Application::Init(const ApplicationInitParam& info)
     ScriptModule::Init(info);
     JobSystemModule::Init(info);
     RenderModule::Init(info);
-
 }
 
 void Application::Run()

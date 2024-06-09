@@ -13,6 +13,7 @@ namespace mikasa::Runtime::Module
     public:
         static void Init(const ApplicationInitParam& info);
         static void UnInit();
+        static void DoString(const std::string& s);
 
 #if MIKASA_BUILDTYPE_DEBUG
         static void ConsumeConsoleInput();

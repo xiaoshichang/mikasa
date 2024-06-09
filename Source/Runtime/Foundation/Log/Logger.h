@@ -57,9 +57,15 @@ namespace mikasa::Runtime::Foundation
         static void Info(const char* format, ...);
         static void Debug(const char* format, ...);
 
+        static void ScriptError(std::string msg);
+        static void ScriptWarning(std::string msg);
+        static void ScriptInfo(std::string msg);
+        static void ScriptDebug(std::string msg);
+
+
     private:
         static src::severity_logger_mt<logging::trivial::severity_level> logger_;
-        static src::severity_logger_mt<logging::trivial::severity_level> PythonLogger_;
+        static src::severity_logger_mt<logging::trivial::severity_level> ScriptLogger_;
 
     };
 }
