@@ -3,10 +3,13 @@
 
 namespace mikasa::Runtime::Core
 {
+    class RHI;
     class RenderCommandBase
     {
     public:
-        virtual void Execute() = 0;
+        RenderCommandBase() = default;
+        virtual ~RenderCommandBase() = default;
+        virtual void Execute(RHI* rhi) = 0;
     };
 
 }

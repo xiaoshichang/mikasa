@@ -28,13 +28,30 @@ uint32 RenderThreadRunnable::Run()
         auto command = RenderCommandQueue_->Dequeue();
         if (command != nullptr)
         {
-            command->Execute();
+            RenderDevice::ProcessRenderCommand(command);
         }
         else
         {
-            std::this_thread::sleep_for(std::chrono::milliseconds (1));
+            // https://en.cppreference.com/w/cpp/thread/yield
+            // https://stackoverflow.com/questions/11048946/stdthis-threadyield-vs-stdthis-threadsleep-for
+            std::this_thread::yield();
         }
     }
+
+    // after thread stop, flush all remain commands.
+    while (true)
+    {
+        auto command = RenderCommandQueue_->Dequeue();
+        if (command != nullptr)
+        {
+            RenderDevice::ProcessRenderCommand(command);
+        }
+        else
+        {
+            break;
+        }
+    }
+
     return 0;
 }
 

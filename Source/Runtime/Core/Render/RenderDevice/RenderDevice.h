@@ -1,6 +1,7 @@
 #pragma once
 #include "Runtime/Core/Misc/ApplicationInitParam.h"
 #include "Runtime/Core/Misc/WindowHandler.h"
+#include "Runtime/Core/Render/RenderCommand/RenderCommandBase.h"
 
 namespace mikasa::Runtime::Core
 {
@@ -10,6 +11,7 @@ namespace mikasa::Runtime::Core
     public:
         static void Init(const ApplicationInitParam& param, const WindowHandler& windowHandler);
         static void UnInit();
+        static void ProcessRenderCommand(RenderCommandBase* command);
 
     private:
         static RHI* RHI_;
