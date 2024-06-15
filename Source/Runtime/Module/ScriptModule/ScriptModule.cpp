@@ -30,6 +30,10 @@ void ScriptModule::ConsumeConsoleInput()
     std::string input;
     if (Console::GetReadyInputString(input))
     {
+        if (input.length() <= 0)
+        {
+            return;
+        }
         VM_->EvaluateString(input);
     }
 }

@@ -26,8 +26,19 @@ namespace mikasa::Runtime::Foundation
 
     private:
         void ProcessKeyDown(KEY_EVENT_RECORD  keyEvent);
+        void ProcessKeyDown_NormalChar(char c);
+        void ProcessKeyDown_Newline();
+        void ProcessKeyDown_Backspace();
+        void ProcessKeyDown_Left();
+        void ProcessKeyDown_Right();
+        void ProcessKeyDown_Up();
+        void ProcessKeyDown_Down();
+
         void ClearInputPart();
         void ShowInputPart();
+        void MoveCursor(int offset);
+        void MoveBackOffset(bool backward);
+        void AppendHistory(const std::string& input);
 
     private:
         static int ConvertColor(ConsoleTextColor color);
@@ -47,6 +58,11 @@ namespace mikasa::Runtime::Foundation
          * ready inputs
          */
         boost::lockfree::spsc_queue<std::string> ReadyInputs_;
+
+        int CursorBackOffset_ = 0;
+
+        std::vector<std::string> InputHistory_;
+        int InputHistorySelected_ = -1;
     };
 
 }

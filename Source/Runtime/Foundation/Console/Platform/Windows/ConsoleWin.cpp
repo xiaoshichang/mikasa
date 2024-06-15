@@ -2,6 +2,8 @@
 
 #include "../../../Foundation.h"
 #include "ConsoleWin.h"
+#include <cmath>
+#include <algorithm>
 
 using namespace mikasa::Runtime::Foundation;
 
@@ -141,56 +143,31 @@ void ConsoleWin::ProcessKeyDown(KEY_EVENT_RECORD  keyEvent)
     std::string digits = ".+-*/[]{}=_)(*&^%$#@!~?><\";:'";
     if (std::isalnum(c) || c == ' ' || digits.find(c) != std::string::npos)
     {
-        Input_ = Input_ + c;
-        Console::ConsoleProtection.Enter();
-        int written;
-        if (!WriteConsole(OutputHandle_, &c, 1, reinterpret_cast<LPDWORD>(&written), nullptr))
-        {
-            throw;
-        }
-        Console::ConsoleProtection.Exit();
+        ProcessKeyDown_NormalChar(c);
     }
     else if (c == '\r')
     {
-        auto log = PREFIX + Input_ + '\n';
-        ReadyInputs_.push(Input_);
-
-        Console::ConsoleProtection.Enter();
-        DoOutput(log, ConsoleTextColor::LightGreen);
-        ClearInputPart();
-        Input_.clear();
-        ShowInputPart();
-        Console::ConsoleProtection.Exit();
+        ProcessKeyDown_Newline();
     }
     else if (keyEvent.wVirtualKeyCode == VK_BACK)
     {
-        if (Input_.length() <= 0)
-        {
-            return;
-        }
-        Input_ = Input_.substr(0, Input_.length() - 1);
-        Console::ConsoleProtection.Enter();
-        CONSOLE_SCREEN_BUFFER_INFO ScreenInfo;
-        if (!GetConsoleScreenBufferInfo(OutputHandle_, &ScreenInfo))
-        {
-            throw;
-        }
-
-        auto current = ScreenInfo.dwCursorPosition;
-        current.X -= 1;
-        SetConsoleCursorPosition(OutputHandle_, current);
-
-        DWORD cCharsWritten;
-        if (!FillConsoleOutputCharacter(OutputHandle_,          // Handle to console screen buffer
-                                        (TCHAR)' ',                 // Character to write to the buffer
-                                        1,                   // Number of cells to write
-                                        current,             // Coordinates of first cell
-                                        &cCharsWritten)) // Receive number of characters written
-        {
-            throw;
-        }
-        MIKASA_ASSERT(cCharsWritten == 1);
-        Console::ConsoleProtection.Exit();
+        ProcessKeyDown_Backspace();
+    }
+    else if (keyEvent.wVirtualKeyCode == VK_LEFT)
+    {
+        ProcessKeyDown_Left();
+    }
+    else if (keyEvent.wVirtualKeyCode == VK_RIGHT)
+    {
+        ProcessKeyDown_Right();
+    }
+    else if (keyEvent.wVirtualKeyCode == VK_UP)
+    {
+        ProcessKeyDown_Up();
+    }
+    else if (keyEvent.wVirtualKeyCode == VK_DOWN)
+    {
+        ProcessKeyDown_Down();
     }
     else
     {
@@ -198,19 +175,127 @@ void ConsoleWin::ProcessKeyDown(KEY_EVENT_RECORD  keyEvent)
     }
 }
 
+void ConsoleWin::ProcessKeyDown_NormalChar(char c)
+{
+    Console::ConsoleProtection.Enter();
+    ClearInputPart();
+    Input_.insert(Input_.end() + CursorBackOffset_, c);
+    ShowInputPart();
+    Console::ConsoleProtection.Exit();
+}
+
+void ConsoleWin::ProcessKeyDown_Newline()
+{
+    auto log = PREFIX + Input_ + '\n';
+    ReadyInputs_.push(Input_);
+
+    Console::ConsoleProtection.Enter();
+    DoOutput(log, ConsoleTextColor::LightGreen);
+    ClearInputPart();
+    AppendHistory(Input_);
+    Input_.clear();
+    CursorBackOffset_ = 0;
+    InputHistorySelected_ = -1;
+    ShowInputPart();
+
+    Console::ConsoleProtection.Exit();
+}
+
+void ConsoleWin::ProcessKeyDown_Backspace()
+{
+    if (Input_.length() + CursorBackOffset_ <= 0)
+    {
+        return;
+    }
+
+    Console::ConsoleProtection.Enter();
+    ClearInputPart();
+
+    Input_.erase(Input_.end() - 1 + CursorBackOffset_);
+
+    auto minValue = -((int)Input_.size());
+    if (CursorBackOffset_ > 0)
+    {
+        CursorBackOffset_ = 0;
+    }
+    else if (CursorBackOffset_ < minValue)
+    {
+        CursorBackOffset_ = minValue;
+    }
+
+    ShowInputPart();
+    Console::ConsoleProtection.Exit();
+}
+
+void ConsoleWin::ProcessKeyDown_Left()
+{
+    Console::ConsoleProtection.Enter();
+    MoveBackOffset(true);
+    Console::ConsoleProtection.Exit();
+}
+
+void ConsoleWin::ProcessKeyDown_Right()
+{
+    Console::ConsoleProtection.Enter();
+    MoveBackOffset(false);
+    Console::ConsoleProtection.Exit();
+}
+
+void ConsoleWin::ProcessKeyDown_Up()
+{
+    if (InputHistory_.empty())
+    {
+        return;
+    }
+
+    Console::ConsoleProtection.Enter();
+    ClearInputPart();
+
+    InputHistorySelected_ += 1;
+    if (InputHistorySelected_ >= InputHistory_.size())
+    {
+        InputHistorySelected_ = (int(InputHistory_.size())) - 1;
+    }
+    Input_ = InputHistory_[InputHistorySelected_];
+    CursorBackOffset_ = 0;
+
+    ShowInputPart();
+    Console::ConsoleProtection.Exit();
+}
+
+void ConsoleWin::ProcessKeyDown_Down()
+{
+    if (InputHistory_.empty())
+    {
+        return;
+    }
+
+    Console::ConsoleProtection.Enter();
+    ClearInputPart();
+
+    InputHistorySelected_ -= 1;
+    if (InputHistorySelected_ < 0)
+    {
+        InputHistorySelected_ = -1;
+        Input_ = "";
+    }
+    else
+    {
+        Input_ = InputHistory_[InputHistorySelected_];
+    }
+    CursorBackOffset_ = 0;
+
+    ShowInputPart();
+    Console::ConsoleProtection.Exit();
+}
+
+
 
 void ConsoleWin::ClearInputPart()
 {
-    CONSOLE_SCREEN_BUFFER_INFO ScreenInfo;
-    if (!GetConsoleScreenBufferInfo(OutputHandle_, &ScreenInfo))
-    {
-        throw;
-    }
-
     // clear input echo
     auto inputCount = PREFIX.length() + Input_.length();
     DWORD cCharsWritten;
-    DWORD error;
     if (!FillConsoleOutputCharacter(OutputHandle_,          // Handle to console screen buffer
                                     (TCHAR)' ',                 // Character to write to the buffer
                                     inputCount,                   // Number of cells to write
@@ -252,6 +337,9 @@ void ConsoleWin::ShowInputPart()
         }
         MIKASA_ASSERT(written == Input_.length());
     }
+
+    MoveCursor(CursorBackOffset_);
+
 }
 
 void ConsoleWin::DoOutput(const std::string &s, ConsoleTextColor color)
@@ -288,5 +376,49 @@ bool ConsoleWin::GetInternalReadyInputString(std::string& ret)
     }
     return false;
 }
+
+void ConsoleWin::MoveCursor(int offset)
+{
+    CONSOLE_SCREEN_BUFFER_INFO ScreenInfo;
+    if (!GetConsoleScreenBufferInfo(OutputHandle_, &ScreenInfo))
+    {
+        throw;
+    }
+    auto current = ScreenInfo.dwCursorPosition;
+    current.X += offset;
+    SetConsoleCursorPosition(OutputHandle_, current);
+}
+
+void ConsoleWin::MoveBackOffset(bool backward)
+{
+    auto offset = (backward ? -1 : 1);
+    CursorBackOffset_ += offset;
+    MoveCursor(offset);
+
+    auto minValue = -((int)Input_.size());
+    if (CursorBackOffset_ > 0)
+    {
+        CursorBackOffset_ = 0;
+        MoveCursor(-offset);
+    }
+    else if (CursorBackOffset_ < minValue)
+    {
+        CursorBackOffset_ = minValue;
+        MoveCursor(-offset);
+    }
+}
+
+void ConsoleWin::AppendHistory(const std::string& input)
+{
+    InputHistory_.insert(InputHistory_.begin(), input);
+    if (InputHistory_.size() > 20)
+    {
+        auto end = InputHistory_.end();
+        std::advance(end, -1);
+        InputHistory_.erase(end);
+    }
+}
+
+
 
 #endif

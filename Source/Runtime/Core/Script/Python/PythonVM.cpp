@@ -21,7 +21,20 @@ PythonVM::PythonVM()
 
 void PythonVM::EvaluateString(const std::string &input)
 {
-    PyRun_SimpleString(input.c_str());
+    PyObject *m, *d, *v;
+    m = PyImport_AddModule("__main__");
+    if (m == nullptr)
+    {
+        throw;
+    }
+    d = PyModule_GetDict(m);
+    v = PyRun_StringFlags(input.c_str(), Py_single_input, d, d, nullptr);
+    if (v == nullptr)
+    {
+        PyErr_Print();
+        return;
+    }
+    Py_DECREF(v);
 }
 
 void PythonVM::SetupPythonHome()
