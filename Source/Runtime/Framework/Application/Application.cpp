@@ -8,6 +8,8 @@
 #include "Runtime/Module/RenderModule/RenderModule.h"
 #include "Runtime/Module/JobSystemModule/JobSystemModule.h"
 #include "Runtime/Module/ScriptModule/ScriptModule.h"
+#include "Runtime/Module/SceneModule/SceneModule.h"
+
 
 using namespace mikasa::Runtime::Framework;
 using namespace mikasa::Runtime::Module;
@@ -36,6 +38,9 @@ void Application::Init(const ApplicationInitParam& info)
 
     auto windowHandler = MainWindow::GetWindowHandler();
     RenderModule::Init(info, windowHandler);
+
+    SceneModule::Init();
+    SceneModule::SyncLoadScene("");
 }
 
 void Application::Run()
@@ -51,6 +56,7 @@ void Application::Run()
 
 void Application::UnInit()
 {
+    SceneModule::UnInit();
     RenderModule::UnInit();
     JobSystemModule::UnInit();
     ScriptModule::UnInit();

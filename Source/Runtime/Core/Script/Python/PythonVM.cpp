@@ -5,6 +5,7 @@
 
 #include "Runtime/ScriptExport/Python/MLogger.h"
 #include "Runtime/ScriptExport/Python/IORedirect.h"
+#include "Runtime/ScriptExport/Python/MScene.h"
 
 using namespace mikasa::Runtime::Core;
 
@@ -48,6 +49,7 @@ void PythonVM::SetupPythonHome()
 void PythonVM::SetupBuildEngineModules()
 {
     PyImport_AppendInittab("MLogger", PyInit_MLogger);
+    PyImport_AppendInittab("MScene", PyInit_MScene);
 #ifdef MIKASA_BUILDTYPE_DEBUG
     PyImport_AppendInittab("IORedirect", PyInit_IORedirect);
 #endif
