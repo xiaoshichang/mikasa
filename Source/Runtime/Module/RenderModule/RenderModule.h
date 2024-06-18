@@ -26,7 +26,6 @@ namespace mikasa::Runtime::Module
     private:
         static Runnable* RenderThreadRunnable_;
         static RunnableThread* RenderThread_;
-        static RenderCommandQueue* RenderCommandQueue_;
 
     };
 }

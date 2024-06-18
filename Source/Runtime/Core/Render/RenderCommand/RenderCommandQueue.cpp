@@ -5,22 +5,19 @@
 using namespace mikasa::Runtime::Core;
 using namespace mikasa::Runtime::Foundation;
 
-RenderCommandQueue::RenderCommandQueue()
-    : InternalQueue_(512)
-{
+// todo: use dynamic size lock-free queue.
+boost::lockfree::spsc_queue<RenderCommandBase*> RenderCommandQueue::CommandQueue(1024 * 10);
 
-}
-
-void RenderCommandQueue::Enqueue(RenderCommandBase *command)
+void RenderCommandQueue::EnqueueOneRenderCommand(RenderCommandBase *command)
 {
-    auto ok = InternalQueue_.push(command);
+    auto ok = CommandQueue.push(command);
     MIKASA_ASSERT(ok);
 }
 
 RenderCommandBase *RenderCommandQueue::Dequeue()
 {
     RenderCommandBase* command = nullptr;
-    auto got = InternalQueue_.pop(command);
+    auto got = CommandQueue.pop(command);
     if (got)
     {
         return command;

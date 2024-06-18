@@ -9,6 +9,7 @@
 #include "Runtime/Module/JobSystemModule/JobSystemModule.h"
 #include "Runtime/Module/ScriptModule/ScriptModule.h"
 #include "Runtime/Module/SceneModule/SceneModule.h"
+#include "Runtime/Core/Render/Sync/RenderThreadFrameSync.h"
 
 
 using namespace mikasa::Runtime::Framework;
@@ -51,6 +52,10 @@ void Application::Run()
 #if MIKASA_BUILDTYPE_DEBUG
         ScriptModule::ConsumeConsoleInput();
 #endif
+        SceneModule::Update();
+        SceneModule::Render();
+
+        RenderThreadFrameSync::Sync();
     }
 }
 

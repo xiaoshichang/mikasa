@@ -1,13 +1,14 @@
 
 #include "RenderThreadRunnable.h"
+
+#include <utility>
 #include "Runtime/Core/Render/RenderCommand/RenderCommandBase.h"
 #include "Runtime/Core/Render/RenderDevice/RenderDevice.h"
 
 using namespace mikasa::Runtime::Module;
 
-RenderThreadRunnable::RenderThreadRunnable(const RenderThreadRunnableInitParam &param)
-    : InitParam_(param)
-    , RenderCommandQueue_(param.RenderCommandQueue)
+RenderThreadRunnable::RenderThreadRunnable(RenderThreadRunnableInitParam param)
+    : InitParam_(std::move(param))
     , Rendering_(true)
 {
 
@@ -25,12 +26,8 @@ uint32 RenderThreadRunnable::Run()
 {
     while (Rendering_)
     {
-        auto command = RenderCommandQueue_->Dequeue();
-        if (command != nullptr)
-        {
-            RenderDevice::ProcessRenderCommand(command);
-        }
-        else
+        bool processed = RenderDevice::ProcessOneRenderCommand();
+        if (!processed)
         {
             // https://en.cppreference.com/w/cpp/thread/yield
             // https://stackoverflow.com/questions/11048946/stdthis-threadyield-vs-stdthis-threadsleep-for
@@ -39,19 +36,7 @@ uint32 RenderThreadRunnable::Run()
     }
 
     // after thread stop, flush all remain commands.
-    while (true)
-    {
-        auto command = RenderCommandQueue_->Dequeue();
-        if (command != nullptr)
-        {
-            RenderDevice::ProcessRenderCommand(command);
-        }
-        else
-        {
-            break;
-        }
-    }
-
+    RenderDevice::FlushAllRenderCommand();
     return 0;
 }
 

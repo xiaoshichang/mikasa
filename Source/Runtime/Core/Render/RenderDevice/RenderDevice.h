@@ -3,6 +3,10 @@
 #include "Runtime/Core/Misc/WindowHandler.h"
 #include "Runtime/Core/Render/RenderCommand/RenderCommandBase.h"
 
+
+
+
+
 namespace mikasa::Runtime::Core
 {
     class RHI;
@@ -11,7 +15,8 @@ namespace mikasa::Runtime::Core
     public:
         static void Init(const ApplicationInitParam& param, const WindowHandler& windowHandler);
         static void UnInit();
-        static void ProcessRenderCommand(RenderCommandBase* command);
+        static bool ProcessOneRenderCommand();
+        static void FlushAllRenderCommand();
 
     private:
         static RHI* RHI_;

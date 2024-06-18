@@ -1,7 +1,8 @@
 
 #include "RenderDevice.h"
-#include "../RHI/RHI.h"
 #include "Runtime/Foundation/Foundation.h"
+#include "../RHI/RHI.h"
+#include "../RenderCommand/RenderCommandQueue.h"
 
 #ifdef MIKASA_TARGET_PLATFORM_Window
 #include "../RHI/DX12/RHIDX12.h"
@@ -28,10 +29,23 @@ void RenderDevice::UnInit()
     RHI_ = nullptr;
 }
 
-void RenderDevice::ProcessRenderCommand(RenderCommandBase *command)
+bool RenderDevice::ProcessOneRenderCommand()
 {
-    command->Execute(RHI_);
+    auto command = RenderCommandQueue::Dequeue();
+    if (command == nullptr)
+    {
+        return false;
+    }
 
+    command->Execute(RHI_);
     // after render command executed, destroy it.
     delete command;
+    return true;
+}
+
+void RenderDevice::FlushAllRenderCommand()
+{
+    while (ProcessOneRenderCommand())
+    {
+    }
 }

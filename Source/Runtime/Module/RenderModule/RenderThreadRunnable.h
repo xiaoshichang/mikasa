@@ -13,7 +13,6 @@ namespace mikasa::Runtime::Module
 
     struct RenderThreadRunnableInitParam
     {
-        RenderCommandQueue* RenderCommandQueue = nullptr;
         ApplicationInitParam ApplicationInitParam;
         WindowHandler WindowHandler;
     };
@@ -21,7 +20,7 @@ namespace mikasa::Runtime::Module
     class RenderThreadRunnable : public Runnable
     {
     public:
-        explicit RenderThreadRunnable(const RenderThreadRunnableInitParam& param);
+        explicit RenderThreadRunnable(RenderThreadRunnableInitParam  param);
         ~RenderThreadRunnable() override = default ;
 
     public:
@@ -36,6 +35,5 @@ namespace mikasa::Runtime::Module
     private:
         bool Rendering_ = true;
         RenderThreadRunnableInitParam InitParam_;
-        RenderCommandQueue* RenderCommandQueue_;
     };
 }
