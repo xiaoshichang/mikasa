@@ -1,5 +1,4 @@
 #pragma once
-#include "Runtime/Foundation/Foundation.h"
 #include <cstddef>
 
 namespace mikasa::Runtime::Foundation

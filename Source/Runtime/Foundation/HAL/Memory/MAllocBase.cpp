@@ -1,4 +1,5 @@
 #include "MAllocBase.h"
+#include "Runtime/Foundation/Foundation.h"
 
 using namespace mikasa::Runtime::Foundation;
 

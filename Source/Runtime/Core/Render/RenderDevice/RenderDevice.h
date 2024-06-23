@@ -2,14 +2,10 @@
 #include "Runtime/Core/Misc/ApplicationInitParam.h"
 #include "Runtime/Core/Misc/WindowHandler.h"
 #include "Runtime/Core/Render/RenderCommand/RenderCommandBase.h"
-
-
-
-
+#include "../RHI/RHI.h"
 
 namespace mikasa::Runtime::Core
 {
-    class RHI;
     class RenderDevice
     {
     public:
@@ -18,8 +14,8 @@ namespace mikasa::Runtime::Core
         static bool ProcessOneRenderCommand();
         static void FlushAllRenderCommand();
 
-    private:
-        static RHI* RHI_;
+    public:
+        static RHI* RHI;
     };
 }
 

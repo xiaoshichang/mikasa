@@ -3,7 +3,11 @@
 //
 
 #include "RHIDX11.h"
+#include "RHIRenderTargetViewDX11.h"
+
 #include <wrl.h>
+
+
 
 using namespace Microsoft::WRL;
 using namespace mikasa::Runtime::Core;
@@ -12,10 +16,12 @@ void RHIDX11::InitRHI(const ::ApplicationInitParam &param, const WindowHandler &
 {
     CreateDevice();
     CreateSwapChain(param, windowHandler);
+    CreateBackBufferRTV();
 }
 
 void RHIDX11::UnInitRHI()
 {
+    ReleaseBackBufferRTV();
     ReleaseSwapChain();
     ReleaseDevice();
 }
@@ -106,3 +112,54 @@ void RHIDX11::ReleaseSwapChain()
     SwapChain_->Release();
     SwapChain_ = nullptr;
 }
+
+void RHIDX11::CreateBackBufferRTV()
+{
+    ID3D11Resource* pBackBuffer = nullptr;
+    ID3D11RenderTargetView* rtv = nullptr;
+
+    if (SwapChain_->GetBuffer(0, IID_PPV_ARGS(&pBackBuffer)) != S_OK)
+    {
+        throw;
+    }
+    BackBufferRTV_ = new RHIRenderTargetViewDX11(Device_, pBackBuffer);
+}
+
+void RHIDX11::ReleaseBackBufferRTV()
+{
+    delete BackBufferRTV_;
+    BackBufferRTV_ = nullptr;
+}
+
+RHIRenderTargetView* RHIDX11::GetBackBufferRTV()
+{
+    return BackBufferRTV_;
+}
+
+
+void RHIDX11::RSSetViewport(float left, float top, float width, float height)
+{
+    D3D11_VIEWPORT  viewport(left, top, width, height, 0, 1);
+    Context_->RSSetViewports(1, &viewport);
+}
+
+void RHIDX11::RSSetScissorRect(int32 left, int32 top, int32 right, int32 bottom)
+{
+    D3D11_RECT rect(left, top, right, bottom);
+    Context_->RSSetScissorRects(1, &rect);
+}
+
+void RHIDX11::ClearRenderTarget(RHIRenderTargetView* rtv, const Vector4f& color)
+{
+    auto* rtvDX11 = dynamic_cast<RHIRenderTargetViewDX11 *>(rtv);
+    Context_->ClearRenderTargetView(rtvDX11->GetInternal(), (const float*)color);
+}
+
+void RHIDX11::Present()
+{
+    SwapChain_->Present(1, 0);
+}
+
+
+
+

@@ -31,6 +31,11 @@ namespace mikasa::Runtime::Foundation
             return data[idx];
         }
 
+        explicit operator const T*() const
+        {
+            return data;
+        }
+
         inline bool operator==(const Vector4<T>& rhs) const noexcept
         {
             return comparison_traits<T>::equal(x, rhs.x)

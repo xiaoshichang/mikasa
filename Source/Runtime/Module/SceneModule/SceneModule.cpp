@@ -1,16 +1,16 @@
 
 #include "SceneModule.h"
 #include "Runtime/Foundation/Foundation.h"
-#include "Runtime/Core/Render/RenderCommand/RenderCommandQueue.h"
 
+#include "Runtime/Core/Render/RenderDevice/RenderDevice.h"
+#include "Runtime/Core/Render/RenderCommand/RenderCommandQueue.h"
+#include "Runtime/Core/Render/Renderer/SimpleForwardRenderer/SimpleForwardRenderer.h"
 
 using namespace mikasa::Runtime::Module;
 using namespace mikasa::Runtime::Foundation;
 
 Scene* SceneModule::Current = nullptr;
 
-static int frameCount = 0;
-static int logicCount = 0;
 
 void SceneModule::Init()
 {
@@ -52,16 +52,20 @@ void SceneModule::DestroyCurrentScene()
 
 void SceneModule::Update()
 {
-    Logger::Info("logic frame %d", logicCount);
-    logicCount ++;
 }
 
 void SceneModule::Render()
 {
-    auto lambda = []()
+    auto vf = std::make_shared<RenderViewInfo>();
+    vf->ClearColor = Vector4f (0.2, 0.3, 0.4, 1.0f);
+    vf->Destination = RenderDevice::RHI->GetBackBufferRTV();
+
+    auto renderer = new SimpleForwardRenderer(vf);
+
+    auto lambda = [renderer]()
     {
-        Logger::Info("render frame %d", frameCount);
-        frameCount ++;
+        renderer->Render();
+        delete renderer;
     };
     ENQUEUE_LAMBDA_RENDER_COMMAND(lambda);
 }

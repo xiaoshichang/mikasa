@@ -12,21 +12,21 @@
 using namespace mikasa::Runtime::Core;
 using namespace mikasa::Runtime::Foundation;
 
-RHI* RenderDevice::RHI_ = nullptr;
+RHI* RenderDevice::RHI = nullptr;
 
 void RenderDevice::Init(const ApplicationInitParam& param, const WindowHandler& windowHandler)
 {
-    MIKASA_ASSERT(RHI_ == nullptr);
-    RHI_ = new RHIDX11();
-    RHI_->InitRHI(param, windowHandler);
+    MIKASA_ASSERT(RHI == nullptr);
+    RHI = new RHIDX11();
+    RHI->InitRHI(param, windowHandler);
 }
 
 void RenderDevice::UnInit()
 {
-    MIKASA_ASSERT(RHI_ != nullptr);
-    RHI_->UnInitRHI();
-    delete RHI_;
-    RHI_ = nullptr;
+    MIKASA_ASSERT(RHI != nullptr);
+    RHI->UnInitRHI();
+    delete RHI;
+    RHI = nullptr;
 }
 
 bool RenderDevice::ProcessOneRenderCommand()
@@ -37,7 +37,7 @@ bool RenderDevice::ProcessOneRenderCommand()
         return false;
     }
 
-    command->Execute(RHI_);
+    command->Execute(RHI);
     // after render command executed, destroy it.
     delete command;
     return true;
