@@ -7,36 +7,59 @@
 using namespace mikasa::Runtime::Core;
 using namespace mikasa::Runtime::Foundation;
 
-GameObject::GameObject(Scene* scene, std::string  name)
-    : Scene_(scene)
-    , Name_(std::move(name))
+GameObject::GameObject(std::string name)
+    : Name_(std::move(name))
 {
 }
 
 GameObject::~GameObject()
 {
-    MIKASA_ASSERT(Children_.empty());
 }
 
-
-bool GameObject::AddChild(GameObject *child)
+Vector3f GameObject::GetPosition()
 {
-    if (std::find(Children_.begin(), Children_.end(), child) != Children_.end())
+    return Position_;
+}
+
+void GameObject::SetPosition(Vector3f position)
+{
+    Position_ = position;
+    RTSDirty_ = true;
+}
+
+Vector3f GameObject::GetScale()
+{
+    return Scale_;
+}
+
+void GameObject::SetScale(Vector3f scale)
+{
+    Scale_ = scale;
+    RTSDirty_ = true;
+}
+
+Quaternion GameObject::GetRotation()
+{
+    return Rotation_;
+}
+
+void GameObject::SetRotation(Quaternion rotation)
+{
+    Rotation_ = rotation;
+    RTSDirty_ = true;
+}
+
+Matrix4x4f GameObject::GetWorldMatrix()
+{
+    if (RTSDirty_)
     {
-        return false;
+        auto r = BuildRotationMatrixFromQuaternion(Rotation_);
+        auto t = BuildTranslationMatrix(Position_);
+        auto s = BuildScalingMatrix(Scale_);
+        RTS_ = t * s * r;
+        RTSDirty_ = false;
     }
-    Children_.push_back(child);
-    child->SetParent(this);
-    return true;
+    return RTS_;
 }
 
-void GameObject::SetParent(GameObject *parent)
-{
-    Parent_ = parent;
-}
-
-GameObject *GameObject::GetParent()
-{
-    return Parent_;
-}
 

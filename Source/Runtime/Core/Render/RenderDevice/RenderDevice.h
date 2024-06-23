@@ -13,24 +13,20 @@ namespace mikasa::Runtime::Core
     public:
         static void Init(const ApplicationInitParam& param, const WindowHandler& windowHandler);
         static void UnInit();
+
+
+        ///////////////// render command /////////////////////
+    public:
         static bool ProcessOneRenderCommand();
         static void FlushAllRenderCommand();
-
-        static void EnqueueOneRenderCommand(RenderCommandBase* command)
-        {
-            RenderCommandQueue_->EnqueueOneRenderCommand(command);
-        }
-
-        static RenderCommandBase* Dequeue()
-        {
-            return RenderCommandQueue_->Dequeue();
-        }
-
-    public:
-        static RHI* RHI;
-
+        static void EnqueueOneRenderCommand(RenderCommandBase* command);
+        static RenderCommandBase* Dequeue();
     private:
         static RenderCommandQueue* RenderCommandQueue_;
+
+        //////////////// rhi ////////////////////
+    public:
+        static RHI* RHI;
     };
 
 #define ENQUEUE_LAMBDA_RENDER_COMMAND(L) \

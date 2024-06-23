@@ -6,9 +6,9 @@ namespace mikasa::Runtime::Core
     class SimpleForwardRenderer : public Renderer
     {
     public:
-        explicit SimpleForwardRenderer(const std::shared_ptr<RenderViewInfo>& vf);
+        explicit SimpleForwardRenderer(const std::shared_ptr<RenderScene>& scene,  const std::shared_ptr<RenderViewInfo>& vf);
+        ~SimpleForwardRenderer() override;
 
-        ~SimpleForwardRenderer() override = default;
         void Render() override;
 
     };

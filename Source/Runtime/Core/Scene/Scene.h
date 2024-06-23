@@ -1,6 +1,8 @@
 #pragma once
 #include <vector>
+#include <memory>
 #include "GameObject.h"
+#include "Runtime/Core/Render/Renderer/RenderScene.h"
 
 namespace mikasa::Runtime::Core
 {
@@ -26,12 +28,14 @@ namespace mikasa::Runtime::Core
 
 
         void LogTotalSceneInfo();
-        void LogSingleGameObject(std::string& output, GameObject* go, int indent);
+        void LogSingleGameObject(std::string& output, GameObject* go);
+
+        std::shared_ptr<RenderScene> GetRenderScene() { return RenderScene_; }
 
 
     private:
         std::vector<GameObject*> Roots_;
-        int TotalGameObjectCount_ = 0;
 
+        std::shared_ptr<RenderScene> RenderScene_;
     };
 }

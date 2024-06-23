@@ -5,10 +5,13 @@
 using namespace mikasa::Runtime::Core;
 
 
-SimpleForwardRenderer::SimpleForwardRenderer(const std::shared_ptr<RenderViewInfo>& vf)
-    : Renderer(vf)
+SimpleForwardRenderer::SimpleForwardRenderer(const std::shared_ptr<RenderScene>& scene,  const std::shared_ptr<RenderViewInfo>& vf)
+    : Renderer(scene, vf)
 {
+}
 
+SimpleForwardRenderer::~SimpleForwardRenderer()
+{
 }
 
 void SimpleForwardRenderer::Render()
@@ -18,5 +21,7 @@ void SimpleForwardRenderer::Render()
     RenderDevice::RHI->ClearRenderTarget(ViewInfo_->Destination, ViewInfo_->ClearColor);
     RenderDevice::RHI->Present();
 }
+
+
 
 

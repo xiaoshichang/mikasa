@@ -54,3 +54,13 @@ void RenderDevice::FlushAllRenderCommand()
     {
     }
 }
+
+void RenderDevice::EnqueueOneRenderCommand(RenderCommandBase *command)
+{
+    RenderCommandQueue_->EnqueueOneRenderCommand(command);
+}
+
+RenderCommandBase *RenderDevice::Dequeue()
+{
+    return RenderCommandQueue_->Dequeue();
+}
