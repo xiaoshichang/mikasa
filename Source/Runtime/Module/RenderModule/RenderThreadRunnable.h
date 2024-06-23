@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Runtime/Foundation/MultiThread.h"
-#include "Runtime/Core/Render/RenderCommand/RenderCommandQueue.h"
+#include "Runtime/Core/Render/RenderDevice/RenderDevice.h"
 #include "Runtime/Core/Misc/ApplicationInitParam.h"
 #include "Runtime/Core/Misc/WindowHandler.h"
 

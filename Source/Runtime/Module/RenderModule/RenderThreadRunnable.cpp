@@ -2,7 +2,6 @@
 #include "RenderThreadRunnable.h"
 
 #include <utility>
-#include "Runtime/Core/Render/RenderCommand/RenderCommandBase.h"
 #include "Runtime/Core/Render/RenderDevice/RenderDevice.h"
 
 using namespace mikasa::Runtime::Module;

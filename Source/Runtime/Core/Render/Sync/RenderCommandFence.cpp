@@ -1,6 +1,6 @@
 
 #include "RenderCommandFence.h"
-#include "../RenderCommand/RenderCommandQueue.h"
+#include "../RenderDevice/RenderDevice.h"
 
 
 using namespace mikasa::Runtime::Core;

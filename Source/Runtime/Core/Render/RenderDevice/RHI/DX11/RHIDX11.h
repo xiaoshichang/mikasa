@@ -1,7 +1,7 @@
 #ifdef MIKASA_TARGET_PLATFORM_Window
 #pragma once
 
-#include "../RHI.h"
+#include "Runtime/Core/Render/RenderDevice/RHI/RHI.h"
 #include <d3d11.h>
 #include <Windows.h>
 #include <dxgi1_4.h>

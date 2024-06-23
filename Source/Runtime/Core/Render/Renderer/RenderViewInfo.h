@@ -1,6 +1,6 @@
 #pragma once
 #include "Runtime/Foundation/Foundation.h"
-#include "../RHI/RHIRenderTargetView.h"
+#include "../RenderDevice/RHI/RHIRenderTargetView.h"
 
 using namespace mikasa::Runtime::Foundation;
 

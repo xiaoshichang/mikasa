@@ -5,8 +5,12 @@
 using namespace mikasa::Runtime::Core;
 using namespace mikasa::Runtime::Foundation;
 
-// todo: use dynamic size lock-free queue.
-boost::lockfree::spsc_queue<RenderCommandBase*> RenderCommandQueue::CommandQueue(1024 * 10);
+
+RenderCommandQueue::RenderCommandQueue()
+    : CommandQueue(1024 * 10)
+{
+
+}
 
 void RenderCommandQueue::EnqueueOneRenderCommand(RenderCommandBase *command)
 {
@@ -27,4 +31,5 @@ RenderCommandBase *RenderCommandQueue::Dequeue()
         return nullptr;
     }
 }
+
 
