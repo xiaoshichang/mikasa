@@ -1,15 +1,23 @@
 #pragma once
+#include "Runtime/Core/Render/Renderer/StaticMeshRenderProxy.h"
+#include "Component.h"
+#include <memory>
 
 namespace mikasa::Runtime::Core
 {
-    class StaticMeshRenderCmpt
+    class StaticMeshRenderCmpt : public Component
     {
     public:
-        StaticMeshRenderCmpt();
+        explicit StaticMeshRenderCmpt(GameObject* owner);
+        ~StaticMeshRenderCmpt() override;
+
+    private:
+        void InitRenderThreadPart();
+        void UnInitRenderThreadPart();
 
     private:
 
-
+        std::shared_ptr<StaticMeshRenderProxy> RenderProxy_;
     };
 
 }

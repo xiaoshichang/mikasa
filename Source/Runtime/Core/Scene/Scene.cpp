@@ -13,12 +13,16 @@ Scene::Scene()
 
 Scene::~Scene()
 {
-
+    for (auto go : Roots_)
+    {
+        delete go;
+    }
+    Roots_.clear();
 }
 
 GameObject* Scene::CreateGameObject(const std::string &name, GameObject* parent)
 {
-    auto go = new GameObject(name);
+    auto go = new GameObject(this, name);
     Roots_.push_back(go);
     return go;
 }
@@ -28,8 +32,6 @@ void Scene::DestroyGameObject(GameObject* go)
     erase(Roots_, go);
     delete go;
 }
-
-
 
 void Scene::LogTotalSceneInfo()
 {

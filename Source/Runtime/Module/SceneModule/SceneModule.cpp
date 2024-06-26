@@ -37,8 +37,14 @@ void SceneModule::DoSyncLoadScene(const std::string &path)
 {
     auto scene = new Scene();
     auto cube = scene->CreateGameObject("cube");
+    cube->InitStaticMeshRenderCmpt();
+
     auto light = scene->CreateGameObject("light");
+    light->InitLightCmpt();
+
     auto camera = scene->CreateGameObject("camera");
+    camera->InitCameraCmpt();
+
     Current = scene;
 }
 

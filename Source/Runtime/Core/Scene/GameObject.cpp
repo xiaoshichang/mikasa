@@ -7,16 +7,35 @@
 using namespace mikasa::Runtime::Core;
 using namespace mikasa::Runtime::Foundation;
 
-GameObject::GameObject(std::string name)
-    : Name_(std::move(name))
+GameObject::GameObject(Scene* scene, std::string name)
+    : Scene_(scene)
+    , Name_(std::move(name))
 {
 }
 
 GameObject::~GameObject()
 {
+    if (StaticMeshRenderCmpt_ != nullptr)
+    {
+        UnInitStaticMeshRenderCmpt();
+    }
+    if (CameraCmpt_ != nullptr)
+    {
+        UnInitCameraCmpt();
+    }
 }
 
-Vector3f GameObject::GetPosition()
+Scene *GameObject::GetScene() const
+{
+    return Scene_;
+}
+
+const std::string &GameObject::GetName() const
+{
+    return Name_;
+}
+
+Vector3f GameObject::GetPosition() const
 {
     return Position_;
 }
@@ -24,10 +43,10 @@ Vector3f GameObject::GetPosition()
 void GameObject::SetPosition(Vector3f position)
 {
     Position_ = position;
-    RTSDirty_ = true;
+    WorldMatrixDirty_ = true;
 }
 
-Vector3f GameObject::GetScale()
+Vector3f GameObject::GetScale() const
 {
     return Scale_;
 }
@@ -35,10 +54,10 @@ Vector3f GameObject::GetScale()
 void GameObject::SetScale(Vector3f scale)
 {
     Scale_ = scale;
-    RTSDirty_ = true;
+    WorldMatrixDirty_ = true;
 }
 
-Quaternion GameObject::GetRotation()
+Quaternion GameObject::GetRotation() const
 {
     return Rotation_;
 }
@@ -46,20 +65,76 @@ Quaternion GameObject::GetRotation()
 void GameObject::SetRotation(Quaternion rotation)
 {
     Rotation_ = rotation;
-    RTSDirty_ = true;
+    WorldMatrixDirty_ = true;
 }
 
 Matrix4x4f GameObject::GetWorldMatrix()
 {
-    if (RTSDirty_)
+    if (WorldMatrixDirty_)
     {
         auto r = BuildRotationMatrixFromQuaternion(Rotation_);
         auto t = BuildTranslationMatrix(Position_);
         auto s = BuildScalingMatrix(Scale_);
-        RTS_ = t * s * r;
-        RTSDirty_ = false;
+        WorldMatrix_ = t * s * r;
+        WorldMatrixDirty_ = false;
     }
-    return RTS_;
+    return WorldMatrix_;
 }
+
+void GameObject::InitStaticMeshRenderCmpt()
+{
+    MIKASA_ASSERT(StaticMeshRenderCmpt_ == nullptr);
+    StaticMeshRenderCmpt_ = new StaticMeshRenderCmpt(this);
+}
+
+void GameObject::UnInitStaticMeshRenderCmpt()
+{
+    MIKASA_ASSERT(StaticMeshRenderCmpt_ != nullptr);
+    delete StaticMeshRenderCmpt_;
+    StaticMeshRenderCmpt_ = nullptr;
+}
+
+StaticMeshRenderCmpt *GameObject::GetStaticMeshRenderCmpt()
+{
+    return StaticMeshRenderCmpt_;
+}
+
+void GameObject::InitCameraCmpt()
+{
+    MIKASA_ASSERT(CameraCmpt_ == nullptr);
+    CameraCmpt_ = new CameraCmpt(this);
+}
+
+void GameObject::UnInitCameraCmpt()
+{
+    MIKASA_ASSERT(CameraCmpt_ != nullptr);
+    delete CameraCmpt_;
+    CameraCmpt_ = nullptr;
+}
+
+CameraCmpt *GameObject::GetCameraCmpt()
+{
+    return CameraCmpt_;
+}
+
+void GameObject::InitLightCmpt()
+{
+    MIKASA_ASSERT(LightCmpt_ == nullptr);
+    LightCmpt_ = new LightCmpt(this);
+}
+
+void GameObject::UnInitLightCmpt()
+{
+    MIKASA_ASSERT(LightCmpt_ != nullptr);
+    delete LightCmpt_;
+    LightCmpt_ = nullptr;
+}
+
+LightCmpt *GameObject::GetLightCmpt()
+{
+    return LightCmpt_;
+}
+
+
 
 
