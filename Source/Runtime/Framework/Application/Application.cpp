@@ -16,6 +16,8 @@ using namespace mikasa::Runtime::Framework;
 using namespace mikasa::Runtime::Module;
 using namespace mikasa::Runtime::Foundation;
 
+ApplicationInitParam Application::Param;
+
 void Application::Init(const ApplicationInitParam& info)
 {
 

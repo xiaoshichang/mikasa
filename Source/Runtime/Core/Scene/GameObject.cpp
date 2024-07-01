@@ -2,6 +2,7 @@
 #include "GameObject.h"
 
 #include <utility>
+#include "Scene.h"
 #include "Runtime/Foundation/Foundation.h"
 
 using namespace mikasa::Runtime::Core;
@@ -23,6 +24,10 @@ GameObject::~GameObject()
     {
         UnInitCameraCmpt();
     }
+    if (LightCmpt_ != nullptr)
+    {
+        UnInitLightCmpt();
+    }
 }
 
 Scene *GameObject::GetScene() const
@@ -33,52 +38,6 @@ Scene *GameObject::GetScene() const
 const std::string &GameObject::GetName() const
 {
     return Name_;
-}
-
-Vector3f GameObject::GetPosition() const
-{
-    return Position_;
-}
-
-void GameObject::SetPosition(Vector3f position)
-{
-    Position_ = position;
-    WorldMatrixDirty_ = true;
-}
-
-Vector3f GameObject::GetScale() const
-{
-    return Scale_;
-}
-
-void GameObject::SetScale(Vector3f scale)
-{
-    Scale_ = scale;
-    WorldMatrixDirty_ = true;
-}
-
-Quaternion GameObject::GetRotation() const
-{
-    return Rotation_;
-}
-
-void GameObject::SetRotation(Quaternion rotation)
-{
-    Rotation_ = rotation;
-    WorldMatrixDirty_ = true;
-}
-
-Matrix4x4f GameObject::GetWorldMatrix()
-{
-    if (WorldMatrixDirty_)
-    {
-        auto r = BuildRotationMatrixFromQuaternion(Rotation_);
-        auto t = BuildTranslationMatrix(Position_);
-        auto s = BuildScalingMatrix(Scale_);
-        WorldMatrix_ = t * s * r;
-        WorldMatrixDirty_ = false;
-    }
-    return WorldMatrix_;
 }
 
 void GameObject::InitStaticMeshRenderCmpt()
@@ -103,11 +62,13 @@ void GameObject::InitCameraCmpt()
 {
     MIKASA_ASSERT(CameraCmpt_ == nullptr);
     CameraCmpt_ = new CameraCmpt(this);
+    Scene_->AddCameraToScene(CameraCmpt_);
 }
 
 void GameObject::UnInitCameraCmpt()
 {
     MIKASA_ASSERT(CameraCmpt_ != nullptr);
+    Scene_->RemoveCameraFromScene(CameraCmpt_);
     delete CameraCmpt_;
     CameraCmpt_ = nullptr;
 }
@@ -133,6 +94,11 @@ void GameObject::UnInitLightCmpt()
 LightCmpt *GameObject::GetLightCmpt()
 {
     return LightCmpt_;
+}
+
+Transform& GameObject::GetTransform()
+{
+    return Transform_;
 }
 
 

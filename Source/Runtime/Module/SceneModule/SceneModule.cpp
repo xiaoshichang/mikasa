@@ -62,12 +62,8 @@ void SceneModule::Update()
 void SceneModule::Render()
 {
     auto scene = Current->GetRenderScene();
-
-    auto vf = std::make_shared<RenderViewInfo>();
-    vf->ClearColor = Vector4f (0.2, 0.3, 0.4, 1.0f);
-    vf->Destination = RenderDevice::RHI->GetBackBufferRTV();
-
-    auto renderer = new SimpleForwardRenderer(scene, vf);
+    auto vf = Current->GetMainCamera()->CreateRenderViewInfo();
+    auto renderer = new SimpleForwardRenderer(scene, vf, RenderDevice::RHI->GetBackBufferRTV());
 
     auto lambda = [renderer]()
     {

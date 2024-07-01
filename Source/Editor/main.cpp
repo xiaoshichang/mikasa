@@ -10,7 +10,9 @@ int main(int argc, char** argv)
     param.LogDir = "Logs";
     param.LogPath = "Logs/Editor.log";
 
+
     WindowsApplication editor;
+    Application::Param = param;
     editor.Init(param);
     editor.Run();
     editor.UnInit();

@@ -18,6 +18,9 @@ namespace mikasa::Runtime::Framework
 
     private:
         bool IsApplicationQuit_ = false;
+
+    public:
+        static ApplicationInitParam Param;
     };
 }
 

@@ -1,5 +1,6 @@
 #pragma once
 #include "Runtime/Foundation/Foundation.h"
+#include "Transform.h"
 #include "Component/StaticMeshRenderCmpt.h"
 #include "Component/CameraCmpt.h"
 #include "Component/LightCmpt.h"
@@ -22,27 +23,12 @@ namespace mikasa::Runtime::Core
         friend class Scene;
         Scene* GetScene() const;
         const std::string& GetName() const;
+        Transform& GetTransform();
 
     private:
         Scene* Scene_ = nullptr;
         std::string Name_;
-
-    ///////////////////////////// transform //////////////////////////////////
-    public:
-        Vector3f GetPosition() const;
-        void SetPosition(Vector3f position);
-        Vector3f GetScale() const;
-        void SetScale(Vector3f scale);
-        Quaternion GetRotation() const;
-        void SetRotation(Quaternion quaternion);
-        Matrix4x4f GetWorldMatrix();
-
-    private:
-        Vector3f Position_ = Vector3f (0, 0, 0);
-        Vector3f Scale_ = Vector3f (1, 1, 1);
-        Quaternion Rotation_ = Quaternion::Identity();
-        bool WorldMatrixDirty_ = true;
-        Matrix4x4f WorldMatrix_ = Matrix4x4f::Identity();
+        Transform Transform_;
 
     ///////////////////////////// StaticMeshRenderCmpt ////////////////////////////
     public:

@@ -19,7 +19,7 @@ StaticMeshRenderCmpt::~StaticMeshRenderCmpt()
 
 void StaticMeshRenderCmpt::InitRenderThreadPart()
 {
-    RenderProxy_ = std::make_shared<StaticMeshRenderProxy>(Owner_->GetWorldMatrix());
+    RenderProxy_ = std::make_shared<StaticMeshRenderProxy>(Owner_->GetTransform().GetWorldMatrix());
     auto proxy = RenderProxy_;
     auto scene = Owner_->GetScene()->GetRenderScene();
     auto lambda = [=]()

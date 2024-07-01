@@ -11,6 +11,7 @@ int main(int argc, char** argv)
     param.LogDir = "Logs";
 
     WindowsApplication player;
+    Application::Param = param;
     player.Init(param);
     player.Run();
     player.UnInit();
