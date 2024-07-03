@@ -14,6 +14,7 @@ namespace mikasa::Runtime::Core
         void SetScale(Vector3f scale);
         Quaternion GetRotation() const;
         void SetRotation(Quaternion quaternion);
+        void LookAt(Vector3f target, Vector3f up);
         Matrix4x4f GetWorldMatrix();
 
         Vector3f Forward();

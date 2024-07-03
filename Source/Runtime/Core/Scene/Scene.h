@@ -19,7 +19,8 @@ namespace mikasa::Runtime::Core
 
         void AddCameraToScene(CameraCmpt* camera);
         void RemoveCameraFromScene(CameraCmpt* camera);
-        CameraCmpt* GetMainCamera();
+
+        const std::vector<CameraCmpt*>& GetAllCameras();
 
         std::shared_ptr<RenderScene> GetRenderScene() { return RenderScene_; }
 

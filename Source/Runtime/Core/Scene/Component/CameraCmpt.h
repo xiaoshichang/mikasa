@@ -1,7 +1,6 @@
 #pragma once
 #include "Component.h"
 #include "Runtime/Foundation/Foundation.h"
-#include "Runtime/Core/Render/Renderer/RenderViewInfo.h"
 
 using namespace mikasa::Runtime::Foundation;
 
@@ -24,13 +23,26 @@ namespace mikasa::Runtime::Core
                float viewHeightInPixel);
 
         Matrix4x4f GetProjectionMatrix();
+        ProjectionType GetProjectionType();
+        void SetProjectionType(ProjectionType pt);
+        float GetNearPlane() const;
+        void SetNearPlane(float value);
+        float GetFarPlane() const;
+        void SetFarPlane(float value);
+        float GetFovInAngle() const;
+        void SetFovInAngle(float value);
+        float GetAspectRatio();
+        float GetViewWidthInPixel() const;
+        void SetViewWidthInPixel(float value);
+        float GetViewHeightInPixel() const;
+        void SetViewHeightInPixel(float value);
+
 
     private:
         ProjectionType ProjectionType_ = ProjectionType::Perspective;
         float NearPlane_;
         float FarPlane_;
         float FovInAngle_;
-        float AspectRatio_;
         float ViewWidthInPixel_;
         float ViewHeightInPixel_;
         bool ProjectionMatrixDirty_ = true;
@@ -45,7 +57,6 @@ namespace mikasa::Runtime::Core
         ~CameraCmpt() override;
         Camera* GetCamera();
         Matrix4x4f GetViewMatrix();
-        std::shared_ptr<RenderViewInfo> CreateRenderViewInfo();
 
 
     private:

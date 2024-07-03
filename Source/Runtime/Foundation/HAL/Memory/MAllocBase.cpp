@@ -7,24 +7,24 @@ MallocBase* MallocOperation::GlobalAllocator = nullptr;
 
 void *MallocOperation::operator new(size_t size)
 {
-    MIKASA_ASSERT(nullptr != nullptr);
+    MIKASA_ASSERT(GlobalAllocator != nullptr);
     return GlobalAllocator->Malloc(size);
 }
 
 void MallocOperation::operator delete(void *origin)
 {
-    MIKASA_ASSERT(nullptr != nullptr);
+    MIKASA_ASSERT(GlobalAllocator != nullptr);
     GlobalAllocator->Free(origin);
 }
 
 void *MallocOperation::operator new[](size_t size)
 {
-    MIKASA_ASSERT(nullptr != nullptr);
+    MIKASA_ASSERT(GlobalAllocator != nullptr);
     return GlobalAllocator->Malloc(size);
 }
 
 void MallocOperation::operator delete[](void *origin)
 {
-    MIKASA_ASSERT(nullptr != nullptr);
+    MIKASA_ASSERT(GlobalAllocator != nullptr);
     GlobalAllocator->Free(origin);
 }

@@ -4,22 +4,30 @@
 
 using namespace mikasa::Runtime::Core;
 
-Renderer::Renderer(const std::shared_ptr<RenderScene>& scene,
-                   const std::shared_ptr<RenderViewInfo>& vf,
-                   RHIRenderTargetView* backBuffer)
+Renderer::Renderer(const std::shared_ptr<RenderScene>& scene, const std::shared_ptr<RenderViewFamily>& vf)
     : RenderScene_(scene)
-    , ViewInfo_(vf)
-    , BackBuffer_(backBuffer)
+    , ViewFamily_(vf)
 {
     MIKASA_ASSERT(scene != nullptr);
     MIKASA_ASSERT(vf != nullptr);
-    MIKASA_ASSERT(BackBuffer_ != nullptr);
 }
 
 Renderer::~Renderer()
 {
     RenderScene_.reset();
-    ViewInfo_.reset();
+    ViewFamily_.reset();
+}
+
+void Renderer::Render()
+{
+    ViewFamily_->InitRHIResource();
+
+    RenderDevice::RHI->ClearRenderTarget(ViewFamily_->RenderTarget, ViewFamily_->ClearColor);
+
+    for(auto& view : ViewFamily_->Views)
+    {
+        RenderSingleView(view);
+    }
 }
 
 

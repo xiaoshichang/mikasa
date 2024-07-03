@@ -19,7 +19,6 @@ Camera::Camera(ProjectionType projectionType,
        , FovInAngle_(fovInAngle)
        , ViewHeightInPixel_(viewHeightInPixel)
        , ViewWidthInPixel_(viewWidthInPixel)
-       , AspectRatio_(viewWidthInPixel / viewHeightInPixel)
 {
 }
 
@@ -30,7 +29,8 @@ Matrix4x4f Camera::GetProjectionMatrix()
         if (ProjectionType_ == ProjectionType::Perspective)
         {
             auto fovInRadius = FovInAngle_ / 360 * PI;
-            ProjectionMatrix_ = MatrixPerspectiveFovLH01(fovInRadius, AspectRatio_, NearPlane_, FarPlane_);
+            auto aspectRatio = ViewWidthInPixel_ / ViewHeightInPixel_;
+            ProjectionMatrix_ = MatrixPerspectiveFovLH01(fovInRadius, aspectRatio, NearPlane_, FarPlane_);
         }
         else if (ProjectionType_ == ProjectionType::Orthographic)
         {
@@ -45,6 +45,71 @@ Matrix4x4f Camera::GetProjectionMatrix()
     return ProjectionMatrix_;
 }
 
+ProjectionType Camera::GetProjectionType()
+{
+    return ProjectionType_;
+}
+
+void Camera::SetProjectionType(ProjectionType pt)
+{
+    ProjectionType_ = pt;
+    ProjectionMatrixDirty_ = true;
+}
+
+float Camera::GetNearPlane() const
+{
+    return NearPlane_;
+}
+
+void Camera::SetNearPlane(float value)
+{
+    NearPlane_ = value;
+    ProjectionMatrixDirty_ = true;
+}
+
+float Camera::GetFarPlane() const
+{
+    return FarPlane_;
+}
+
+void Camera::SetFarPlane(float value)
+{
+    FarPlane_ = value;
+    ProjectionMatrixDirty_ = true;
+}
+
+float Camera::GetFovInAngle() const
+{
+    return FovInAngle_;
+}
+
+void Camera::SetFovInAngle(float value)
+{
+    FovInAngle_ = value;
+    ProjectionMatrixDirty_ = true;
+}
+
+float Camera::GetViewWidthInPixel() const
+{
+    return ViewWidthInPixel_;
+}
+
+void Camera::SetViewWidthInPixel(float value)
+{
+    ViewWidthInPixel_ = value;
+    ProjectionMatrixDirty_ = true;
+}
+
+float Camera::GetViewHeightInPixel() const
+{
+    return ViewHeightInPixel_;
+}
+
+void Camera::SetViewHeightInPixel(float value)
+{
+    ViewHeightInPixel_ = value;
+    ProjectionMatrixDirty_ = true;
+}
 
 
 CameraCmpt::CameraCmpt(GameObject *owner) : Component(owner)
@@ -76,19 +141,6 @@ Matrix4x4f CameraCmpt::GetViewMatrix()
     auto eye = transform.GetPosition();
     auto focus = eye + transform.Forward();
     auto up = transform.Up();
-    auto viewMatrix = MatrixLookAtLH(eye, focus, up);
+    auto viewMatrix = MatrixLookAtLH(eye, Vector3f (0, 0, 0), up);
     return viewMatrix;
 }
-
-std::shared_ptr<RenderViewInfo> CameraCmpt::CreateRenderViewInfo()
-{
-    MIKASA_ASSERT(Camera_ != nullptr);
-    std::shared_ptr<RenderViewInfo> rvi = std::make_shared<RenderViewInfo>();
-    rvi->ViewMatrix = GetViewMatrix();
-    rvi->ProjectionMatrix = Camera_->GetProjectionMatrix();
-    rvi->ClearColor = Vector4f(0.2, 0.3, 0.4, 1.0);
-    return rvi;
-}
-
-
-

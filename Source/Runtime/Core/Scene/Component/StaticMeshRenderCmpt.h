@@ -1,5 +1,5 @@
 #pragma once
-#include "Runtime/Core/Render/Renderer/StaticMeshRenderProxy.h"
+#include "Runtime/Core/Render/Renderer/Mesh/StaticMeshRenderProxy.h"
 #include "Component.h"
 #include <memory>
 

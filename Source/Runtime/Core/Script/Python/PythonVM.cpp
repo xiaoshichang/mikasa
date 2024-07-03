@@ -1,23 +1,25 @@
 
 #include "PythonVM.h"
-#include "Runtime/Foundation/Console/Console.h"
-#include <boost/filesystem.hpp>
-
+#include "Runtime/Foundation/Foundation.h"
 #include "Runtime/ScriptExport/Python/MLogger.h"
 #include "Runtime/ScriptExport/Python/IORedirect.h"
 #include "Runtime/ScriptExport/Python/MScene.h"
 
+#include <boost/filesystem.hpp>
+
 using namespace mikasa::Runtime::Core;
-
-
-
+using namespace mikasa::Runtime::Foundation;
 
 PythonVM::PythonVM()
 {
     SetupPythonHome();
     SetupBuildEngineModules();
     Py_Initialize();
+    Logger::Debug("PythonVM Py_Initialize Ok.");
+
+#ifdef MIKASA_BUILDTYPE_DEBUG
     RedirectIO();
+#endif
 }
 
 void PythonVM::EvaluateString(const std::string &input)
@@ -56,7 +58,7 @@ void PythonVM::SetupBuildEngineModules()
 }
 
 
-
+#ifdef MIKASA_BUILDTYPE_DEBUG
 void PythonVM::RedirectIO()
 {
     const char* code =
@@ -68,4 +70,5 @@ sys.stderr = IORedirect.StderrRedirect()
 )";
     PyRun_SimpleString(code);
 }
+#endif
 

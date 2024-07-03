@@ -13,7 +13,6 @@ namespace mikasa::Runtime::Module
         static void Init();
         static void UnInit();
         static void Update();
-        static void Render();
 
     public:
         static void SyncLoadScene(const std::string& path);

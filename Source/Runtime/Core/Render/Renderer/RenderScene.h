@@ -1,12 +1,17 @@
 #pragma once
 #include <memory>
 #include <list>
-#include "StaticMeshRenderProxy.h"
-#include "Light/LightRenderProxy.h"
 
 namespace mikasa::Runtime::Core
 {
 
+    class StaticMeshRenderProxy;
+    class LightRenderProxy;
+
+    /**
+     * "scene" on render thread.
+     * all function should be call on render thread.
+     */
     class RenderScene
     {
     public:
@@ -14,6 +19,9 @@ namespace mikasa::Runtime::Core
         void RemoveStaticMeshRenderProxy(const std::shared_ptr<StaticMeshRenderProxy>& proxy);
         void AddLightRenderProxy(const std::shared_ptr<LightRenderProxy>& proxy);
         void RemoveLightRenderProxy(const std::shared_ptr<LightRenderProxy>& proxy);
+
+    public:
+        std::list<std::shared_ptr<StaticMeshRenderProxy>>& GetAllStaticMeshRenderProxies();
 
     private:
         std::list<std::shared_ptr<StaticMeshRenderProxy>> StaticMeshRenderProxies_;

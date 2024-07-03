@@ -18,7 +18,10 @@ namespace mikasa::Runtime::Core
          */
         static void SetupPythonHome();
         static void SetupBuildEngineModules();
+
+#ifdef MIKASA_BUILDTYPE_DEBUG
         static void RedirectIO();
+#endif
 
 
     };

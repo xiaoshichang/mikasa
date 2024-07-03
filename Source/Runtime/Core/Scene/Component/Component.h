@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../Transform.h"
+
 namespace mikasa::Runtime::Core
 {
     class GameObject;
@@ -15,6 +17,8 @@ namespace mikasa::Runtime::Core
         {
             Owner_ = nullptr;
         }
+
+        Transform& GetTransform();
 
     protected:
         GameObject* Owner_;

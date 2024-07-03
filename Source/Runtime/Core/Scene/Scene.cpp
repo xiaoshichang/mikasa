@@ -51,12 +51,8 @@ void Scene::RemoveCameraFromScene(CameraCmpt *camera)
     erase(Cameras_, camera);
 }
 
-CameraCmpt* Scene::GetMainCamera()
+const std::vector<CameraCmpt *>& Scene::GetAllCameras()
 {
-    if (Cameras_.empty())
-    {
-        return nullptr;
-    }
-    return Cameras_[0];
+    return Cameras_;
 }
 

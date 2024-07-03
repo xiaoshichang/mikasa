@@ -139,6 +139,33 @@ namespace mikasa::Runtime::Foundation
             return FromRollPitchYawLH(-pitch, -yaw, -roll);
         }
 
+        // https://d3cw3dd2w32x2b.cloudfront.net/wp-content/uploads/2015/01/matrix-to-quat.pdf
+        inline static Quaternion FromRotationMatrix(Matrix4x4f m)
+        {
+
+            float trace = m[0][0] + m[1][1] + m[2][2];
+            if (trace > 0.0f)
+            {
+                float k = 0.5f / sqrt(1.0f + trace);
+                return { k * (m[1][2] - m[2][1]), k * (m[2][0] - m[0][2]), k * (m[0][1] - m[1][0]), 0.25f / k };
+            }
+            else if ((m[0][0] > m[1][1]) && (m[0][0] > m[2][2]))
+            {
+                float k = 0.5f / sqrt(1.0f + m[0][0] - m[1][1] - m[2][2]);
+                return { 0.25f / k, k * (m[1][0] + m[0][1]), k * (m[2][0] + m[0][2]), k * (m[1][2] - m[2][1]) };
+            }
+            else if (m[1][1] > m[2][2])
+            {
+                float k = 0.5f / sqrt(1.0f + m[1][1] - m[0][0] - m[2][2]);
+                return { k * (m[1][0] + m[0][1]), 0.25f / k, k * (m[2][1] + m[1][2]), k * (m[2][0] - m[0][2]) };
+            }
+            else
+            {
+                float k = 0.5f / sqrt(1.0f + m[2][2] - m[0][0] - m[1][1]);
+                return { k * (m[2][0] + m[0][2]), k * (m[2][1] + m[1][2]), 0.25f / k, k * (m[0][1] - m[1][0]) };
+            }
+        }
+
     };
 }
 

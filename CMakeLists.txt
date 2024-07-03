@@ -8,6 +8,7 @@ include(Cmake/SetupPlatformDefs.cmake)
 include(Cmake/SetupProjectVars.cmake)
 include(Cmake/SetupPythonLibrary.cmake)
 include(Cmake/SetupThirdPartyLibraries.cmake)
+include(Cmake/Utils.cmake)
 
 # include CTest in root toolchain.macos.cmake
 include(CTest)

@@ -43,6 +43,8 @@ void SceneModule::DoSyncLoadScene(const std::string &path)
     light->InitLightCmpt();
 
     auto camera = scene->CreateGameObject("camera");
+    camera->GetTransform().SetPosition(Vector3f(-10, 10, -10));
+    camera->GetTransform().LookAt(Vector3f (0, 0, 0), Vector3f (0, 1, 0));
     camera->InitCameraCmpt();
 
     Current = scene;
@@ -59,18 +61,5 @@ void SceneModule::Update()
 {
 }
 
-void SceneModule::Render()
-{
-    auto scene = Current->GetRenderScene();
-    auto vf = Current->GetMainCamera()->CreateRenderViewInfo();
-    auto renderer = new SimpleForwardRenderer(scene, vf, RenderDevice::RHI->GetBackBufferRTV());
-
-    auto lambda = [renderer]()
-    {
-        renderer->Render();
-        delete renderer;
-    };
-    ENQUEUE_LAMBDA_RENDER_COMMAND(lambda);
-}
 
 

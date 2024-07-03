@@ -12,6 +12,7 @@ ScriptVM* ScriptModule::VM_ = nullptr;
 
 void ScriptModule::Init(const ApplicationInitParam& info)
 {
+    Logger::Info("ScriptModule Init.");
     VM_ = new PythonVM();
     Logger::Info("ScriptModule Init ok.");
 }

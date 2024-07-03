@@ -1,26 +1,27 @@
 #pragma once
 #include <memory>
-#include "RenderViewInfo.h"
 #include "RenderScene.h"
-#include "Runtime/Core/Render/RenderDevice/RHI/RHIRenderTargetView.h"
-
+#include "View/RenderViewFamily.h"
+#include "View/RenderView.h"
 
 namespace mikasa::Runtime::Core
 {
+    struct RenderSingleViewContext
+    {
+        std::shared_ptr<RenderView> RenderView;
+    };
+
 
     class Renderer
     {
     public:
-        explicit Renderer(const std::shared_ptr<RenderScene>& scene,
-                          const std::shared_ptr<RenderViewInfo>& vf,
-                          RHIRenderTargetView* backBuffer);
-
+        explicit Renderer(const std::shared_ptr<RenderScene>& scene, const std::shared_ptr<RenderViewFamily>& rvf);
         virtual ~Renderer();
-        virtual void Render() = 0;
+        virtual void RenderSingleView(const std::shared_ptr<RenderView>& view) = 0;
+        void Render();
 
     protected:
-         std::shared_ptr<RenderViewInfo> ViewInfo_;
+         std::shared_ptr<RenderViewFamily> ViewFamily_;
          std::shared_ptr<RenderScene> RenderScene_;
-         RHIRenderTargetView* BackBuffer_;
     };
 }

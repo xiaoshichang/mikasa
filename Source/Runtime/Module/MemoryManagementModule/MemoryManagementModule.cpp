@@ -8,6 +8,7 @@ using namespace mikasa::Runtime::Foundation;
 
 void MemoryManagementModule::Init(const ApplicationInitParam &info)
 {
+    Logger::Info("MemoryManagementModule Init.");
     MallocOperation::GlobalAllocator = new MAllocAsic();
 }
 

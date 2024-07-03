@@ -28,3 +28,8 @@ void RenderScene::RemoveLightRenderProxy(const std::shared_ptr<LightRenderProxy>
     LightRenderProxies_.remove(proxy);
     Logger::Info("RemoveLightRenderProxy");
 }
+
+std::list<std::shared_ptr<StaticMeshRenderProxy>>& RenderScene::GetAllStaticMeshRenderProxies()
+{
+    return StaticMeshRenderProxies_;
+}

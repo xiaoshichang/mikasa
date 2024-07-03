@@ -1,6 +1,7 @@
 #include <format>
 #include "Application.h"
 #include "Runtime/Framework/MainWindow/MainWindow.h"
+#include "Runtime/Framework/GameViewClient/GameViewClient.h"
 #include "Runtime/Foundation/Console/Console.h"
 
 #include "Runtime/Module/SystemInfoModule/SystemInfoModule.h"
@@ -55,7 +56,7 @@ void Application::Run()
         ScriptModule::ConsumeConsoleInput();
 #endif
         SceneModule::Update();
-        SceneModule::Render();
+        GameViewClient::Present();
 
         RenderThreadFrameSync::Sync();
     }

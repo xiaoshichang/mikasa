@@ -1,6 +1,7 @@
 
 #include "StaticMeshRenderCmpt.h"
 #include "Runtime/Core/Render/RenderDevice/RenderDevice.h"
+#include "Runtime/Core/Render/RenderDevice/RenderResource/StaticMesh.h"
 #include "../GameObject.h"
 #include "../Scene.h"
 
@@ -19,7 +20,8 @@ StaticMeshRenderCmpt::~StaticMeshRenderCmpt()
 
 void StaticMeshRenderCmpt::InitRenderThreadPart()
 {
-    RenderProxy_ = std::make_shared<StaticMeshRenderProxy>(Owner_->GetTransform().GetWorldMatrix());
+    auto mesh = std::make_shared<StaticMesh>("");
+    RenderProxy_ = std::make_shared<StaticMeshRenderProxy>(Owner_->GetTransform().GetWorldMatrix(), mesh);
     auto proxy = RenderProxy_;
     auto scene = Owner_->GetScene()->GetRenderScene();
     auto lambda = [=]()

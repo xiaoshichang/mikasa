@@ -36,6 +36,13 @@ void Transform::SetRotation(Quaternion rotation)
     WorldMatrixDirty_ = true;
 }
 
+void Transform::LookAt(Vector3f target, Vector3f up)
+{
+    auto rotation = MatrixLookAtLH(Position_, target, up);
+    Rotation_ = Quaternion::FromRotationMatrix(rotation);
+    WorldMatrixDirty_ = true;
+}
+
 Matrix4x4f Transform::GetWorldMatrix()
 {
     if (WorldMatrixDirty_)
@@ -64,3 +71,5 @@ Vector3f Transform::Up()
     auto worldForward = r.TransformVector(localForward);
     return worldForward;
 }
+
+
