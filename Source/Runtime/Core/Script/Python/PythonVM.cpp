@@ -42,10 +42,17 @@ void PythonVM::EvaluateString(const std::string &input)
 
 void PythonVM::SetupPythonHome()
 {
-    boost::filesystem::path full_path(boost::filesystem::current_path());
-    boost::filesystem::path python_home = full_path / ".." / ".." / ".." / "ThirdPartySource" / "python" / "Python-3.12.3";
-    std::string ev = "PYTHONHOME=" + python_home.string();
-    _putenv(ev.c_str());
+    const char* mikasaPythonRootName = "MIKASA_PYTHON_HOME";
+    if (const char* mikasa_python_root = getenv(mikasaPythonRootName))
+    {
+        std::string ev = std::string("PYTHONHOME=") + std::string(mikasa_python_root);
+        _putenv(ev.c_str());
+    }
+    else
+    {
+        Logger::Error("env variable MIKASA_PYTHON_HOME should be set.");
+        MIKASA_ASSERT(false);
+    }
 }
 
 void PythonVM::SetupBuildEngineModules()

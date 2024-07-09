@@ -1,0 +1,7 @@
+message(STATUS "============= Setup Dependency Libraries Root Paths ============")
+
+set(BOOST_ROOT <point to boost root> )
+message(STATUS "BOOST_ROOT: ${BOOST_ROOT}")
+
+set(PYTHON_ROOT <point to python root> )
+message(STATUS "PYTHON_ROOT: ${PYTHON_ROOT}")

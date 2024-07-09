@@ -21,7 +21,7 @@ BOOST_PYTHON_MODULE(FooModule)
 int main()
 {
     boost::filesystem::path full_path(boost::filesystem::current_path());
-    boost::filesystem::path python_home = full_path / ".." / ".." / ".." / "ThirdPartySource" / "python" / "Python-3.12.3";
+    boost::filesystem::path python_home = full_path / ".." / ".." / ".." / "ThirdPartySource" / "python" / "Python-3.12.4";
     std::string ev = "PYTHONHOME=" + python_home.string();
     _putenv(ev.c_str());
 
