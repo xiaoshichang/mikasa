@@ -14,6 +14,9 @@ include(Cmake/Utils.cmake)
 # include CTest in root toolchain.macos.cmake
 include(CTest)
 
+# add and build imgui
+add_subdirectory(ThirdPartySource/imgui-1.90.9)
+
 include_directories(Source)
 add_subdirectory(Source)
 

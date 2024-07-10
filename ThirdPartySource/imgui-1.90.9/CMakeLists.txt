@@ -1,0 +1,13 @@
+SET(ImguiSrc imgui.cpp)
+list(APPEND ImguiSrc imgui_demo.cpp)
+list(APPEND ImguiSrc imgui_draw.cpp)
+list(APPEND ImguiSrc imgui_tables.cpp)
+list(APPEND ImguiSrc imgui_widgets.cpp)
+
+if (${MIKASA_TARGET_PLATFORM} STREQUAL ${TARGET_PLATFORM_Windows64})
+    list(APPEND ImguiSrc backends/imgui_impl_win32.cpp)
+    list(APPEND ImguiSrc backends/imgui_impl_dx11.cpp)
+    add_library(Imgui STATIC ${ImguiSrc})
+    target_include_directories(Imgui PUBLIC ${ThirdPartySourceRoot}/imgui-1.90.9)
+    target_link_libraries(Imgui dxgi)
+endif()
