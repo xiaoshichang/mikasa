@@ -64,6 +64,10 @@ namespace mikasa::Runtime::Core
                                                                     const std::shared_ptr<RHIPixelShader>& ps) override;
 
 
+    public:
+        ID3D11Device* GetDevice() { return Device_; }
+        ID3D11DeviceContext* GetDeviceContext() { return Context_; }
+
     private:
         ID3D11Device* Device_ = nullptr;
         ID3D11DeviceContext* Context_ = nullptr;

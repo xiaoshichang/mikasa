@@ -30,9 +30,16 @@ void Application::Run()
 {
     while (!IsApplicationQuit_)
     {
+        StartFrame();
+
         PreUpdate();
         Update();
         PostUpdate();
+
+        Render();
+        AfterRender();
+
+        EndFrame();
     }
 }
 
@@ -50,9 +57,14 @@ void Application::RequestQuit()
     IsApplicationQuit_ = true;
 }
 
-void Application::PreUpdate()
+void Application::StartFrame()
 {
     DispatchOSMessage();
+}
+
+void Application::PreUpdate()
+{
+
 }
 
 void Application::Update()
@@ -66,6 +78,24 @@ void Application::Update()
 
 void Application::PostUpdate()
 {
-    GameViewClient::Present();
+}
+
+void Application::Render()
+{
+    GameViewClient::Render();
+    auto lambda = []()
+    {
+        RenderDevice::RHI->Present();
+    };
+    ENQUEUE_LAMBDA_RENDER_COMMAND(lambda);
+}
+
+void Application::AfterRender()
+{
+
+}
+
+void Application::EndFrame()
+{
     RenderThreadFrameSync::Sync();
 }

@@ -15,6 +15,7 @@ include(Cmake/Utils.cmake)
 include(CTest)
 
 # add and build imgui
+include_directories(${ThirdPartySourceRoot}/imgui)
 add_subdirectory(ThirdPartySource/imgui)
 
 include_directories(Source)

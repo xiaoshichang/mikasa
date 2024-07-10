@@ -1,5 +1,7 @@
 #include "Runtime/Framework/Application/Platform/Windows/WindowsApplication.h"
+#include "Editor/WindowsEditor/WindowsEditor.h"
 
+using namespace mikasa::Editor;
 using namespace mikasa::Runtime::Framework;
 
 int main(int argc, char** argv)
@@ -11,7 +13,7 @@ int main(int argc, char** argv)
     param.LogPath = "Logs/Editor.log";
 
 
-    WindowsApplication editor;
+    WindowsEditor editor;
     Application::Param = param;
     editor.Init(param);
     editor.Run();

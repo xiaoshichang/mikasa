@@ -63,7 +63,7 @@ while (true)
     ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 
     // Swap
-    g_pSwapChain->Present(1, 0);
+    g_pSwapChain->Render(1, 0);
 }
 
 // Shutdown

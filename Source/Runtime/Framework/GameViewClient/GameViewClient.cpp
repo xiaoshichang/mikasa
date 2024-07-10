@@ -7,7 +7,7 @@
 using namespace mikasa::Runtime::Framework;
 using namespace mikasa::Runtime::Module;
 
-void GameViewClient::Present()
+void GameViewClient::Render()
 {
     auto scene = SceneModule::Current->GetRenderScene();
     auto viewFamily = BuildRenderViewFamily();
@@ -17,11 +17,8 @@ void GameViewClient::Present()
     {
         renderer->Render();
         delete renderer;
-        RenderDevice::RHI->Present();
     };
     ENQUEUE_LAMBDA_RENDER_COMMAND(lambda);
-
-
 }
 
 std::shared_ptr<RenderViewFamily> GameViewClient::BuildRenderViewFamily()

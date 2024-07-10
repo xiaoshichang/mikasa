@@ -10,7 +10,7 @@ namespace mikasa::Runtime::Framework
     class GameViewClient
     {
     public:
-        static void Present();
+        static void Render();
 
     private:
         static std::shared_ptr<RenderViewFamily> BuildRenderViewFamily();
