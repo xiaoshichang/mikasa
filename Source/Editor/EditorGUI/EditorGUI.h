@@ -2,6 +2,7 @@
 
 #include "imgui.h"
 #include <memory>
+#include <windows.h>
 
 namespace mikasa::Editor
 {
@@ -12,9 +13,8 @@ namespace mikasa::Editor
         static void StartFrame();
         static void EndFrame();
         static void Render();
-
         static void DrawDemoWindow();
-
+        static bool InstanceWndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
     private:
         static std::shared_ptr<ImDrawData> CopyDrawDataForRender(const ImDrawData* data);

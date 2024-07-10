@@ -46,3 +46,13 @@ WindowHandler MainWindow::GetWindowHandler()
     return Instance_->GetInternalWindowHandler();
 }
 
+MainWindow *MainWindow::Instance()
+{
+    return Instance_;
+}
+
+Application *MainWindow::GetApplication()
+{
+    return Application_;
+}
+

@@ -25,6 +25,8 @@ namespace mikasa::Runtime::Framework
         static void UnInit();
         static MainWindow* CreatePlatformIndependentMainWindow(Application *application, const ApplicationInitParam& info);
         static WindowHandler GetWindowHandler();
+        static MainWindow* Instance();
+        Application* GetApplication();
 
     private:
         static MainWindow* Instance_;

@@ -89,6 +89,17 @@ void RHIDX11::CreateSwapChain(const ApplicationInitParam& param, const WindowHan
 
     // set up the swap chain description
     DXGI_SWAP_CHAIN_DESC1 scd = {0};
+    if(param.EditorMode)
+    {
+        scd.Width = 0;
+        scd.Height = 0;
+    }
+    else
+    {
+        scd.Width = param.WindowWidth;
+        scd.Height = param.WindowHeight;
+    }
+
     scd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;    // how the swap chain should be used
     scd.BufferCount = 2;                                  // a front buffer and a back buffer
     scd.Format = DXGI_FORMAT_B8G8R8A8_UNORM;              // the most common swap chain format

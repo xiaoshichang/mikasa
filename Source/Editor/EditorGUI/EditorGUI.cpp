@@ -1,5 +1,4 @@
 
-#include "EditorGUI.h"
 #include "Runtime/Framework/Application/Application.h"
 #include "Runtime/Framework/MainWindow/MainWindow.h"
 #include "Runtime/Core/Render/RenderDevice/RenderDevice.h"
@@ -7,6 +6,7 @@
 
 #include "backends/imgui_impl_win32.h"
 #include "backends/imgui_impl_dx11.h"
+#include "EditorGUI.h"
 
 using namespace mikasa::Editor;
 using namespace mikasa::Runtime::Framework;
@@ -150,6 +150,14 @@ void EditorGUI::ReleaseDrawDataAfterRender(const std::shared_ptr<ImDrawData> &da
         IM_FREE(drawList);
     }
     data->Clear();
+}
+
+extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+bool EditorGUI::InstanceWndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
+{
+    if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))
+        return true;
+    return false;
 }
 
 

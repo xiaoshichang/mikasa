@@ -1,6 +1,7 @@
 #if MIKASA_TARGET_PLATFORM_Window
 
 #include "MainWindowWin.h"
+#include "../../../Application/Platform/Windows/WindowsApplication.h"
 
 using namespace mikasa::Runtime::Framework;
 
@@ -56,18 +57,7 @@ MainWindowWin::MainWindowWin(Application* application, const ApplicationInitPara
 
 LRESULT MainWindowWin::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-    switch (msg)
-    {
-        case WM_DESTROY:
-        {
-            ::PostQuitMessage(0);
-            return 0;
-        }
-        default:
-        {
-            return ::DefWindowProcW(hWnd, msg, wParam, lParam);
-        }
-    }
+    return WindowsApplication::GlobalWndProcHandler(hWnd, msg, wParam, lParam);
 }
 
 MainWindowWin::~MainWindowWin()

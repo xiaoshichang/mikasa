@@ -15,6 +15,7 @@ namespace mikasa::Editor
         void StartFrame() override;
         void Render() override;
         void EndFrame() override;
+        LRESULT InstanceWndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) override;
 
 
     };

@@ -38,4 +38,13 @@ void WindowsEditor::EndFrame()
     Application::EndFrame();
 }
 
+LRESULT WindowsEditor::InstanceWndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
+{
+    if (EditorGUI::InstanceWndProcHandler(hWnd, msg, wParam, lParam))
+    {
+        return true;
+    }
+    return WindowsApplication::InstanceWndProcHandler(hWnd, msg, wParam, lParam);
+}
+
 
