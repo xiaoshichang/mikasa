@@ -6,4 +6,6 @@ add_subdirectory(TestBoostPython)
 
 if (${MIKASA_TARGET_PLATFORM} STREQUAL ${TARGET_PLATFORM_Windows64})
     add_subdirectory(TestDX11)
+    add_subdirectory(TestImgui)
 endif ()
+
