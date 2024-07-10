@@ -1,3 +1,4 @@
+#ifdef MIKASA_TARGET_PLATFORM_Window
 
 #include "RHIShaderDX11.h"
 #include <d3dcompiler.h>
@@ -173,3 +174,4 @@ ID3D11PixelShader *RHIPixelShaderDX11::GetInternal()
 }
 
 
+#endif

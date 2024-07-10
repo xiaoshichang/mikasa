@@ -1,3 +1,4 @@
+#ifdef MIKASA_TARGET_PLATFORM_Window
 #pragma once
 #include "../RHIBoundShaderState.h"
 #include "RHIVertexDeclarationDX11.h"
@@ -25,3 +26,4 @@ namespace mikasa::Runtime::Core
         std::shared_ptr<RHIPixelShaderDX11> PixelShader_;
     };
 }
+#endif

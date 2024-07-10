@@ -1,3 +1,5 @@
+#ifdef MIKASA_TARGET_PLATFORM_Window
+
 #pragma once
 #include "../RHIShader.h"
 #include "Runtime/Foundation/Foundation.h"
@@ -41,3 +43,4 @@ namespace mikasa::Runtime::Core
     };
 }
 
+#endif

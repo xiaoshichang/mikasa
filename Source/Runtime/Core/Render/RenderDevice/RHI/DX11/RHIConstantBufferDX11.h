@@ -1,3 +1,5 @@
+#ifdef MIKASA_TARGET_PLATFORM_Window
+
 #pragma once
 #include "../RHIConstantBuffer.h"
 #include "../RHICommon.h"
@@ -17,3 +19,4 @@ namespace mikasa::Runtime::Core
     };
 }
 
+#endif

@@ -1,3 +1,5 @@
+#ifdef MIKASA_TARGET_PLATFORM_Window
+
 #pragma once
 
 #include "../RHIVertexDeclaration.h"
@@ -21,3 +23,4 @@ namespace mikasa::Runtime::Core
     };
 }
 
+#endif

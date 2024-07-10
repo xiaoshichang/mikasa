@@ -1,3 +1,4 @@
+#ifdef MIKASA_TARGET_PLATFORM_Window
 
 #include "RHIConstantBufferDX11.h"
 
@@ -34,3 +35,5 @@ ID3D11Buffer *RHIConstantBufferDX11::GetInternal() const
 {
     return Buffer_;
 }
+
+#endif

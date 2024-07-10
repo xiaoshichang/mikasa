@@ -1,3 +1,4 @@
+#ifdef MIKASA_TARGET_PLATFORM_Window
 
 #include "RHIRenderTargetViewDX11.h"
 
@@ -16,3 +17,5 @@ RHIRenderTargetViewDX11::~RHIRenderTargetViewDX11()
     RTV_->Release();
     RTV_ = nullptr;
 }
+
+#endif

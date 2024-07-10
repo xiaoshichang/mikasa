@@ -1,3 +1,5 @@
+#ifdef MIKASA_TARGET_PLATFORM_Window
+
 #pragma once
 #include "Runtime/Core/Render/RenderDevice/RHI/RHIRenderTargetView.h"
 #include <d3d11.h>
@@ -16,5 +18,7 @@ namespace mikasa::Runtime::Core
         ID3D11RenderTargetView* RTV_ = nullptr;
     };
 }
+
+#endif
 
 

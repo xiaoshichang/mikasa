@@ -1,3 +1,5 @@
+#ifdef MIKASA_TARGET_PLATFORM_Window
+
 #include "RHIVertexDeclarationDX11.h"
 
 using namespace mikasa::Runtime::Core;
@@ -42,3 +44,5 @@ std::vector<D3D11_INPUT_ELEMENT_DESC> &RHIVertexDeclarationDX11::GetElements()
 {
     return Elements_;
 }
+
+#endif

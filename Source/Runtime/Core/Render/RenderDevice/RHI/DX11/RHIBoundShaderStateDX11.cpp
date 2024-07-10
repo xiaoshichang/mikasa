@@ -1,3 +1,4 @@
+#ifdef MIKASA_TARGET_PLATFORM_Window
 
 #include "RHIBoundShaderStateDX11.h"
 
@@ -44,3 +45,5 @@ void RHIBoundShaderStateDX11::Bind(ID3D11DeviceContext *context)
     context->VSSetShader(VertexShader_->GetInternal(), nullptr, 0);
     context->PSSetShader(PixelShader_->GetInternal(), nullptr, 0);
 }
+
+#endif
