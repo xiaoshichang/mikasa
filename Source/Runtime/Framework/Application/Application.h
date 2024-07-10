@@ -10,6 +10,9 @@ namespace mikasa::Runtime::Framework
     public:
         virtual void Init(const ApplicationInitParam& info);
         virtual void UnInit();
+        virtual void PreUpdate();
+        virtual void Update();
+        virtual void PostUpdate();
         void Run();
 
     protected:

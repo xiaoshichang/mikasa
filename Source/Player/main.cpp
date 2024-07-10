@@ -1,6 +1,7 @@
-#include "Runtime/Framework/Application/Platform/Windows/WindowsApplication.h"
+#include "WindowsPlayer/WindowsPlayer.h"
 
 using namespace mikasa::Runtime::Framework;
+using namespace mikasa::Player;
 
 int main(int argc, char** argv)
 {
@@ -10,7 +11,7 @@ int main(int argc, char** argv)
     param.LogPath = "Logs/Player.log";
     param.LogDir = "Logs";
 
-    WindowsApplication player;
+    WindowsPlayer player;
     Application::Param = param;
     player.Init(param);
     player.Run();
