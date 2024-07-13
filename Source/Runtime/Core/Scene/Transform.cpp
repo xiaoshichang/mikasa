@@ -36,6 +36,12 @@ void Transform::SetRotation(Quaternion rotation)
     WorldMatrixDirty_ = true;
 }
 
+void Transform::SetRotation(float x, float y, float z)
+{
+    Rotation_ = Quaternion::FromRollPitchYawLH(x, y, z);
+    WorldMatrixDirty_ = true;
+}
+
 void Transform::LookAt(Vector3f target, Vector3f up)
 {
     auto rotation = MatrixLookAtLH(Position_, target, up);
@@ -71,5 +77,7 @@ Vector3f Transform::Up()
     auto worldForward = r.TransformVector(localForward);
     return worldForward;
 }
+
+
 
 

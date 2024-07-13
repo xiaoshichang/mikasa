@@ -21,6 +21,7 @@ namespace mikasa::Runtime::Core
         void RemoveCameraFromScene(CameraCmpt* camera);
 
         const std::vector<CameraCmpt*>& GetAllCameras();
+        const std::vector<GameObject*>& GetAllGameObjects();
 
         std::shared_ptr<RenderScene> GetRenderScene() { return RenderScene_; }
 
@@ -28,7 +29,7 @@ namespace mikasa::Runtime::Core
 
 
     private:
-        std::vector<GameObject*> Roots_;
+        std::vector<GameObject*> GameObjects_;
         std::vector<CameraCmpt*> Cameras_;
 
         std::shared_ptr<RenderScene> RenderScene_;

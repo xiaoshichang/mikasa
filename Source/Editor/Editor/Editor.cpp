@@ -12,6 +12,7 @@
 
 #include "backends/imgui_impl_win32.h"
 #include "backends/imgui_impl_dx11.h"
+
 #include "Editor.h"
 
 using namespace mikasa::Editor;
@@ -27,7 +28,7 @@ Panel* Editor::Hierarchy = nullptr;
 Panel* Editor::Inspector = nullptr;
 Panel* Editor::Game = nullptr;
 Panel* Editor::Scene = nullptr;
-
+GameObject* Editor::CurrentSelectedGameObject = nullptr;
 
 void Editor::Init()
 {

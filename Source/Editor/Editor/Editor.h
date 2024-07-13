@@ -1,15 +1,20 @@
 #pragma once
 
 #include "imgui.h"
-#include "Panel.h"
-#include "MenuBar/MainMenuBar.h"
 
 
 #include <memory>
 #include <windows.h>
 
+namespace mikasa::Runtime::Core
+{
+    class GameObject;
+}
+
 namespace mikasa::Editor
 {
+    class MainMenuBar;
+    class Panel;
     class Editor
     {
     public:
@@ -31,6 +36,7 @@ namespace mikasa::Editor
         static Panel* Inspector;
         static Panel* Game;
         static Panel* Scene;
+        static Runtime::Core::GameObject* CurrentSelectedGameObject;
     };
 }
 

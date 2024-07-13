@@ -13,7 +13,7 @@ Scene::Scene()
 
 Scene::~Scene()
 {
-    std::vector<GameObject*> all(Roots_);
+    std::vector<GameObject*> all(GameObjects_);
     for (auto go : all)
     {
         DestroyGameObject(go);
@@ -23,20 +23,20 @@ Scene::~Scene()
 GameObject* Scene::CreateGameObject(const std::string &name, GameObject* parent)
 {
     auto go = new GameObject(this, name);
-    Roots_.push_back(go);
+    GameObjects_.push_back(go);
     return go;
 }
 
 void Scene::DestroyGameObject(GameObject* go)
 {
-    erase(Roots_, go);
+    erase(GameObjects_, go);
     delete go;
 }
 
 void Scene::LogTotalSceneInfo()
 {
     std::string info = "\n";
-    info += std::format("Total GameObject: {}\n", Roots_.size());
+    info += std::format("Total GameObject: {}\n", GameObjects_.size());
     info += std::format("Total Cameras :{}\n", Cameras_.size());
     Logger::Info(info.c_str());
 }
@@ -54,5 +54,10 @@ void Scene::RemoveCameraFromScene(CameraCmpt *camera)
 const std::vector<CameraCmpt *>& Scene::GetAllCameras()
 {
     return Cameras_;
+}
+
+const std::vector<GameObject *> &Scene::GetAllGameObjects()
+{
+    return GameObjects_;
 }
 

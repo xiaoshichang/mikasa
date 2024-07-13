@@ -6,10 +6,7 @@
 using namespace mikasa::Editor;
 
 
-MainMenuBar::MainMenuBar()
-{
-
-}
+MainMenuBar::MainMenuBar() = default;
 
 void MainMenuBar::Render()
 {
