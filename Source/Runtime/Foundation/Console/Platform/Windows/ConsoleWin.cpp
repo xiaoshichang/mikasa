@@ -16,7 +16,6 @@ ConsoleWin::ConsoleWin()
     }
     Internal_ = GetConsoleWindow();
 
-    SetWindowPos(Internal_, 0, 1024 + 1, 0, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
     SetConsoleTitleW(L"Mikasa Console");
 
     // https://stackoverflow.com/questions/53256389/c-winapi-getconsolescreenbufferinfo-always-fails-by-invalid-handle-returns
@@ -75,7 +74,7 @@ int ConsoleWin::ConvertColor(ConsoleTextColor color)
     }
 }
 
-void ConsoleWin::InternalOutputString(const std::string &s, ConsoleTextColor color)
+void ConsoleWin::OutputString(const std::string &s, ConsoleTextColor color)
 {
     ConsoleProtection.Enter();
     DoOutput(s, color);
@@ -368,7 +367,7 @@ void ConsoleWin::DoOutput(const std::string &s, ConsoleTextColor color)
     ShowInputPart();
 }
 
-bool ConsoleWin::GetInternalReadyInputString(std::string& ret)
+bool ConsoleWin::GetReadyInputString(std::string& ret)
 {
     if (ReadyInputs_.pop(ret))
     {
@@ -419,6 +418,10 @@ void ConsoleWin::AppendHistory(const std::string& input)
     }
 }
 
+void ConsoleWin::SetOffset(int x, int y)
+{
+    SetWindowPos(Internal_, nullptr, x, y, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+}
 
 
 #endif

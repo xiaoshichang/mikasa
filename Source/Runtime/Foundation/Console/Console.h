@@ -18,12 +18,12 @@ namespace mikasa::Runtime::Foundation
         explicit Console();
         virtual ~Console();
 
-    protected:
-        virtual void InternalOutputString(const std::string& s, ConsoleTextColor color) = 0;
-        virtual bool GetInternalReadyInputString(std::string& ret) = 0;
     public:
+        virtual void OutputString(const std::string& s, ConsoleTextColor color) = 0;
+        virtual bool GetReadyInputString(std::string& ret) = 0;
         virtual void InputPrefix() = 0;
         virtual void ProcessInputEvents() = 0;
+        virtual void SetOffset(int x, int y) = 0;
 
     protected:
         const std::string PREFIX = ">>> ";
@@ -32,11 +32,7 @@ namespace mikasa::Runtime::Foundation
     public:
         static void Init();
         static void UnInit();
-        static void OnOutputString(const std::string& s, ConsoleTextColor color);
-        static bool GetReadyInputString(std::string& ret);
-
-    private:
-        static Console* CreatePlatformIndependentConsole();
+        static Console* GetInstance();
 
     public:
         static CriticalSection ConsoleProtection;

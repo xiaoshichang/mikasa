@@ -8,9 +8,13 @@ int main(int argc, char** argv)
 {
     ApplicationInitParam param(argc, argv);
     param.EditorMode = true;
+    param.WindowWidth = 1580;
+    param.WindowHeight = 1200;
+
     param.WindowTitle = "mikasa editor";
     param.LogDir = "Logs";
     param.LogPath = "Logs/Editor.log";
+
 
 
     WindowsEditor editor;

@@ -32,7 +32,11 @@ Console::~Console()
 void Console::Init()
 {
     MIKASA_ASSERT(Instance_ == nullptr);
-    Instance_ = CreatePlatformIndependentConsole();
+#if MIKASA_TARGET_PLATFORM_Window
+    Instance_ = new ConsoleWin();
+#else
+#error
+#endif
     InputRunnable_ = new ConsoleInputRunnable(Instance_);
     InputThread_ = PlatformIndependentRunnableThread::CreatePlatformIndependentRunnableThread(
             "ConsoleInput",
@@ -56,22 +60,8 @@ void Console::UnInit()
     Instance_ = nullptr;
 }
 
-Console* Console::CreatePlatformIndependentConsole()
-{
-#if MIKASA_TARGET_PLATFORM_Window
-    return new ConsoleWin();
-#else
-#error
-#endif
-}
 
-
-void Console::OnOutputString(const std::string &s, ConsoleTextColor color)
+Console* Console::GetInstance()
 {
-    Instance_->InternalOutputString(s, color);
-}
-
-bool Console::GetReadyInputString(std::string& ret)
-{
-    return Instance_->GetInternalReadyInputString(ret);
+    return Instance_;
 }

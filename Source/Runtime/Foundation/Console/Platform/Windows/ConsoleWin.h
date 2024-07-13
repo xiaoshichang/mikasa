@@ -8,6 +8,12 @@
 
 namespace mikasa::Runtime::Foundation
 {
+    struct ConsoleWinCreateInfo
+    {
+        int OffsetX;
+        int OffsetY;
+    };
+
     class ConsoleWin : public Console
     {
     public:
@@ -15,14 +21,14 @@ namespace mikasa::Runtime::Foundation
         ~ConsoleWin() override;
 
     protected:
-        void InternalOutputString(const std::string &s, ConsoleTextColor color) override;
+        void OutputString(const std::string &s, ConsoleTextColor color) override;
         void DoOutput(const std::string &s, ConsoleTextColor color);
-        bool GetInternalReadyInputString(std::string& ret) override;
+        bool GetReadyInputString(std::string& ret) override;
 
     public:
         void ProcessInputEvents() override;
-
         void InputPrefix() override;
+        void SetOffset(int x, int y) override;
 
     private:
         void ProcessKeyDown(KEY_EVENT_RECORD  keyEvent);

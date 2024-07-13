@@ -15,7 +15,7 @@ namespace mikasa::Runtime::Core
         {
             std::size_t written(0);
             const char* msg = PyUnicode_AsUTF8(arg);
-            Console::OnOutputString(msg, ConsoleTextColor::LightGreen);
+            Console::GetInstance()->OutputString(msg, ConsoleTextColor::LightGreen);
             written = strlen(msg);
             return PyLong_FromSize_t(written);
         }
@@ -33,7 +33,7 @@ namespace mikasa::Runtime::Core
         {
             std::size_t written(0);
             const char* msg = PyUnicode_AsUTF8(arg);
-            Console::OnOutputString(msg, ConsoleTextColor::LightRed);
+            Console::GetInstance()->OutputString(msg, ConsoleTextColor::LightRed);
             written = strlen(msg);
             return PyLong_FromSize_t(written);
         }

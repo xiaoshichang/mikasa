@@ -1,7 +1,7 @@
 
 #include "WindowsEditor.h"
 #include "Runtime/Module/SceneModule/SceneModule.h"
-#include "Editor/EditorGUI/EditorGUI.h"
+#include "Editor/Editor/Editor.h"
 
 using namespace mikasa::Editor;
 using namespace mikasa::Runtime::Module;
@@ -9,7 +9,7 @@ using namespace mikasa::Runtime::Module;
 void WindowsEditor::Init(const ApplicationInitParam &info)
 {
     WindowsApplication::Init(info);
-    EditorGUI::Init();
+    Editor::Init();
 
     SceneModule::SyncLoadScene("");
 }
@@ -17,12 +17,12 @@ void WindowsEditor::Init(const ApplicationInitParam &info)
 void WindowsEditor::StartFrame()
 {
     Application::StartFrame();
-    EditorGUI::StartFrame();
+    Editor::StartFrame();
 }
 
 void WindowsEditor::Render()
 {
-    EditorGUI::Render();
+    Editor::Render();
 
 
     auto lambda = []()
@@ -34,17 +34,23 @@ void WindowsEditor::Render()
 
 void WindowsEditor::EndFrame()
 {
-    EditorGUI::EndFrame();
+    Editor::EndFrame();
     Application::EndFrame();
 }
 
 LRESULT WindowsEditor::InstanceWndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-    if (EditorGUI::InstanceWndProcHandler(hWnd, msg, wParam, lParam))
+    if (Editor::InstanceWndProcHandler(hWnd, msg, wParam, lParam))
     {
         return true;
     }
     return WindowsApplication::InstanceWndProcHandler(hWnd, msg, wParam, lParam);
+}
+
+void WindowsEditor::UnInit()
+{
+    Editor::UnInit();
+    WindowsApplication::UnInit();
 }
 
 

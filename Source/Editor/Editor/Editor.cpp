@@ -4,9 +4,15 @@
 #include "Runtime/Core/Render/RenderDevice/RenderDevice.h"
 #include "Runtime/Core/Render/RenderDevice/RHI/DX11/RHIDX11.h"
 
+#include "MenuBar/MainMenuBar.h"
+#include "Panels/HierarchyPanel.h"
+#include "Panels/InspectorPanel.h"
+#include "Panels/GamePanel.h"
+#include "Panels/ScenePanel.h"
+
 #include "backends/imgui_impl_win32.h"
 #include "backends/imgui_impl_dx11.h"
-#include "EditorGUI.h"
+#include "Editor.h"
 
 using namespace mikasa::Editor;
 using namespace mikasa::Runtime::Framework;
@@ -16,13 +22,21 @@ bool show_another_window = false;
 ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
 
-void EditorGUI::Init()
+MainMenuBar* Editor::Menu = nullptr;
+Panel* Editor::Hierarchy = nullptr;
+Panel* Editor::Inspector = nullptr;
+Panel* Editor::Game = nullptr;
+Panel* Editor::Scene = nullptr;
+
+
+void Editor::Init()
 {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void)io;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+    io.ConfigWindowsMoveFromTitleBarOnly = true;
 
     // Setup Dear ImGui style
     ImGui::StyleColorsDark();
@@ -35,9 +49,51 @@ void EditorGUI::Init()
 
     auto rhi = (RHIDX11*) RenderDevice::RHI;
     ImGui_ImplDX11_Init(rhi->GetDevice(), rhi->GetDeviceContext());
+
+    Menu = new MainMenuBar();
+
+    Hierarchy = new HierarchyPanel();
+    Hierarchy->Init();
+
+    Inspector = new InspectorPanel();
+    Inspector->Init();
+
+    Game = new GamePanel();
+    Game->Init();
+
+    Scene = new ScenePanel();
+    Scene->Init();
 }
 
-void EditorGUI::StartFrame()
+
+void Editor::UnInit()
+{
+    Hierarchy->UnInit();
+    delete Hierarchy;
+    Hierarchy = nullptr;
+
+    Inspector->UnInit();
+    delete Inspector;
+    Inspector = nullptr;
+
+    Game->UnInit();
+    delete Game;
+    Game = nullptr;
+
+    Scene->UnInit();
+    delete Scene;
+    Scene = nullptr;
+
+    delete Menu;
+    Menu = nullptr;
+
+    ImGui_ImplDX11_Shutdown();
+    ImGui_ImplWin32_Shutdown();
+    ImGui::DestroyContext();
+}
+
+
+void Editor::StartFrame()
 {
     // Start the Dear ImGui frame
     ImGui_ImplDX11_NewFrame();
@@ -48,12 +104,13 @@ void EditorGUI::StartFrame()
 /**
  * run on main thread.
  */
-void EditorGUI::Render()
+void Editor::Render()
 {
-    ImGuiIO& io = ImGui::GetIO(); (void)io;
-
-    // draw editor
-    DrawDemoWindow();
+    Menu->Render();
+    Hierarchy->RenderWindow();
+    Inspector->RenderWindow();
+    Game->RenderWindow();
+    Scene->RenderWindow();
 
     // imgui rendering
     ImGui::Render();
@@ -74,12 +131,12 @@ void EditorGUI::Render()
 }
 
 
-void EditorGUI::EndFrame()
+void Editor::EndFrame()
 {
 
 }
 
-void EditorGUI::DrawDemoWindow()
+void Editor::DrawDemoWindow()
 {
     ImGuiIO& io = ImGui::GetIO(); (void)io;
     // 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
@@ -120,7 +177,7 @@ void EditorGUI::DrawDemoWindow()
     }
 }
 
-std::shared_ptr<ImDrawData> EditorGUI::CopyDrawDataForRender(const ImDrawData *data)
+std::shared_ptr<ImDrawData> Editor::CopyDrawDataForRender(const ImDrawData *data)
 {
     auto clone = std::make_shared<ImDrawData>();
     clone->Valid = data->Valid;
@@ -140,7 +197,7 @@ std::shared_ptr<ImDrawData> EditorGUI::CopyDrawDataForRender(const ImDrawData *d
     return clone;
 }
 
-void EditorGUI::ReleaseDrawDataAfterRender(const std::shared_ptr<ImDrawData> &data)
+void Editor::ReleaseDrawDataAfterRender(const std::shared_ptr<ImDrawData> &data)
 {
     for(auto drawList : data->CmdLists)
     {
@@ -153,7 +210,7 @@ void EditorGUI::ReleaseDrawDataAfterRender(const std::shared_ptr<ImDrawData> &da
 }
 
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
-bool EditorGUI::InstanceWndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
+bool Editor::InstanceWndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
     if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))
         return true;

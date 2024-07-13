@@ -49,7 +49,7 @@ namespace mikasa::Runtime::Foundation
                     break;
             }
             auto formattedRecordNewline = formattedRecord + "\n";
-            Console::OnOutputString(formattedRecordNewline, color);
+            Console::GetInstance()->OutputString(formattedRecordNewline, color);
             //std::cout << formattedRecord << std::endl;
         }
     };

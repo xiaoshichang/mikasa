@@ -29,7 +29,7 @@ void ScriptModule::ConsumeConsoleInput()
 {
     MIKASA_ASSERT(VM_ != nullptr);
     std::string input;
-    if (Console::GetReadyInputString(input))
+    if (Console::GetInstance()->GetReadyInputString(input))
     {
         if (input.length() <= 0)
         {

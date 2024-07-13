@@ -20,6 +20,7 @@ void Application::Init(const ApplicationInitParam& info)
 
 #if MIKASA_BUILDTYPE_DEBUG
     Console::Init();
+    Console::GetInstance()->SetOffset(info.WindowWidth + 1, 0);
 #endif
     MainWindow::Init(this, info);
     Engine::Init(info, MainWindow::GetWindowHandler());

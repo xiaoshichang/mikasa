@@ -11,6 +11,7 @@ namespace mikasa::Editor
     {
     public:
         void Init(const ApplicationInitParam& info) override;
+        void UnInit() override;
 
         void StartFrame() override;
         void Render() override;
