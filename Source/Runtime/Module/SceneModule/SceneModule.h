@@ -1,5 +1,6 @@
 #pragma once
 #include "Runtime/Core/Scene/Scene.h"
+#include <memory>
 #include <string>
 
 using namespace mikasa::Runtime::Core;

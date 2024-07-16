@@ -25,7 +25,7 @@ std::shared_ptr<RenderViewFamily> GameViewClient::BuildRenderViewFamily()
 {
     auto scene = SceneModule::Current->GetRenderScene();
     RenderViewFamilyInitializer rvfi;
-    rvfi.RenderTarget = RenderDevice::RHI->GetBackBufferRTV();
+    rvfi.RenderTarget = scene->GetSceneColorRT();
     rvfi.ClearColor = Vector4f(0.2, 0.3, 0.4, 1.0);
 
     for (auto camera : SceneModule::Current->GetAllCameras())

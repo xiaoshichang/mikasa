@@ -8,12 +8,6 @@ StaticMeshRenderProxy::StaticMeshRenderProxy(const Matrix4x4f &worldMatrix, cons
     : Mesh_(mesh)
 {
     ConstantBufferPerObjectData_.WorldMatrix = worldMatrix;
-
-    auto lambda = [this]()
-    {
-        InitRHIResource();
-    };
-    ENQUEUE_LAMBDA_RENDER_COMMAND(lambda);
 }
 
 
@@ -27,5 +21,6 @@ void StaticMeshRenderProxy::Render(const RenderSingleViewContext& viewContext)
 
 void StaticMeshRenderProxy::InitRHIResource()
 {
+    Mesh_->InitRHIResource();
     ConstantBufferPerObject_ = std::make_shared<ConstantBuffer<ConstantBufferPerObject>>(ConstantBufferPerObjectData_);
 }

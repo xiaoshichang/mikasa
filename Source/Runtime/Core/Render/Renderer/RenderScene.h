@@ -7,6 +7,7 @@ namespace mikasa::Runtime::Core
 
     class StaticMeshRenderProxy;
     class LightRenderProxy;
+    class RenderTarget;
 
     /**
      * "scene" on render thread.
@@ -15,6 +16,16 @@ namespace mikasa::Runtime::Core
     class RenderScene
     {
     public:
+        RenderScene();
+        ~RenderScene();
+
+    private:
+        void InitRenderResource();
+        void UnInitRenderResource();
+
+    public:
+        std::shared_ptr<RenderTarget>& GetSceneColorRT();
+
         void AddStaticMeshRenderProxy(const std::shared_ptr<StaticMeshRenderProxy>& proxy);
         void RemoveStaticMeshRenderProxy(const std::shared_ptr<StaticMeshRenderProxy>& proxy);
         void AddLightRenderProxy(const std::shared_ptr<LightRenderProxy>& proxy);
@@ -26,6 +37,8 @@ namespace mikasa::Runtime::Core
     private:
         std::list<std::shared_ptr<StaticMeshRenderProxy>> StaticMeshRenderProxies_;
         std::list<std::shared_ptr<LightRenderProxy>> LightRenderProxies_;
+
+        std::shared_ptr<RenderTarget> SceneColorRT;
 
     };
 }

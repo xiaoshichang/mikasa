@@ -120,7 +120,7 @@ void Editor::Render()
     auto renderData = CopyDrawDataForRender(ImGui::GetDrawData());
     auto lambda = [=] ()
     {
-        auto rtv = RenderDevice::RHI->GetBackBufferRTV();
+        auto rtv = RenderDevice::RHI->GetBackBufferRT()->AsRenderTarget();
         RenderDevice::RHI->OMSetRenderTarget(rtv);
         RenderDevice::RHI->ClearRenderTarget(rtv, Vector4f(0.2, 0.4, 0.6, 1.0));
 

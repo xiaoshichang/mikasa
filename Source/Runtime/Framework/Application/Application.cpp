@@ -81,16 +81,6 @@ void Application::PostUpdate()
 {
 }
 
-void Application::Render()
-{
-    GameViewClient::Render();
-    auto lambda = []()
-    {
-        RenderDevice::RHI->Present();
-    };
-    ENQUEUE_LAMBDA_RENDER_COMMAND(lambda);
-}
-
 void Application::AfterRender()
 {
 

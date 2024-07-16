@@ -12,7 +12,7 @@ namespace mikasa::Runtime::Core
     class RHIVertexBuffer;
     class RHIIndexBuffer;
 
-    class StaticMesh : public RenderResource
+    class StaticMesh : public RenderResource, public std::enable_shared_from_this<StaticMesh>
     {
     public:
         explicit StaticMesh(const std::string& asset);

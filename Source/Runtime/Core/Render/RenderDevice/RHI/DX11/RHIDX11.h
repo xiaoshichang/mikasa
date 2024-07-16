@@ -14,15 +14,15 @@ namespace mikasa::Runtime::Core
         ~RHIDX11() override = default;
         void InitRHI(const ApplicationInitParam &param, const WindowHandler &windowHandler) override;
         void UnInitRHI() override;
-        RHIRenderTargetView* GetBackBufferRTV() override;
+        RHITexture* GetBackBufferRT() override;
 
     private:
         void CreateDevice();
         void ReleaseDevice();
         void CreateSwapChain(const ApplicationInitParam& param, const WindowHandler& windowHandler);
         void ReleaseSwapChain();
-        void CreateBackBufferRTV();
-        void ReleaseBackBufferRTV();
+        void CreateBackBufferRT();
+        void ReleaseBackBufferRT();
         void ReleaseBoundConstantBuffer();
 
         /**
@@ -63,6 +63,9 @@ namespace mikasa::Runtime::Core
                                                                     const std::shared_ptr<RHIVertexShader>& vs,
                                                                     const std::shared_ptr<RHIPixelShader>& ps) override;
 
+        std::shared_ptr<RHITexture> CreateRHITexture(const RHITextureCreateInfo& createInfo) override;
+        void CopyResource(RHITexture* dst, RHITexture* src) override;
+
 
     public:
         ID3D11Device* GetDevice() { return Device_; }
@@ -76,7 +79,7 @@ namespace mikasa::Runtime::Core
         /**
          * represent the swap chain back buffer for rendering.
          */
-        RHIRenderTargetView* BackBufferRTV_ = nullptr;
+        RHITexture* BackBufferRT_ = nullptr;
 
         /**
          * track currently bounded constant buffer

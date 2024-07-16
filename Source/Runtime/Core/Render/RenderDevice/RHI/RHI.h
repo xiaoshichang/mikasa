@@ -10,6 +10,7 @@
 #include "RHIVertexBuffer.h"
 #include "RHIIndexBuffer.h"
 #include "RHIBoundShaderState.h"
+#include "RHITexture.h"
 
 #include <boost/filesystem.hpp>
 
@@ -29,7 +30,7 @@ namespace mikasa::Runtime::Core
         virtual ~RHI() = default;
         virtual void InitRHI(const ApplicationInitParam& param, const WindowHandler& windowHandler) = 0;
         virtual void UnInitRHI() = 0;
-        virtual RHIRenderTargetView* GetBackBufferRTV() = 0;
+        virtual RHITexture* GetBackBufferRT() = 0;
 
         /**
          * State
@@ -64,7 +65,8 @@ namespace mikasa::Runtime::Core
         virtual std::shared_ptr<RHIPixelShader> CreatePixelShader(const ShaderByteCodeBlob& blob) = 0;
         virtual std::shared_ptr<RHIPixelShader> CreatePixelShader(const boost::filesystem::path& fp) = 0;
         virtual std::shared_ptr<RHIBoundShaderState> CreateBoundShaderState(const std::shared_ptr<RHIVertexDeclaration>& vd, const std::shared_ptr<RHIVertexShader>& vs, const std::shared_ptr<RHIPixelShader>& ps) = 0;
-
+        virtual std::shared_ptr<RHITexture> CreateRHITexture(const RHITextureCreateInfo& createInfo) = 0;
+        virtual void CopyResource(RHITexture* dst, RHITexture* src) = 0;
 
     };
 }

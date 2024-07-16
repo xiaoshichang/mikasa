@@ -39,6 +39,11 @@ namespace mikasa::Runtime::Core
         IET_U32
     };
 
+    enum PixelFormat : uint8
+    {
+        PF_R8G8B8A8_UNorm
+    };
+
     struct RHIVertexBufferCreateInfo
     {
         RHIVertexBufferCreateInfo(uint8* cpuResource,

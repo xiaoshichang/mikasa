@@ -51,12 +51,6 @@ StaticMesh::StaticMesh(const std::string& asset)
     auto colorData = new Vector3f [8];
     memcpy_s(colorData, sizeof(g_ColorData), g_ColorData, sizeof(g_ColorData));
     ColorCmpt_ = std::make_shared<VertexStreamCmpt>((uint8*)colorData, (uint32)sizeof(g_ColorData),  VertexElementType::VET_Float3);
-
-    auto lambda = [this]()
-    {
-        InitRHIResource();
-    };
-    ENQUEUE_LAMBDA_RENDER_COMMAND(lambda);
 }
 
 StaticMesh::~StaticMesh()

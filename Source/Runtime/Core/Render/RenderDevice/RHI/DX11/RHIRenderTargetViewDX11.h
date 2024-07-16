@@ -12,10 +12,10 @@ namespace mikasa::Runtime::Core
         explicit RHIRenderTargetViewDX11(ID3D11Device* device, ID3D11Resource* resource);
         ~RHIRenderTargetViewDX11() override;
 
-        ID3D11RenderTargetView* GetInternal() { return RTV_; }
+        ID3D11RenderTargetView* GetInternal() { return Internal_; }
 
     private:
-        ID3D11RenderTargetView* RTV_ = nullptr;
+        ID3D11RenderTargetView* Internal_ = nullptr;
     };
 }
 

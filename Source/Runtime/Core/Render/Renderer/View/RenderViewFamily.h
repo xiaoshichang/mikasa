@@ -1,7 +1,8 @@
 #pragma once
 #include <vector>
 #include <memory>
-#include "Runtime/Core/Render/RenderDevice/RHI/RHIRenderTargetView.h"
+#include "Runtime/Core/Render/RenderDevice/RHI/RHI.h"
+#include "Runtime/Core/Render/RenderDevice/RenderResource/RenderTarget.h"
 #include "Runtime/Foundation/Foundation.h"
 
 using namespace mikasa::Runtime::Foundation;
@@ -13,7 +14,7 @@ namespace mikasa::Runtime::Core
     struct RenderViewFamilyInitializer
     {
         std::vector<std::shared_ptr<RenderView>> Views;
-        RHIRenderTargetView* RenderTarget;
+        std::shared_ptr<RenderTarget> RenderTarget;
         Vector4f ClearColor;
     };
 
@@ -30,7 +31,7 @@ namespace mikasa::Runtime::Core
 
     public:
         std::vector<std::shared_ptr<RenderView>> Views;
-        RHIRenderTargetView* RenderTarget;
+        std::shared_ptr<RenderTarget> RenderTarget;
         Vector4f ClearColor;
 
 

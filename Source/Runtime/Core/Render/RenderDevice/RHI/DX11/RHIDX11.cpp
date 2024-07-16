@@ -8,6 +8,7 @@
 #include "RHIShaderDX11.h"
 #include "RHIBoundShaderStateDX11.h"
 #include "RHIConstantBufferDX11.h"
+#include "RHITextureDX11.h"
 
 #include <wrl.h>
 
@@ -17,13 +18,13 @@ void RHIDX11::InitRHI(const ::ApplicationInitParam &param, const WindowHandler &
 {
     CreateDevice();
     CreateSwapChain(param, windowHandler);
-    CreateBackBufferRTV();
+    CreateBackBufferRT();
 }
 
 void RHIDX11::UnInitRHI()
 {
     ReleaseBoundConstantBuffer();
-    ReleaseBackBufferRTV();
+    ReleaseBackBufferRT();
     ReleaseSwapChain();
     ReleaseDevice();
 }
@@ -102,7 +103,7 @@ void RHIDX11::CreateSwapChain(const ApplicationInitParam& param, const WindowHan
 
     scd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;    // how the swap chain should be used
     scd.BufferCount = 2;                                  // a front buffer and a back buffer
-    scd.Format = DXGI_FORMAT_B8G8R8A8_UNORM;              // the most common swap chain format
+    scd.Format = DXGI_FORMAT_R8G8B8A8_UNORM;              // the most common swap chain format
     scd.SwapEffect = DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL;    // the recommended flip mode
     scd.SampleDesc.Count = 1;
 
@@ -126,22 +127,22 @@ void RHIDX11::ReleaseSwapChain()
     SwapChain_ = nullptr;
 }
 
-void RHIDX11::CreateBackBufferRTV()
+void RHIDX11::CreateBackBufferRT()
 {
     ID3D11Resource* pBackBuffer = nullptr;
-    ID3D11RenderTargetView* rtv = nullptr;
 
     if (SwapChain_->GetBuffer(0, IID_PPV_ARGS(&pBackBuffer)) != S_OK)
     {
         throw;
     }
-    BackBufferRTV_ = new RHIRenderTargetViewDX11(Device_, pBackBuffer);
+
+    BackBufferRT_ = new RHITextureDX11(Device_, pBackBuffer);
 }
 
-void RHIDX11::ReleaseBackBufferRTV()
+void RHIDX11::ReleaseBackBufferRT()
 {
-    delete BackBufferRTV_;
-    BackBufferRTV_ = nullptr;
+    delete BackBufferRT_;
+    BackBufferRT_ = nullptr;
 }
 
 void RHIDX11::ReleaseBoundConstantBuffer()
@@ -155,9 +156,9 @@ void RHIDX11::ReleaseBoundConstantBuffer()
     }
 }
 
-RHIRenderTargetView* RHIDX11::GetBackBufferRTV()
+RHITexture* RHIDX11::GetBackBufferRT()
 {
-    return BackBufferRTV_;
+    return BackBufferRT_;
 }
 
 void RHIDX11::ClearRenderTarget(RHIRenderTargetView* rtv, const Vector4f& color)
@@ -324,7 +325,19 @@ std::shared_ptr<RHIBoundShaderState> RHIDX11::CreateBoundShaderState(const std::
     return bss;
 }
 
+std::shared_ptr<RHITexture> RHIDX11::CreateRHITexture(const RHITextureCreateInfo &createInfo)
+{
+    return std::make_shared<RHITextureDX11>(Device_, createInfo);
+}
 
+void RHIDX11::CopyResource(RHITexture *dst, RHITexture *src)
+{
+    auto src_ = ((RHITextureDX11*)src)->GetInternalResource();
+    auto dst_ = ((RHITextureDX11*)dst)->GetInternalResource();
+    MIKASA_ASSERT(src_ != nullptr);
+    MIKASA_ASSERT(dst_ != nullptr);
+    Context_->CopyResource(dst_, src_);
+}
 
 
 #endif

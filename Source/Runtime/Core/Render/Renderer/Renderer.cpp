@@ -22,7 +22,7 @@ void Renderer::Render()
 {
     ViewFamily_->InitRHIResource();
 
-    RenderDevice::RHI->ClearRenderTarget(ViewFamily_->RenderTarget, ViewFamily_->ClearColor);
+    RenderDevice::RHI->ClearRenderTarget(ViewFamily_->RenderTarget->AsRHIRenderTargetView(), ViewFamily_->ClearColor);
 
     for(auto& view : ViewFamily_->Views)
     {

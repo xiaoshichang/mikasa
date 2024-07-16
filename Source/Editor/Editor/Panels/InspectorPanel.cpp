@@ -53,20 +53,20 @@ void InspectorPanel::RenderTransform(GameObject *go)
 
     ImGui::Separator();
     ImGui::Text("Transform");
-    ImGui::DragFloat3("Position", position.data, 0.01f);
-    ImGui::DragFloat3("Rotation", rotation.data, 0.01f);
-    ImGui::DragFloat3("Scale", scale.data, 0.01f);
+    auto positionChange = ImGui::DragFloat3("Position", position.data, 0.01f);
+    auto rotationChange = ImGui::DragFloat3("Rotation", rotation.data, 0.01f);
+    auto scaleChange = ImGui::DragFloat3("Scale", scale.data, 0.01f);
 
-    if (position != p)
+    if (positionChange && position != p)
     {
         transform.SetPosition(position);
     }
-    if (rotation != r)
+    if (rotationChange && rotation != r)
     {
         rotation.x = mikasa::Runtime::Foundation::Clamp(-PI / 2, PI / 2, rotation.x);
         transform.SetRotation(rotation.x, rotation.y, rotation.z);
     }
-    if (scale != s)
+    if (scaleChange && scale != s)
     {
         transform.SetScale(scale);
     }

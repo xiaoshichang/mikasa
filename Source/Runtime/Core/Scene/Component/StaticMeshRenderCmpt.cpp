@@ -26,6 +26,7 @@ void StaticMeshRenderCmpt::InitRenderThreadPart()
     auto scene = Owner_->GetScene()->GetRenderScene();
     auto lambda = [=]()
     {
+        proxy->InitRHIResource();
         scene->AddStaticMeshRenderProxy(proxy);
     };
     ENQUEUE_LAMBDA_RENDER_COMMAND(lambda);

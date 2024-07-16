@@ -11,6 +11,7 @@ namespace mikasa::Player
     {
     public:
         void Init(const ApplicationInitParam& info) override;
+        void Render() override;
     };
 
 }

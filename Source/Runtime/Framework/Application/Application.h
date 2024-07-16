@@ -14,7 +14,7 @@ namespace mikasa::Runtime::Framework
         virtual void PreUpdate();
         virtual void Update();
         virtual void PostUpdate();
-        virtual void Render();
+        virtual void Render() = 0;
         virtual void AfterRender();
         virtual void EndFrame();
         void Run();
