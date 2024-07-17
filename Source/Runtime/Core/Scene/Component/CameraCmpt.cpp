@@ -118,10 +118,17 @@ CameraCmpt::CameraCmpt(GameObject *owner) : Component(owner)
     auto nearPlane = 0.1f;
     auto farPlane = 1000.0f;
     auto fovInAngle = 45.0f;
-    auto viewWidthInPixel = (float)Application::Param.WindowWidth;
-    auto viewHeightInPixel = (float)Application::Param.WindowHeight;
 
-    Camera_ = new Camera(projType, nearPlane, farPlane, fovInAngle, viewWidthInPixel, viewHeightInPixel);
+    if (Application::Param.EditorMode)
+    {
+        Camera_ = new Camera(projType, nearPlane, farPlane, fovInAngle, 1024, 768);
+    }
+    else
+    {
+        auto viewWidthInPixel = (float)Application::Param.WindowWidth;
+        auto viewHeightInPixel = (float)Application::Param.WindowHeight;
+        Camera_ = new Camera(projType, nearPlane, farPlane, fovInAngle, viewWidthInPixel, viewHeightInPixel);
+    }
 }
 
 CameraCmpt::~CameraCmpt()

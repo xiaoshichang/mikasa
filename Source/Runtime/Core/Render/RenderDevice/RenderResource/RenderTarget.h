@@ -12,7 +12,6 @@ namespace mikasa::Runtime::Core
     public:
         explicit RenderTarget(const RenderTextureDesc& desc);
         ~RenderTarget() override = default;
-        void InitRHIResource() override;
 
     };
 

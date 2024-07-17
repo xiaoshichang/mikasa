@@ -8,9 +8,4 @@ RenderTarget::RenderTarget(const RenderTextureDesc& desc) : RenderTexture(desc)
 
 }
 
-void RenderTarget::InitRHIResource()
-{
-    RenderTexture::InitRHIResource();
-}
-
 

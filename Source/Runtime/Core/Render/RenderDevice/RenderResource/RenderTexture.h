@@ -19,7 +19,8 @@ namespace mikasa::Runtime::Core
         explicit RenderTexture(const RenderTextureDesc& desc);
         ~RenderTexture() override = default;
         void InitRHIResource() override;
-        RHIRenderTargetView* AsRHIRenderTargetView();
+        RHIRenderTargetView* AsRenderTargetView();
+        RHIShaderResourceView* AsShaderResourceView();
         std::shared_ptr<RHITexture>& GetRHITexture();
 
 

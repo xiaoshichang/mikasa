@@ -19,7 +19,7 @@ RHIRenderTargetView *RHITexture::AsRenderTarget()
     return RenderTargetView_;
 }
 
-RHIShaderResourceView *RHITexture::AsRHIShaderResourceView()
+RHIShaderResourceView *RHITexture::AsShaderResourceView()
 {
     MIKASA_ASSERT(ShaderResourceView_ != nullptr);
     return ShaderResourceView_;

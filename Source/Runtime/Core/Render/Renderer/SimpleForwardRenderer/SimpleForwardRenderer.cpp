@@ -22,7 +22,7 @@ void SimpleForwardRenderer::RenderSingleView(const std::shared_ptr<RenderView> &
     auto viewHeight = view->Camera.GetViewHeightInPixel();
     RenderDevice::RHI->RSSetScissorRect(0, 0, (int)viewWidth, (int)viewHeight);
     RenderDevice::RHI->RSSetViewport(0, 0, viewWidth, viewHeight);
-    RenderDevice::RHI->OMSetRenderTarget(ViewFamily_->RenderTarget->AsRHIRenderTargetView());
+    RenderDevice::RHI->OMSetRenderTarget(ViewFamily_->RenderTarget->AsRenderTargetView());
 
     RenderSingleViewContext context;
     context.RenderView = view;

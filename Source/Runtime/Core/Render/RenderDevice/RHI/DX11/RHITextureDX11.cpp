@@ -1,6 +1,7 @@
 
 #include "RHITextureDX11.h"
 #include "RHIRenderTargetViewDX11.h"
+#include "RHIShaderResourceViewDX11.h"
 #include "RHIUtilsDX11.h"
 
 using namespace mikasa::Runtime::Core;
@@ -27,9 +28,15 @@ RHITextureDX11::RHITextureDX11(ID3D11Device* device, const RHITextureCreateInfo&
     {
         MIKASA_ASSERT(false);
     }
+
     if (asRenderTarget)
     {
         RenderTargetView_ = new RHIRenderTargetViewDX11(device, Resource_);
+    }
+
+    if (asShaderResource)
+    {
+        ShaderResourceView_ = new RHIShaderResourceViewDX11(device, Resource_);
     }
 }
 

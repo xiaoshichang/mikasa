@@ -19,14 +19,21 @@ void RenderTexture::InitRHIResource()
     RHITexture_ = RenderDevice::RHI->CreateRHITexture(info);
 }
 
-RHIRenderTargetView* RenderTexture::AsRHIRenderTargetView()
+RHIRenderTargetView* RenderTexture::AsRenderTargetView()
 {
     return RHITexture_->AsRenderTarget();
 }
+
+RHIShaderResourceView *RenderTexture::AsShaderResourceView()
+{
+    return RHITexture_->AsShaderResourceView();
+}
+
 
 std::shared_ptr<RHITexture> &RenderTexture::GetRHITexture()
 {
     return RHITexture_;
 }
+
 
 

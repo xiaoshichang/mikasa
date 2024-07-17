@@ -36,7 +36,7 @@ namespace mikasa::Runtime::Core
         ~RHITexture() override;
 
         RHIRenderTargetView* AsRenderTarget();
-        RHIShaderResourceView* AsRHIShaderResourceView();
+        RHIShaderResourceView* AsShaderResourceView();
         RHIDepthStencilView* AsDepthStencil();
 
     protected:

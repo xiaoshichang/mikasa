@@ -37,7 +37,9 @@ void RenderScene::InitRenderResource()
         desc.Width = Application::Param.WindowWidth;
         desc.Height = Application::Param.WindowHeight;
     }
+
     desc.Flag |= RHITextureCreateFlag::TCF_AsRenderTarget;
+    desc.Flag |= RHITextureCreateFlag::TCF_AsShaderResource;
 
     SceneColorRT = std::make_shared<RenderTarget>(desc);
     auto lambda = [=, this] ()
