@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-07-12T06:18:07.590Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36" etag="8BFeIWjKA_FHWWVCSo6d" version="24.6.5" type="github" pages="4">
+<mxfile host="app.diagrams.net" modified="2024-07-18T14:35:45.520Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36" etag="19G43522LWUH-VbPYd7D" version="24.6.5" type="github" pages="5">
   <diagram name="引擎功能架构" id="1e07z1a-aaZHS4xv6QxE">
     <mxGraphModel dx="4338" dy="5083" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -572,6 +572,95 @@
         </mxCell>
         <mxCell id="dQovGGk8IFgvXPV_Ev_F-15" value="&lt;span style=&quot;color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;&quot;&gt;RenderCommandQueue&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="570" y="20" width="160" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="Z5ti5VVn_mW5LK3SSpZK" name="GameObject Transform Update">
+    <mxGraphModel dx="2431" dy="2461" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="1Z53KJ7e_KzwJIGn3gBU-7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=16;" edge="1" parent="1" source="1Z53KJ7e_KzwJIGn3gBU-4" target="1Z53KJ7e_KzwJIGn3gBU-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="1Z53KJ7e_KzwJIGn3gBU-4" value="N Frame Logic Update" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="80" y="-640" width="240" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="1Z53KJ7e_KzwJIGn3gBU-6" value="Render N Frame" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="80" y="-50" width="240" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="1Z53KJ7e_KzwJIGn3gBU-10" value="Begin Render N Frame" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="1160" y="120" width="240" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="zHnvdvOPYKIZyjW5Splg-11" value="DoTransformUpdate&lt;div style=&quot;font-size: 16px;&quot;&gt;Mark Render Dirty&lt;br style=&quot;font-size: 16px;&quot;&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="440" y="-440" width="240" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="zHnvdvOPYKIZyjW5Splg-14" value="Clear Render Dirty Flag" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="440" y="-40" width="240" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="zHnvdvOPYKIZyjW5Splg-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=16;" edge="1" parent="1" source="zHnvdvOPYKIZyjW5Splg-15" target="zHnvdvOPYKIZyjW5Splg-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="zHnvdvOPYKIZyjW5Splg-15" value="Enqueue Transform Update" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="440" y="-200" width="240" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="zHnvdvOPYKIZyjW5Splg-19" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;labelPosition=left;verticalLabelPosition=middle;align=right;verticalAlign=middle;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="380" y="-840" width="20" height="480" as="geometry" />
+        </mxCell>
+        <mxCell id="zHnvdvOPYKIZyjW5Splg-22" value="&lt;span style=&quot;text-align: left; font-size: 16px;&quot;&gt;UpdatedTransforms.add&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="1160" y="-200" width="240" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="zHnvdvOPYKIZyjW5Splg-24" value="RenderScene Update" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="1480" width="240" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="zHnvdvOPYKIZyjW5Splg-25" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;labelPosition=left;verticalLabelPosition=middle;align=right;verticalAlign=middle;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="1440" y="15" width="20" height="290" as="geometry" />
+        </mxCell>
+        <mxCell id="zHnvdvOPYKIZyjW5Splg-27" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;labelPosition=left;verticalLabelPosition=middle;align=right;verticalAlign=middle;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="390" y="-200" width="20" height="400" as="geometry" />
+        </mxCell>
+        <mxCell id="zHnvdvOPYKIZyjW5Splg-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=16;" edge="1" parent="1" source="zHnvdvOPYKIZyjW5Splg-28" target="1Z53KJ7e_KzwJIGn3gBU-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="zHnvdvOPYKIZyjW5Splg-28" value="Enqueue Begin Render&amp;nbsp;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="440" y="120" width="240" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="zHnvdvOPYKIZyjW5Splg-35" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=16;" edge="1" parent="1" source="zHnvdvOPYKIZyjW5Splg-30" target="zHnvdvOPYKIZyjW5Splg-32">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="zHnvdvOPYKIZyjW5Splg-30" value="&lt;div style=&quot;font-size: 16px;&quot;&gt;Remove Render Proxy&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="440" y="-640" width="240" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="zHnvdvOPYKIZyjW5Splg-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=16;" edge="1" parent="1" source="zHnvdvOPYKIZyjW5Splg-31" target="zHnvdvOPYKIZyjW5Splg-33">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="zHnvdvOPYKIZyjW5Splg-31" value="&lt;div style=&quot;font-size: 16px;&quot;&gt;Add Render Proxy&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="440" y="-840" width="240" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="zHnvdvOPYKIZyjW5Splg-32" value="&lt;span style=&quot;text-align: left; font-size: 16px;&quot;&gt;RemovedProxy.add&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="1160" y="-640" width="240" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="zHnvdvOPYKIZyjW5Splg-33" value="&lt;span style=&quot;text-align: left; font-size: 16px;&quot;&gt;AddedProxy&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="1160" y="-840" width="240" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="zHnvdvOPYKIZyjW5Splg-36" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;labelPosition=left;verticalLabelPosition=middle;align=right;verticalAlign=middle;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="1750" y="-120" width="20" height="320" as="geometry" />
+        </mxCell>
+        <mxCell id="zHnvdvOPYKIZyjW5Splg-37" value="Process Added Proxy" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="1800" y="-160" width="240" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="zHnvdvOPYKIZyjW5Splg-38" value="Process Removed Proxy" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="1800" width="240" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="zHnvdvOPYKIZyjW5Splg-39" value="Process Updated Transforms" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="1800" y="160" width="240" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="zHnvdvOPYKIZyjW5Splg-40" value="&lt;div style=&quot;font-size: 16px;&quot;&gt;MainThread Operation&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="440" y="-1040" width="240" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="zHnvdvOPYKIZyjW5Splg-41" value="&lt;div style=&quot;font-size: 16px;&quot;&gt;RenderThread Operation&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="1160" y="-1040" width="240" height="80" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
