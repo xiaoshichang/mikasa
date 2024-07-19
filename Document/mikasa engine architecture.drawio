@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-07-18T14:35:45.520Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36" etag="19G43522LWUH-VbPYd7D" version="24.6.5" type="github" pages="5">
+<mxfile host="app.diagrams.net" modified="2024-07-19T02:32:47.683Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36" etag="xwuNQ3xqnEaRXJ72-s-U" version="24.6.5" type="github" pages="5">
   <diagram name="引擎功能架构" id="1e07z1a-aaZHS4xv6QxE">
     <mxGraphModel dx="4338" dy="5083" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -593,29 +593,26 @@
         <mxCell id="1Z53KJ7e_KzwJIGn3gBU-10" value="Begin Render N Frame" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=16;" vertex="1" parent="1">
           <mxGeometry x="1160" y="120" width="240" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="zHnvdvOPYKIZyjW5Splg-11" value="DoTransformUpdate&lt;div style=&quot;font-size: 16px;&quot;&gt;Mark Render Dirty&lt;br style=&quot;font-size: 16px;&quot;&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;" vertex="1" parent="1">
-          <mxGeometry x="440" y="-440" width="240" height="80" as="geometry" />
+        <mxCell id="zHnvdvOPYKIZyjW5Splg-11" value="Update Render Attribute&lt;div style=&quot;font-size: 16px;&quot;&gt;Mark Render Dirty&lt;br style=&quot;font-size: 16px;&quot;&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="450" y="-520" width="240" height="80" as="geometry" />
         </mxCell>
         <mxCell id="zHnvdvOPYKIZyjW5Splg-14" value="Clear Render Dirty Flag" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;" vertex="1" parent="1">
           <mxGeometry x="440" y="-40" width="240" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="zHnvdvOPYKIZyjW5Splg-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=16;" edge="1" parent="1" source="zHnvdvOPYKIZyjW5Splg-15" target="zHnvdvOPYKIZyjW5Splg-22">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="zHnvdvOPYKIZyjW5Splg-15" value="Enqueue Transform Update" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;" vertex="1" parent="1">
+        <mxCell id="zHnvdvOPYKIZyjW5Splg-15" value="Enqueue Updated Render Attribute" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;" vertex="1" parent="1">
           <mxGeometry x="440" y="-200" width="240" height="80" as="geometry" />
         </mxCell>
         <mxCell id="zHnvdvOPYKIZyjW5Splg-19" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;labelPosition=left;verticalLabelPosition=middle;align=right;verticalAlign=middle;fontSize=16;" vertex="1" parent="1">
-          <mxGeometry x="380" y="-840" width="20" height="480" as="geometry" />
+          <mxGeometry x="390" y="-760" width="20" height="320" as="geometry" />
         </mxCell>
         <mxCell id="zHnvdvOPYKIZyjW5Splg-22" value="&lt;span style=&quot;text-align: left; font-size: 16px;&quot;&gt;UpdatedTransforms.add&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=16;" vertex="1" parent="1">
-          <mxGeometry x="1160" y="-200" width="240" height="80" as="geometry" />
+          <mxGeometry x="1160" y="-280" width="240" height="80" as="geometry" />
         </mxCell>
         <mxCell id="zHnvdvOPYKIZyjW5Splg-24" value="RenderScene Update" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=16;" vertex="1" parent="1">
           <mxGeometry x="1480" width="240" height="80" as="geometry" />
         </mxCell>
         <mxCell id="zHnvdvOPYKIZyjW5Splg-25" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;labelPosition=left;verticalLabelPosition=middle;align=right;verticalAlign=middle;fontSize=16;" vertex="1" parent="1">
-          <mxGeometry x="1440" y="15" width="20" height="290" as="geometry" />
+          <mxGeometry x="1430" y="15" width="20" height="290" as="geometry" />
         </mxCell>
         <mxCell id="zHnvdvOPYKIZyjW5Splg-27" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;labelPosition=left;verticalLabelPosition=middle;align=right;verticalAlign=middle;fontSize=16;" vertex="1" parent="1">
           <mxGeometry x="390" y="-200" width="20" height="400" as="geometry" />
@@ -630,37 +627,64 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="zHnvdvOPYKIZyjW5Splg-30" value="&lt;div style=&quot;font-size: 16px;&quot;&gt;Remove Render Proxy&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;" vertex="1" parent="1">
-          <mxGeometry x="440" y="-640" width="240" height="80" as="geometry" />
+          <mxGeometry x="450" y="-640" width="240" height="80" as="geometry" />
         </mxCell>
         <mxCell id="zHnvdvOPYKIZyjW5Splg-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=16;" edge="1" parent="1" source="zHnvdvOPYKIZyjW5Splg-31" target="zHnvdvOPYKIZyjW5Splg-33">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="zHnvdvOPYKIZyjW5Splg-31" value="&lt;div style=&quot;font-size: 16px;&quot;&gt;Add Render Proxy&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;" vertex="1" parent="1">
-          <mxGeometry x="440" y="-840" width="240" height="80" as="geometry" />
+          <mxGeometry x="450" y="-760" width="240" height="80" as="geometry" />
         </mxCell>
         <mxCell id="zHnvdvOPYKIZyjW5Splg-32" value="&lt;span style=&quot;text-align: left; font-size: 16px;&quot;&gt;RemovedProxy.add&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=16;" vertex="1" parent="1">
           <mxGeometry x="1160" y="-640" width="240" height="80" as="geometry" />
         </mxCell>
         <mxCell id="zHnvdvOPYKIZyjW5Splg-33" value="&lt;span style=&quot;text-align: left; font-size: 16px;&quot;&gt;AddedProxy&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=16;" vertex="1" parent="1">
-          <mxGeometry x="1160" y="-840" width="240" height="80" as="geometry" />
+          <mxGeometry x="1160" y="-760" width="240" height="80" as="geometry" />
         </mxCell>
         <mxCell id="zHnvdvOPYKIZyjW5Splg-36" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;labelPosition=left;verticalLabelPosition=middle;align=right;verticalAlign=middle;fontSize=16;" vertex="1" parent="1">
-          <mxGeometry x="1750" y="-120" width="20" height="320" as="geometry" />
+          <mxGeometry x="1740" y="-120" width="20" height="320" as="geometry" />
         </mxCell>
         <mxCell id="zHnvdvOPYKIZyjW5Splg-37" value="Process Added Proxy" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=16;" vertex="1" parent="1">
-          <mxGeometry x="1800" y="-160" width="240" height="80" as="geometry" />
+          <mxGeometry x="1790" y="-160" width="240" height="80" as="geometry" />
         </mxCell>
         <mxCell id="zHnvdvOPYKIZyjW5Splg-38" value="Process Removed Proxy" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=16;" vertex="1" parent="1">
-          <mxGeometry x="1800" width="240" height="80" as="geometry" />
+          <mxGeometry x="1790" width="240" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="zHnvdvOPYKIZyjW5Splg-39" value="Process Updated Transforms" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=16;" vertex="1" parent="1">
-          <mxGeometry x="1800" y="160" width="240" height="80" as="geometry" />
+        <mxCell id="zHnvdvOPYKIZyjW5Splg-39" value="Process Updated Render Attribute" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="1790" y="160" width="240" height="80" as="geometry" />
         </mxCell>
         <mxCell id="zHnvdvOPYKIZyjW5Splg-40" value="&lt;div style=&quot;font-size: 16px;&quot;&gt;MainThread Operation&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;" vertex="1" parent="1">
           <mxGeometry x="440" y="-1040" width="240" height="80" as="geometry" />
         </mxCell>
         <mxCell id="zHnvdvOPYKIZyjW5Splg-41" value="&lt;div style=&quot;font-size: 16px;&quot;&gt;RenderThread Operation&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=16;" vertex="1" parent="1">
           <mxGeometry x="1160" y="-1040" width="240" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="zHnvdvOPYKIZyjW5Splg-47" value="Enqueue Updated Transform" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="800" y="-280" width="240" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="zHnvdvOPYKIZyjW5Splg-48" value="Enqueue Updated MaterialParam" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="800" y="-120" width="240" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="zHnvdvOPYKIZyjW5Splg-49" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;labelPosition=left;verticalLabelPosition=middle;align=right;verticalAlign=middle;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="750" y="-280" width="20" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="zHnvdvOPYKIZyjW5Splg-50" value="&lt;span style=&quot;text-align: left; font-size: 16px;&quot;&gt;UpdatedMaterialParam.add&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="1160" y="-120" width="240" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="zHnvdvOPYKIZyjW5Splg-51" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=16;" edge="1" parent="1" source="zHnvdvOPYKIZyjW5Splg-47" target="zHnvdvOPYKIZyjW5Splg-22">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="700" y="-590" as="sourcePoint" />
+            <mxPoint x="1170" y="-590" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zHnvdvOPYKIZyjW5Splg-52" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=16;" edge="1" parent="1" source="zHnvdvOPYKIZyjW5Splg-48" target="zHnvdvOPYKIZyjW5Splg-50">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1050" y="-230" as="sourcePoint" />
+            <mxPoint x="1170" y="-230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zHnvdvOPYKIZyjW5Splg-53" value="RenderCulling" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="1480" y="240" width="240" height="80" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
