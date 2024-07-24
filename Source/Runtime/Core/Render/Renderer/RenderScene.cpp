@@ -92,6 +92,22 @@ std::shared_ptr<RenderTarget> &RenderScene::GetSceneColorRT()
     return SceneColorRT;
 }
 
+void RenderScene::AddRenderProxyTransformUpdateInfo(const RenderProxyTransformUpdateInfo &info)
+{
+    RenderProxiesTransformUpdate_.push_back(info);
+}
+
+void RenderScene::ProcessUpdatedTransform()
+{
+    for (auto& info : RenderProxiesTransformUpdate_)
+    {
+        info.Proxy->UpdateTransform(info.UpdatedTransform);
+    }
+    RenderProxiesTransformUpdate_.clear();
+}
+
+
+
 
 
 

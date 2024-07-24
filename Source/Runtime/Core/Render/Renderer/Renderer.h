@@ -6,10 +6,6 @@
 
 namespace mikasa::Runtime::Core
 {
-    struct RenderSingleViewContext
-    {
-        std::shared_ptr<RenderView> RenderView;
-    };
 
 
     class Renderer
@@ -19,6 +15,7 @@ namespace mikasa::Runtime::Core
         virtual ~Renderer();
         virtual void RenderSingleView(const std::shared_ptr<RenderView>& view) = 0;
         void Render();
+
 
     protected:
          std::shared_ptr<RenderViewFamily> ViewFamily_;

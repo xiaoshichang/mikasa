@@ -12,6 +12,7 @@ void Transform::SetPosition(Vector3f position)
 {
     Position_ = position;
     WorldMatrixDirty_ = true;
+    OnTransformChange();
 }
 
 Vector3f Transform::GetScale() const
@@ -23,6 +24,7 @@ void Transform::SetScale(Vector3f scale)
 {
     Scale_ = scale;
     WorldMatrixDirty_ = true;
+    OnTransformChange();
 }
 
 Quaternion Transform::GetRotation() const
@@ -34,12 +36,14 @@ void Transform::SetRotation(Quaternion rotation)
 {
     Rotation_ = rotation;
     WorldMatrixDirty_ = true;
+    OnTransformChange();
 }
 
 void Transform::SetRotation(float x, float y, float z)
 {
     Rotation_ = Quaternion::FromRollPitchYawLH(x, y, z);
     WorldMatrixDirty_ = true;
+    OnTransformChange();
 }
 
 void Transform::LookAt(Vector3f target, Vector3f up)
@@ -47,6 +51,7 @@ void Transform::LookAt(Vector3f target, Vector3f up)
     auto rotation = MatrixLookAtLH(Position_, target, up);
     Rotation_ = Quaternion::FromRotationMatrix(rotation);
     WorldMatrixDirty_ = true;
+    OnTransformChange();
 }
 
 Matrix4x4f Transform::GetWorldMatrix()

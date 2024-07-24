@@ -36,4 +36,18 @@ ID3D11Buffer *RHIConstantBufferDX11::GetInternal() const
     return Buffer_;
 }
 
+void RHIConstantBufferDX11::UpdateGpuBuffer(ID3D11DeviceContext* context, uint8* data, uint32 size)
+{
+    MIKASA_ASSERT(size % 16 == 0);
+
+    D3D11_MAPPED_SUBRESOURCE MappedSubresource;
+    if (context->Map(Buffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &MappedSubresource) != S_OK)
+    {
+        MIKASA_ASSERT(false);
+        throw;
+    }
+    memcpy_s(MappedSubresource.pData, size, data, size);
+    context->Unmap(Buffer_, 0);
+}
+
 #endif

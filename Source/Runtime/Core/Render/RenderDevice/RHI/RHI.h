@@ -67,6 +67,7 @@ namespace mikasa::Runtime::Core
         virtual std::shared_ptr<RHIBoundShaderState> CreateBoundShaderState(const std::shared_ptr<RHIVertexDeclaration>& vd, const std::shared_ptr<RHIVertexShader>& vs, const std::shared_ptr<RHIPixelShader>& ps) = 0;
         virtual std::shared_ptr<RHITexture> CreateRHITexture(const RHITextureCreateInfo& createInfo) = 0;
         virtual void CopyResource(RHITexture* dst, RHITexture* src) = 0;
+        virtual void UpdateConstantBuffer(RHIConstantBuffer* buffer, uint8* data, uint32 size) = 0;
 
     };
 }

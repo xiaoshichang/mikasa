@@ -1,11 +1,13 @@
 #pragma once
+#include "Runtime/Core/Render/Renderer/Mesh/StaticMeshRenderProxy.h"
+#include "Runtime/Core/Scene/Component/StaticMeshRenderCmpt.h"
 #include <memory>
 #include <list>
+#include <vector>
 
 namespace mikasa::Runtime::Core
 {
 
-    class StaticMeshRenderProxy;
     class LightRenderProxy;
     class RenderTarget;
 
@@ -25,17 +27,20 @@ namespace mikasa::Runtime::Core
 
     public:
         std::shared_ptr<RenderTarget>& GetSceneColorRT();
-
         void AddStaticMeshRenderProxy(const std::shared_ptr<StaticMeshRenderProxy>& proxy);
         void RemoveStaticMeshRenderProxy(const std::shared_ptr<StaticMeshRenderProxy>& proxy);
         void AddLightRenderProxy(const std::shared_ptr<LightRenderProxy>& proxy);
         void RemoveLightRenderProxy(const std::shared_ptr<LightRenderProxy>& proxy);
+        void AddRenderProxyTransformUpdateInfo(const RenderProxyTransformUpdateInfo& info);
+        void ProcessUpdatedTransform();
 
     public:
         std::list<std::shared_ptr<StaticMeshRenderProxy>>& GetAllStaticMeshRenderProxies();
 
     private:
         std::list<std::shared_ptr<StaticMeshRenderProxy>> StaticMeshRenderProxies_;
+        std::vector<RenderProxyTransformUpdateInfo> RenderProxiesTransformUpdate_{};
+
         std::list<std::shared_ptr<LightRenderProxy>> LightRenderProxies_;
 
         std::shared_ptr<RenderTarget> SceneColorRT;

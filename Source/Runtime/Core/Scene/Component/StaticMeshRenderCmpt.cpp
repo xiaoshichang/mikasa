@@ -11,17 +11,19 @@ StaticMeshRenderCmpt::StaticMeshRenderCmpt(GameObject* owner)
     : Component(owner)
 {
     InitRenderThreadPart();
+    Owner_->GetTransform().OnTransformChange += OnTransformChangeDelegate::MemberFunctionDelegate(this, std::bind(&StaticMeshRenderCmpt::OnTransformChange, this));
 }
 
 StaticMeshRenderCmpt::~StaticMeshRenderCmpt()
 {
+    Owner_->GetTransform().OnTransformChange -= OnTransformChangeDelegate::MemberFunctionDelegate(this, std::bind(&StaticMeshRenderCmpt::OnTransformChange, this));
     UnInitRenderThreadPart();
 }
 
 void StaticMeshRenderCmpt::InitRenderThreadPart()
 {
     auto mesh = std::make_shared<StaticMesh>("");
-    RenderProxy_ = std::make_shared<StaticMeshRenderProxy>(Owner_->GetTransform().GetWorldMatrix(), mesh);
+    RenderProxy_ = std::make_shared<StaticMeshRenderProxy>(Owner_->GetTransform(), mesh);
     auto proxy = RenderProxy_;
     auto scene = Owner_->GetScene()->GetRenderScene();
     auto lambda = [=]()
@@ -42,4 +44,17 @@ void StaticMeshRenderCmpt::UnInitRenderThreadPart()
     };
     ENQUEUE_LAMBDA_RENDER_COMMAND(lambda);
     RenderProxy_.reset();
+}
+
+void StaticMeshRenderCmpt::OnTransformChange()
+{
+    auto scene = Owner_->GetScene()->GetRenderScene();
+    RenderProxyTransformUpdateInfo updateInfo;
+    updateInfo.Proxy = RenderProxy_;
+    updateInfo.UpdatedTransform = Owner_->GetTransform();
+    auto lambda = [=]()
+    {
+        scene->AddRenderProxyTransformUpdateInfo(updateInfo);
+    };
+    ENQUEUE_LAMBDA_RENDER_COMMAND(lambda);
 }

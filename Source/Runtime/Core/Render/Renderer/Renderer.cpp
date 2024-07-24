@@ -21,8 +21,9 @@ Renderer::~Renderer()
 void Renderer::Render()
 {
     ViewFamily_->InitRHIResource();
-
     RenderDevice::RHI->ClearRenderTarget(ViewFamily_->RenderTarget->AsRenderTargetView(), ViewFamily_->ClearColor);
+
+    RenderScene_->ProcessUpdatedTransform();
 
     for(auto& view : ViewFamily_->Views)
     {

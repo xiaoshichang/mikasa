@@ -13,6 +13,7 @@ namespace mikasa::Runtime::Core
         explicit RHIConstantBufferDX11(ID3D11Device* device, RHIConstantBufferCreateInfo &createInfo);
         ~RHIConstantBufferDX11() override;
         ID3D11Buffer* GetInternal() const;
+        void UpdateGpuBuffer(ID3D11DeviceContext* context, uint8* data, uint32 size);
 
     private:
         ID3D11Buffer* Buffer_ = nullptr;

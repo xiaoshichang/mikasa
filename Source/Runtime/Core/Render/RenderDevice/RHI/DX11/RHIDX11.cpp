@@ -339,5 +339,11 @@ void RHIDX11::CopyResource(RHITexture *dst, RHITexture *src)
     Context_->CopyResource(dst_, src_);
 }
 
+void RHIDX11::UpdateConstantBuffer(RHIConstantBuffer* buffer, uint8* data, uint32 size)
+{
+    auto bufferDX11 = (RHIConstantBufferDX11*)buffer;
+    bufferDX11->UpdateGpuBuffer(Context_, data, size);
+}
+
 
 #endif

@@ -5,6 +5,7 @@
 
 namespace mikasa::Runtime::Core
 {
+
     class StaticMeshRenderCmpt : public Component
     {
     public:
@@ -14,6 +15,9 @@ namespace mikasa::Runtime::Core
     private:
         void InitRenderThreadPart();
         void UnInitRenderThreadPart();
+
+    private:
+        void OnTransformChange();
 
     private:
 

@@ -1,23 +1,31 @@
 #pragma once
 
+#include "RenderProxyTransformUpdateInfo.h"
 #include "Runtime/Foundation/Foundation.h"
-#include "Runtime/Core/Render/Renderer/Renderer.h"
+#include "Runtime/Core/Render/RenderDevice/RenderResource/ConstantBuffer.h"
 
 using namespace mikasa::Runtime::Foundation;
 
 namespace mikasa::Runtime::Core
 {
     class StaticMesh;
+    class RenderView;
 
     struct ConstantBufferPerObject
     {
         Matrix4x4f WorldMatrix;
     };
 
+    struct RenderSingleViewContext
+    {
+        std::shared_ptr<RenderView> RenderView;
+    };
+
     struct RenderSingleObjectContext
     {
         std::shared_ptr<ConstantBuffer<ConstantBufferPerObject>> ConstantBufferPerObject;
     };
+
 
     /**
      * represent a Renderable thing in RenderScene.
@@ -27,14 +35,15 @@ namespace mikasa::Runtime::Core
     class StaticMeshRenderProxy
     {
     public:
-        explicit StaticMeshRenderProxy(const Matrix4x4f& worldMatrix, const std::shared_ptr<StaticMesh>& mesh);
+        explicit StaticMeshRenderProxy(Transform transform, const std::shared_ptr<StaticMesh>& mesh);
         void Render(const RenderSingleViewContext& viewContext);
         void InitRHIResource();
+        void UpdateTransform(const Transform& transform);
 
     private:
-        ConstantBufferPerObject ConstantBufferPerObjectData_;
         std::shared_ptr<ConstantBuffer<ConstantBufferPerObject>> ConstantBufferPerObject_;
         std::shared_ptr<StaticMesh> Mesh_;
+        Transform Transform_;
 
     };
 }

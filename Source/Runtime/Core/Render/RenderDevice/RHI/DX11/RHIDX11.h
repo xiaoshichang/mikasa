@@ -65,6 +65,7 @@ namespace mikasa::Runtime::Core
 
         std::shared_ptr<RHITexture> CreateRHITexture(const RHITextureCreateInfo& createInfo) override;
         void CopyResource(RHITexture* dst, RHITexture* src) override;
+        void UpdateConstantBuffer(RHIConstantBuffer* buffer, uint8* data, uint32 size) override;
 
 
     public:

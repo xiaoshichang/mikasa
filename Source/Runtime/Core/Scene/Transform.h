@@ -5,6 +5,8 @@ using namespace mikasa::Runtime::Foundation;
 
 namespace mikasa::Runtime::Core
 {
+    typedef Delegate<> OnTransformChangeDelegate;
+
     class Transform
     {
     public:
@@ -27,6 +29,9 @@ namespace mikasa::Runtime::Core
         Quaternion Rotation_ = Quaternion::Identity();
         bool WorldMatrixDirty_ = true;
         Matrix4x4f WorldMatrix_ = Matrix4x4f::Identity();
+
+    public:
+        OnTransformChangeDelegate OnTransformChange;
     };
 
 }
