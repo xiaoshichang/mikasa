@@ -1,8 +1,8 @@
 
 #include "SimpleForwardRenderer.h"
 #include "Runtime/Core/Render/RenderDevice/RenderDevice.h"
+#include "Runtime/Core/Render/RenderDevice/RenderResource/RenderTarget.h"
 #include "Runtime/Framework/Application/Application.h"
-#include "../Mesh/StaticMeshRenderProxy.h"
 
 using namespace mikasa::Runtime::Core;
 using namespace mikasa::Runtime::Framework;

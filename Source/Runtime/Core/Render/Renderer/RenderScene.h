@@ -26,7 +26,6 @@ namespace mikasa::Runtime::Core
         void UnInitRenderResource();
 
     public:
-        std::shared_ptr<RenderTarget>& GetSceneColorRT();
         void AddStaticMeshRenderProxy(const std::shared_ptr<StaticMeshRenderProxy>& proxy);
         void RemoveStaticMeshRenderProxy(const std::shared_ptr<StaticMeshRenderProxy>& proxy);
         void AddLightRenderProxy(const std::shared_ptr<LightRenderProxy>& proxy);
@@ -43,7 +42,6 @@ namespace mikasa::Runtime::Core
 
         std::list<std::shared_ptr<LightRenderProxy>> LightRenderProxies_;
 
-        std::shared_ptr<RenderTarget> SceneColorRT;
 
     };
 }

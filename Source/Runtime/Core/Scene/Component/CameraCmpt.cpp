@@ -7,6 +7,17 @@
 using namespace mikasa::Runtime::Core;
 using namespace mikasa::Runtime::Framework;
 
+Camera::Camera()
+        : ProjectionType_(ProjectionType::Perspective)
+        , NearPlane_(0.1f)
+        , FarPlane_(1000.0f)
+        , FovInAngle_(60)
+        , ViewHeightInPixel_(768)
+        , ViewWidthInPixel_(1024)
+{
+}
+
+
 Camera::Camera(ProjectionType projectionType,
                float nearPlane,
                float farPlane,
@@ -21,6 +32,8 @@ Camera::Camera(ProjectionType projectionType,
        , ViewWidthInPixel_(viewWidthInPixel)
 {
 }
+
+
 
 Matrix4x4f Camera::GetProjectionMatrix()
 {
@@ -112,6 +125,7 @@ void Camera::SetViewHeightInPixel(float value)
 }
 
 
+
 CameraCmpt::CameraCmpt(GameObject *owner) : Component(owner)
 {
     auto projType = ProjectionType::Perspective;
@@ -148,6 +162,6 @@ Matrix4x4f CameraCmpt::GetViewMatrix()
     auto eye = transform.GetPosition();
     auto focus = eye + transform.Forward();
     auto up = transform.Up();
-    auto viewMatrix = MatrixLookAtLH(eye, Vector3f (0, 0, 0), up);
+    auto viewMatrix = MatrixLookAtLH(eye, focus, up);
     return viewMatrix;
 }

@@ -8,10 +8,10 @@ using namespace mikasa::Runtime::Core;
  * copy data from main thread camera to render thread view
  */
 RenderView::RenderView(const RenderViewInitializer &initializer)
-    : Camera(*(initializer.CameraCmpt)->GetCamera())
+    : Camera(initializer.Camera)
 {
-    ConstantBufferPerViewData_.ViewMatrix = initializer.CameraCmpt->GetViewMatrix();
-    ConstantBufferPerViewData_.ProjectionMatrix =  Camera.GetProjectionMatrix();
+    ConstantBufferPerViewData_.ViewMatrix = initializer.ViewMatrix;
+    ConstantBufferPerViewData_.ProjectionMatrix =  initializer.ProjectionMatrix;
 }
 
 void RenderView::InitRHIResource()

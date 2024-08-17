@@ -3,7 +3,7 @@
 #include "Runtime/Framework/GameViewClient/GameViewClient.h"
 #include "Runtime/Module/SceneModule/SceneModule.h"
 #include "Runtime/Core/Render/RenderDevice/RHI/DX11/RHIShaderResourceViewDX11.h"
-
+#include "Runtime/Core/Render/RenderDevice/RenderResource/RenderTarget.h"
 
 using namespace mikasa::Editor;
 using namespace mikasa::Runtime::Framework;
@@ -26,7 +26,7 @@ void GamePanel::UnInit() {
 void GamePanel::RenderContent()
 {
     GameViewClient::Render();
-    auto rtv = SceneModule::Current->GetRenderScene()->GetSceneColorRT();
+    auto rtv = GameViewClient::GetSceneColorRT();
     auto srv = (RHIShaderResourceViewDX11*)rtv->AsShaderResourceView();
     auto texture = (ImTextureID)srv->GetInternal();
     auto width = 1024 * 0.6;

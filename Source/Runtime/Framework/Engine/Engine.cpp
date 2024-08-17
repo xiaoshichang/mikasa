@@ -8,6 +8,7 @@
 #include "Runtime/Module/JobSystemModule/JobSystemModule.h"
 #include "Runtime/Module/ScriptModule/ScriptModule.h"
 #include "Runtime/Module/SceneModule/SceneModule.h"
+#include "../GameViewClient/GameViewClient.h"
 
 using namespace mikasa::Runtime::Framework;
 using namespace mikasa::Runtime::Module;
@@ -28,10 +29,12 @@ void Engine::Init(const ApplicationInitParam& info, const WindowHandler& handler
     JobSystemModule::Init(info);
     RenderModule::Init(info, handler);
     SceneModule::Init();
+    GameViewClient::Init();
 }
 
 void Engine::UnInit()
 {
+    GameViewClient::UnInit();
     SceneModule::UnInit();
     RenderModule::UnInit();
     JobSystemModule::UnInit();

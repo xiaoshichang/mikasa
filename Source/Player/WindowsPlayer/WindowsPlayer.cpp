@@ -15,12 +15,10 @@ void WindowsPlayer::Init(const ApplicationInitParam &info)
 void WindowsPlayer::Render()
 {
     GameViewClient::Render();
-    auto scene = SceneModule::Current->GetRenderScene();
-
     auto lambda = [=]()
     {
         auto dst = RenderDevice::RHI->GetBackBufferRT();
-        auto src = scene->GetSceneColorRT()->GetRHITexture().get();
+        auto src = GameViewClient::GetSceneColorRT()->GetRHITexture().get();
         RenderDevice::RHI->CopyResource(dst, src);
         RenderDevice::RHI->Present();
     };

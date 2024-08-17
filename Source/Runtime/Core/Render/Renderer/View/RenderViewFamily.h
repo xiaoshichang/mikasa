@@ -2,7 +2,6 @@
 #include <vector>
 #include <memory>
 #include "Runtime/Core/Render/RenderDevice/RHI/RHI.h"
-#include "Runtime/Core/Render/RenderDevice/RenderResource/RenderTarget.h"
 #include "Runtime/Foundation/Foundation.h"
 
 using namespace mikasa::Runtime::Foundation;
@@ -10,6 +9,7 @@ using namespace mikasa::Runtime::Foundation;
 namespace mikasa::Runtime::Core
 {
     class RenderView;
+    class RenderTarget;
 
     struct RenderViewFamilyInitializer
     {

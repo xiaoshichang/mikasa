@@ -16,7 +16,9 @@ namespace mikasa::Runtime::Core
 
     struct RenderViewInitializer
     {
-        CameraCmpt* CameraCmpt = nullptr;
+        Camera Camera;
+        Matrix4x4f ViewMatrix;
+        Matrix4x4f ProjectionMatrix;
     };
 
     /**

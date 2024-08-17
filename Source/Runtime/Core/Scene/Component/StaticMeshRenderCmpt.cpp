@@ -23,7 +23,13 @@ StaticMeshRenderCmpt::~StaticMeshRenderCmpt()
 void StaticMeshRenderCmpt::InitRenderThreadPart()
 {
     auto mesh = std::make_shared<StaticMesh>("");
-    RenderProxy_ = std::make_shared<StaticMeshRenderProxy>(Owner_->GetTransform(), mesh);
+    auto transform = Owner_->GetTransform();
+
+    RenderProxyTransform proxyTransform;
+    proxyTransform.WorldPosition = transform.GetPosition();
+    proxyTransform.WorldMatrix = transform.GetWorldMatrix();
+    RenderProxy_ = std::make_shared<StaticMeshRenderProxy>(proxyTransform, mesh);
+
     auto proxy = RenderProxy_;
     auto scene = Owner_->GetScene()->GetRenderScene();
     auto lambda = [=]()
@@ -49,9 +55,13 @@ void StaticMeshRenderCmpt::UnInitRenderThreadPart()
 void StaticMeshRenderCmpt::OnTransformChange()
 {
     auto scene = Owner_->GetScene()->GetRenderScene();
+    auto& transform = Owner_->GetTransform();
+
     RenderProxyTransformUpdateInfo updateInfo;
     updateInfo.Proxy = RenderProxy_;
-    updateInfo.UpdatedTransform = Owner_->GetTransform();
+    updateInfo.Transform.WorldPosition = transform.GetPosition();
+    updateInfo.Transform.WorldMatrix = transform.GetWorldMatrix();
+
     auto lambda = [=]()
     {
         scene->AddRenderProxyTransformUpdateInfo(updateInfo);

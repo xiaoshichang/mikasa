@@ -15,12 +15,14 @@ namespace mikasa::Runtime::Core
     class Camera
     {
     public:
+        Camera();
         Camera(ProjectionType projectionType,
                float nearPlane,
                float farPlane,
                float fovInAngle,
                float viewWidthInPixel,
                float viewHeightInPixel);
+
 
         Matrix4x4f GetProjectionMatrix();
         ProjectionType GetProjectionType();

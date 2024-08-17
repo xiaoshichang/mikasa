@@ -1,5 +1,7 @@
 
 #include "Renderer.h"
+
+#include "Runtime/Core/Render/RenderDevice/RenderResource/RenderTarget.h"
 #include "../RenderDevice/RenderDevice.h"
 
 using namespace mikasa::Runtime::Core;

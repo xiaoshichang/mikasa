@@ -1,6 +1,8 @@
 
 #include "RenderViewFamily.h"
 #include "RenderView.h"
+#include "Runtime/Core/Render/RenderDevice/RenderResource/RenderTarget.h"
+
 
 using namespace mikasa::Runtime::Core;
 

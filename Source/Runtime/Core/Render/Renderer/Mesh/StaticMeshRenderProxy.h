@@ -35,15 +35,15 @@ namespace mikasa::Runtime::Core
     class StaticMeshRenderProxy
     {
     public:
-        explicit StaticMeshRenderProxy(Transform transform, const std::shared_ptr<StaticMesh>& mesh);
+        explicit StaticMeshRenderProxy(RenderProxyTransform  transform, const std::shared_ptr<StaticMesh>& mesh);
         void Render(const RenderSingleViewContext& viewContext);
         void InitRHIResource();
-        void UpdateTransform(const Transform& transform);
+        void UpdateTransform(const RenderProxyTransform& worldMatrix);
 
     private:
         std::shared_ptr<ConstantBuffer<ConstantBufferPerObject>> ConstantBufferPerObject_;
         std::shared_ptr<StaticMesh> Mesh_;
-        Transform Transform_;
+        RenderProxyTransform Transform_;
 
     };
 }
