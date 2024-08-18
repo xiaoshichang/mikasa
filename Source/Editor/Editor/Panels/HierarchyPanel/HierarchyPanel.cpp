@@ -1,7 +1,7 @@
 
 #include "HierarchyPanel.h"
 #include "Runtime/Module/SceneModule/SceneModule.h"
-#include "../Editor.h"
+#include "../../Editor.h"
 
 using namespace mikasa::Editor;
 using namespace mikasa::Runtime::Module;
@@ -16,6 +16,11 @@ void HierarchyPanel::Init() {
 }
 
 void HierarchyPanel::UnInit() {
+
+}
+
+void HierarchyPanel::HandleInput()
+{
 
 }
 
@@ -44,5 +49,7 @@ void HierarchyPanel::RenderContent()
         }
     }
 }
+
+
 
 

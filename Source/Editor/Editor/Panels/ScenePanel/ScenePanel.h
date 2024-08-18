@@ -1,5 +1,5 @@
 #pragma once
-#include "../Panel.h"
+#include "../../Panel.h"
 #include "Runtime/Core/Scene/Transform.h"
 #include "Runtime/Core/Scene/Component/CameraCmpt.h"
 #include <memory>
@@ -33,11 +33,14 @@ namespace mikasa::Editor
         void UnInit() override;
 
     protected:
+        void HandleInput() override;
         void RenderContent() override;
+
 
     private:
         std::shared_ptr<mikasa::Runtime::Core::RenderViewFamily> BuildSceneViewFamily();
         std::shared_ptr<mikasa::Runtime::Core::RenderView> BuildSceneView();
+
 
     private:
         SceneCamera SceneCamera_;

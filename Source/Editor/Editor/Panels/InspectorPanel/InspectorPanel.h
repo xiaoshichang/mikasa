@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Panel.h"
+#include "../../Panel.h"
 #include "Runtime/Core/Scene/GameObject.h"
 
 using namespace mikasa::Runtime::Core;
@@ -14,6 +14,7 @@ namespace mikasa::Editor
         void Init() override;
         void UnInit() override;
     protected:
+        void HandleInput() override;
         void RenderContent() override;
 
     private:

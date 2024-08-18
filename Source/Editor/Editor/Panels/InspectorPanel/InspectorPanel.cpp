@@ -1,6 +1,6 @@
 
 #include "InspectorPanel.h"
-#include "../Editor.h"
+#include "../../Editor.h"
 #include "Runtime/Foundation/Foundation.h"
 
 
@@ -18,6 +18,11 @@ void InspectorPanel::Init()
 }
 
 void InspectorPanel::UnInit()
+{
+
+}
+
+void InspectorPanel::HandleInput()
 {
 
 }
@@ -71,6 +76,8 @@ void InspectorPanel::RenderTransform(GameObject *go)
         transform.SetScale(scale);
     }
 }
+
+
 
 
 

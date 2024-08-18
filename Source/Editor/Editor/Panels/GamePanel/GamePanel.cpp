@@ -19,7 +19,13 @@ void GamePanel::Init()
 
 }
 
-void GamePanel::UnInit() {
+void GamePanel::UnInit()
+{
+
+}
+
+void GamePanel::HandleInput()
+{
 
 }
 
@@ -36,5 +42,7 @@ void GamePanel::RenderContent()
     ImGui::Image(texture, ImVec2((float)width, (float)height), ImVec2(0.0f, 0.0f), ImVec2(1.0f, 1.0f));
     ImGui::Text("---");
 }
+
+
 
 

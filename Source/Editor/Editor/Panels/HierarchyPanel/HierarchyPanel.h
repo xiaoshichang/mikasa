@@ -1,16 +1,18 @@
 #pragma once
-#include "../Panel.h"
+
+#include "../../Panel.h"
 
 namespace mikasa::Editor
 {
-    class GamePanel : public Panel
+    class HierarchyPanel : public Panel
     {
     public:
-        GamePanel();
+        HierarchyPanel();
         void Init() override;
         void UnInit() override;
 
     protected:
+        void HandleInput() override;
         void RenderContent() override;
 
     };

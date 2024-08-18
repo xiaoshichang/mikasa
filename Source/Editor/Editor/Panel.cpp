@@ -13,6 +13,7 @@ void Panel::RenderWindow()
         return;
     }
     ImGui::Begin(WindowName_.c_str(), &IsShow_, WindowFlag_);
+    HandleInput();
     RenderContent();
     ImGui::End();
 }

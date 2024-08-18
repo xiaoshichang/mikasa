@@ -5,10 +5,10 @@
 #include "Runtime/Core/Render/RenderDevice/RHI/DX11/RHIDX11.h"
 
 #include "MenuBar/MainMenuBar.h"
-#include "Panels/HierarchyPanel.h"
-#include "Panels/InspectorPanel.h"
-#include "Panels/GamePanel.h"
-#include "Panels/ScenePanel.h"
+#include "Panels/HierarchyPanel/HierarchyPanel.h"
+#include "Panels/InspectorPanel/InspectorPanel.h"
+#include "Panels/GamePanel/GamePanel.h"
+#include "Panels/ScenePanel/ScenePanel.h"
 
 #include "backends/imgui_impl_win32.h"
 #include "backends/imgui_impl_dx11.h"

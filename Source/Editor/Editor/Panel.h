@@ -16,6 +16,7 @@ namespace mikasa::Editor
         void RenderWindow();
 
     protected:
+        virtual void HandleInput() = 0;
         virtual void RenderContent() = 0;
 
     public:

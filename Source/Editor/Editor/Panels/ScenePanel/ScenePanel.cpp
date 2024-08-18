@@ -75,6 +75,32 @@ void ScenePanel::UnInit()
     SceneColorRT_.reset();
 }
 
+void ScenePanel::HandleInput()
+{
+    if (ImGui::IsWindowFocused())
+    {
+        if (ImGui::IsMouseDown(ImGuiMouseButton_Right))
+        {
+            if (ImGui::IsKeyDown(ImGuiKey_W))
+            {
+                Logger::Info("forward");
+            }
+            else if (ImGui::IsKeyDown(ImGuiKey_S))
+            {
+
+            }
+            else if (ImGui::IsKeyDown(ImGuiKey_A))
+            {
+
+            }
+            else if (ImGui::IsKeyDown(ImGuiKey_D))
+            {
+
+            }
+        }
+    }
+}
+
 void ScenePanel::RenderContent()
 {
     auto scene = SceneModule::Current->GetRenderScene();
@@ -119,6 +145,8 @@ std::shared_ptr<mikasa::Runtime::Core::RenderView> ScenePanel::BuildSceneView()
     initializer.ViewMatrix = SceneCamera_.GetViewMatrix();
     return std::make_shared<RenderView>(initializer);
 }
+
+
 
 
 
